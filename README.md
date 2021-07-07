@@ -4,7 +4,7 @@
 
 <p align="center">
     <img alt="MIT License" src="https://img.shields.io/github/license/nandbyte/autoresuma"/>
-    <img alt="Stability" src="https://img.shields.io/badge/stability-wip-red" />
+    <img alt="Stability" src="https://img.shields.io/badge/stability-WIP-red" />
 </p>
 <br>
 
