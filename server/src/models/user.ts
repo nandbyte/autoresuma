@@ -6,9 +6,14 @@ import { sequelize } from "../config/db.config";
 
 interface UserAttributes{
 	id: string;
+	username: string;
 	firstName : string;
 	lastName : string;
 	email: string;
+	password: string;
+	title: string;
+	github: string;
+	linkedin: string;
 	completed: boolean;
 
 };
@@ -37,8 +42,14 @@ const User = sequelize.define<UserInstance>(
 			type:DataTypes.UUID,
 			unique:true,
 		},
+
+		username:{
+			allowNull: false,
+			type: DataTypes.TEXT,
+
+		},
 		firstName:{
-			allowNull: true,
+			allowNull: false,
 			type: DataTypes.TEXT,
 		},
 
@@ -49,6 +60,23 @@ const User = sequelize.define<UserInstance>(
 		email:{
 			allowNull: true,
 			type:DataTypes.TEXT,
+		},
+
+		password:{
+			allowNull : false,
+			type: DataTypes.TEXT,
+		},
+		title:{
+			allowNull: true,
+			type: DataTypes.TEXT,
+		},
+		github:{
+			allowNull: true,
+			type: DataTypes.TEXT,
+		},
+		linkedin:{
+			allowNull: true,
+			type: DataTypes.TEXT,
 		},
 		completed:{
 			type: DataTypes.BOOLEAN,
