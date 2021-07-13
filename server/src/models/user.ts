@@ -1,7 +1,7 @@
 
 import { DataTypes, Model,Optional } from "sequelize";
 import { sequelize } from "../config/db.config";
-
+import Education from "./education";
 
 
 interface UserAttributes{
@@ -85,12 +85,20 @@ const User = sequelize.define<UserInstance>(
 		}
 	}
 );
-
-/*User.hasMany(Todo,{
+//education
+User.hasMany(Education,{
 	//can omit the source key property since by default sequelize will use the primary key defined in the model
 
 	sourceKey: 'id',
 	foreignKey: 'userId',
-	as: 'todos',
-});*/
+	as: 'educations'
+});
+
+
+Education.belongsTo(User,{
+	foreignKey:'userId',
+	as:'users'
+});
+
+
 export default User;
