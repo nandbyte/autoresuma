@@ -39,7 +39,7 @@ const Experience = sequelize.define<ExperienceInstance>(
 		},
 		workplace:{
 			allowNull: true,
-			type:DataTypes.NUMBER,
+			type:DataTypes.TEXT,
 		},
 		location:{
 			allowNull: true,
@@ -47,7 +47,7 @@ const Experience = sequelize.define<ExperienceInstance>(
 		},
 		dateFrom:{
 			allowNull: true,
-			type: DataTypes.NUMBER,
+			type: DataTypes.TEXT,
 		},
 		dateTo:{
 			allowNull: false,
@@ -63,7 +63,7 @@ const Experience = sequelize.define<ExperienceInstance>(
 		},
 		serial:{
 			allowNull: true,
-			type: DataTypes.NUMBER,
+			type: DataTypes.TEXT,
 		},
 		userId:{
 			allowNull: true,

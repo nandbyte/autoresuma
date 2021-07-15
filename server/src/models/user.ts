@@ -2,6 +2,7 @@
 import { DataTypes, Model,Optional } from "sequelize";
 import { sequelize } from "../config/db.config";
 import Education from "./education";
+import Experience from "./experience";
 //import Experience from "./experience";
 
 
@@ -104,11 +105,17 @@ Education.belongsTo(User,{
 
 //experience
 
-/*User.hasMany(Experience,{
+User.hasMany(Experience,{
 	sourceKey:'id',
 	foreignKey: 'userId',
-	as:'experience'
-});*/
+	as:'userexp'
+});
+
+Experience.belongsTo(User,{
+	foreignKey: 'userId',
+	as: 'userexp'
+});
+
 
 //experience ends
 
