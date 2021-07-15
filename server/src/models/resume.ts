@@ -5,7 +5,6 @@ import {DataTypes, Model,Optional} from 'sequelize';
 import { sequelize } from '../config/db.config';
 
 
-
 interface ResumeAttributes{
 	id: string;
 	htmlData: string;
@@ -37,12 +36,12 @@ const Resume = sequelize.define<ResumeInstance>(
 		},
 		htmlData:{
 			allowNull: true,
-			type:DataTypes.NUMBER,
+			type:DataTypes.TEXT,
 		},
 
 		dateCreated:{
 			allowNull: true,
-			type: DataTypes.NUMBER,
+			type: DataTypes.TEXT,
 		},
 		job:{
 			allowNull: false,
@@ -61,18 +60,12 @@ const Resume = sequelize.define<ResumeInstance>(
 			allowNull: false,
 			type: DataTypes.UUID,
 		},
+
 		userId:{
 			allowNull: false,
 			type: DataTypes.UUID,
 		},
 	},
 );
-
-/*.belongsTo(User,{
-	foreignKey:'userId',
-	as:'user'
-});
-*/
-
 
 export default Resume;

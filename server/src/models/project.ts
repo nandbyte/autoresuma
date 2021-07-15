@@ -38,7 +38,7 @@ const Project = sequelize.define<ProjectInstance>(
 		},
 		type:{
 			allowNull: true,
-			type:DataTypes.NUMBER,
+			type:DataTypes.TEXT,
 		},
 		title:{
 			allowNull: true,
@@ -46,7 +46,7 @@ const Project = sequelize.define<ProjectInstance>(
 		},
 		description:{
 			allowNull: true,
-			type: DataTypes.NUMBER,
+			type: DataTypes.TEXT,
 		},
 		date:{
 			allowNull: false,
@@ -62,7 +62,7 @@ const Project = sequelize.define<ProjectInstance>(
 		},
 		serial:{
 			allowNull: true,
-			type: DataTypes.NUMBER,
+			type: DataTypes.INTEGER,
 		},
 		userId:{
 			allowNull: true,

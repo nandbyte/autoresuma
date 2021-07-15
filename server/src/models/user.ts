@@ -4,8 +4,8 @@ import { sequelize } from "../config/db.config";
 import Education from "./education";
 import Experience from "./experience";
 import Skill from "./skill";
-//import Experience from "./experience";
-
+import Resume from "./resume";
+import Project from "./project";
 
 interface UserAttributes{
 	id: string;
@@ -133,11 +133,30 @@ Skill.belongsTo(User,{
 //skills ends
 
 //projects
+User.hasMany(Project,{
+	sourceKey: 'id',
+	foreignKey: 'userId',
+	as: 'userProject'
+});
+
+Project.belongsTo(User,{
+	foreignKey: 'userId',
+	as: 'userProject'
+});
+
 //projects ends
 
 //resume
+User.hasMany(Resume,{
+	sourceKey: 'id',
+	foreignKey: 'userId',
+	as: 'userRes'
+});
+Resume.belongsTo(User,{
+	foreignKey:"userId",
+	as:"userRes"
+});
 //resume ends
-
 
 
 

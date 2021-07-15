@@ -1,7 +1,6 @@
-
-
 // /models/template.ts
-//import Resume from './resume';
+
+
 import {DataTypes, Model,Optional} from 'sequelize';
 import { sequelize } from '../config/db.config';
 
@@ -11,6 +10,7 @@ interface TemplateAttributes{
 	id: string;
 	title: string;
 	htmlData: string;
+
 	userId: string;
 }
 
@@ -34,25 +34,21 @@ const Template = sequelize.define<TemplateInstance>(
 		},
 		title:{
 			allowNull:false,
-			primaryKey: true,
 			type: DataTypes.TEXT,
 		},
 		htmlData:{
 			allowNull: true,
 			type:DataTypes.TEXT,
 		},
+
 		userId:{
 			allowNull: true,
-			type: DataTypes.TEXT,
+			type: DataTypes.UUID,
 		}
 	},
 );
 
-/*.belongsTo(User,{
-	foreignKey:'userId',
-	as:'user'
-});
-*/
+
 
 
 export default Template;
