@@ -40,11 +40,11 @@ const Education = sequelize.define<EducationInstance>(
 		},
 		passingYear:{
 			allowNull: true,
-			type: DataTypes.INTEGER,
+			type:  DataTypes.TEXT
 		},
 		result:{
 			allowNull: true,
-			type: DataTypes.INTEGER,
+			type: DataTypes.TEXT,
 		},
 		institution:{
 			allowNull: false,
@@ -52,7 +52,7 @@ const Education = sequelize.define<EducationInstance>(
 		},
 		serial:{
 			allowNull: true,
-			type: DataTypes.INTEGER,
+			type: DataTypes.TEXT,
 		},
 		userId:{
 			allowNull: false,
@@ -62,12 +62,10 @@ const Education = sequelize.define<EducationInstance>(
 	},
 );
 
-/*
-Education.belongsTo(User,{
+/*Education.belongsTo(User,{
 	foreignKey:'userId',
 	as:'users'
-});
-*/
+});*/
 
 
 export default Education;

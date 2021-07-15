@@ -2,6 +2,7 @@
 import { DataTypes, Model,Optional } from "sequelize";
 import { sequelize } from "../config/db.config";
 import Education from "./education";
+//import Experience from "./experience";
 
 
 interface UserAttributes{
@@ -91,14 +92,36 @@ User.hasMany(Education,{
 
 	sourceKey: 'id',
 	foreignKey: 'userId',
-	as: 'educations'
+	as: 'user'
 });
 
 
 Education.belongsTo(User,{
 	foreignKey:'userId',
-	as:'users'
+	as:'user'
 });
+//Education ends
+
+//experience
+
+/*User.hasMany(Experience,{
+	sourceKey:'id',
+	foreignKey: 'userId',
+	as:'experience'
+});*/
+
+//experience ends
+
+//skills
+//skills ends
+
+//projects
+//projects ends
+
+//resume
+//resume ends
+
+
 
 
 export default User;
