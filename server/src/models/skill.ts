@@ -35,12 +35,12 @@ const Skill = sequelize.define<SkillInstance>(
 		},
 		type:{
 			allowNull: true,
-			type:DataTypes.NUMBER,
+			type:DataTypes.TEXT,
 		},
 
 		description:{
 			allowNull: true,
-			type: DataTypes.NUMBER,
+			type: DataTypes.TEXT,
 		},
 		level:{
 			allowNull: false,

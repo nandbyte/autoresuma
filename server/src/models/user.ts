@@ -3,6 +3,7 @@ import { DataTypes, Model,Optional } from "sequelize";
 import { sequelize } from "../config/db.config";
 import Education from "./education";
 import Experience from "./experience";
+import Skill from "./skill";
 //import Experience from "./experience";
 
 
@@ -93,13 +94,13 @@ User.hasMany(Education,{
 
 	sourceKey: 'id',
 	foreignKey: 'userId',
-	as: 'user'
+	as: 'useredu'
 });
 
 
 Education.belongsTo(User,{
 	foreignKey:'userId',
-	as:'user'
+	as:'useredu'
 });
 //Education ends
 
@@ -120,6 +121,15 @@ Experience.belongsTo(User,{
 //experience ends
 
 //skills
+User.hasMany(Skill,{
+	sourceKey: 'id',
+	foreignKey: 'userId',
+	as:'userSkill'
+});
+Skill.belongsTo(User,{
+	foreignKey: 'userId',
+	as: 'userSkill'
+});
 //skills ends
 
 //projects
