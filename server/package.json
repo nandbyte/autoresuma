@@ -4,6 +4,7 @@
   "description": "",
   "main": "dist/app.js",
   "scripts": {
+    "lint":"npx prettier --write",
     "build": "tsc && node dist/app.js",
     "dev": "nodemon --config nodemon.json src/app.ts",
     "test": "jest",
@@ -23,6 +24,7 @@
     "@types/uuid": "^8.3.1",
     "jest": "^27.0.6",
     "nodemon": "^2.0.7",
+    "prettier": "2.3.2",
     "sequelize-cli": "^6.2.0",
     "source-map-support": "^0.5.19",
     "ts-jest": "^27.0.3",

@@ -88,6 +88,7 @@ const User = sequelize.define<UserInstance>(
 		}
 	}
 );
+
 //education
 User.hasMany(Education,{
 	//can omit the source key property since by default sequelize will use the primary key defined in the model

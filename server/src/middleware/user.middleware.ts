@@ -1,18 +1,14 @@
-import { CommonControllerConfig } from "../common/common.controllers.config";
-//import UserMiddleware  from "../middleware/user.middleware";
+
+import { CommonMiddlewareConfig } from "../common/common.middleware.config";
 import User from "../models/user";
+
 import {v4 as uuidv4} from "uuid";
 
 import { Request,Response } from "express";
 
+ class UserMiddleware extends CommonMiddlewareConfig{
 
-class UserController extends CommonControllerConfig{
-
-	/*async registration(req:Request,res: Response){
-		return await UserMiddleware.create(req,res);
-	}*/
-
-		async create(req: Request,res: Response){
+	async create(req: Request,res: Response){
 		const id = uuidv4();
 		try{
 			const record = await User.create({...req.body,id});
@@ -24,8 +20,6 @@ class UserController extends CommonControllerConfig{
 	}
 
 
-
-
 	async getAllUsers(req: Request,res: Response){
 		try{
 			const record = await User.findAll({where: {}});
@@ -35,13 +29,12 @@ class UserController extends CommonControllerConfig{
 		}
 	}
 
-//you need to "id" here and also in the route
+
 
 	async getUserDetails(req: Request,res: Response){
-		const uid = req.params.id;
+		const {id} = req.params;
 		try{
-
-			const record = await User.findOne({where:{id : uid }});
+			const record = await User.findOne({where:{id}});
 
 			if(!record){
 				return res.json({msg: "No User with this email exists!"});
@@ -50,7 +43,7 @@ class UserController extends CommonControllerConfig{
 			return res.json({record,msg: "user details got successfully"});
 		}
 		catch(e){
-			return res.json({msg: "failed to get user details ",status: 500 , route:"/user/:userId" });
+			return res.json({msg: "failed to get user details",status: 500 , route:'/users/:userId' });
 		}
 	}
 
@@ -82,18 +75,34 @@ class UserController extends CommonControllerConfig{
 		}
 	}
 
-
-	async userSearch(req : Request , res: Response){
-
+	async login(req: Request , res: Response){
 		try{
+			const email = req.params.email;
+			const password = req.params.password;
 
-		}catch(e){
+			const record = await User.findOne({where: {email: email, password: password}});
 
+			if(!record){
+				return res.json({msg: "no user exists in this mail or password",status: 500});
+			}
+			return res.json({
+				id: record.id,
+				status: 200
+			});
 		}
+		catch(e){
+			return res.json({
+				msg: "failed to read",
+				status: 500,
+				route: "/login",
+			});
+		}
+
 	}
+
 
  }
 
 
 
-export default new UserController();
+export default new UserMiddleware();

@@ -28,13 +28,25 @@ const routes: Array<CommonRoutesConfig> = [];
 const debugLog: debug.IDebugger = debug('app');
 
 //db initalize
-
+/*
 sequelize.sync().
 then(()=>{
 	console.log("connection done");
 })
 .catch(e=> console.log("error in connecting to db "+e));
+*/
 
+//db init
+async function  dbInit(){
+	try{
+		console.log("Inside db init");
+		await sequelize.sync();
+		console.log("db connection established");
+	}
+	catch(e){
+		console.log("error in db connection , error " + e);
+	}
+}
 
 
 //here we are adding middleware to parse all incoming requests as JSON
@@ -86,6 +98,7 @@ app.get('/',(req: express.Request, res: express.Response)=>{
 server.listen(port,()=>{
 
 	try{
+	dbInit();
 	routes.forEach((route: CommonRoutesConfig)=>{
 		debugLog("Route configured for ${route.getName()}");
 	});

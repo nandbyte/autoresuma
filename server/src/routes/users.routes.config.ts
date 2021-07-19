@@ -1,6 +1,6 @@
 import {CommonRoutesConfig} from "../common/common.routes.config";
 import  UserController  from "../controller/user.controller.config";
-import Middleware from "../middleware/middleware";
+//import Middleware from "../middleware/middleware";
 import express from "express";
 
 //let usercont = new UserController();
@@ -16,8 +16,10 @@ export class UserRoutes extends CommonRoutesConfig{
 
 		this.app.route('/users')
 			.get(UserController.getAllUsers)
-			.post(UserController.create);
-		this.app.route('/users/:userId')
+			.post(UserController.create,(req,res)=>{
+				res.status(200).send("Dhuke nai keno ?");
+			});
+		this.app.route('/user/:id')
 			.all((req: express.Request,res: express.Response,next: express.NextFunction)=>{
 				//this middleware function runs before any request to /user/:userid
 
