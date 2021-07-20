@@ -31,10 +31,11 @@ import { Request,Response } from "express";
 
 
 
+
 	async getUserDetails(req: Request,res: Response){
-		const {id} = req.params;
+		const uid = req.params.id;
 		try{
-			const record = await User.findOne({where:{id}});
+			const record = await User.findOne({where:{id : uid}});
 
 			if(!record){
 				return res.json({msg: "No User with this email exists!"});
@@ -43,10 +44,9 @@ import { Request,Response } from "express";
 			return res.json({record,msg: "user details got successfully"});
 		}
 		catch(e){
-			return res.json({msg: "failed to get user details",status: 500 , route:'/users/:userId' });
+			return res.json({msg: "failed to get user details",status: 500 , route:'/users/:id' });
 		}
 	}
-
 
 
 	async update(req: Request,res: Response){

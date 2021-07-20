@@ -1,6 +1,6 @@
 import {CommonRoutesConfig} from "../common/common.routes.config";
 import  UserController  from "../controller/user.controller.config";
-//import Middleware from "../middleware/middleware";
+
 import express from "express";
 
 //let usercont = new UserController();
@@ -16,7 +16,7 @@ export class UserRoutes extends CommonRoutesConfig{
 
 		this.app.route('/users')
 			.get(UserController.getAllUsers)
-			.post(UserController.create,(req,res)=>{
+			.post(UserController.registration,(req,res)=>{
 				res.status(200).send("Dhuke nai keno ?");
 			});
 		this.app.route('/user/:id')
@@ -27,7 +27,7 @@ export class UserRoutes extends CommonRoutesConfig{
 			})
 			.get(
 
-				UserController.getUserDetails
+				UserController.getProfileById
 			)
 			.put((req,res)=>{
 				res.status(200).send('Put requested for id PUT requested for id ${req.params.userID}');

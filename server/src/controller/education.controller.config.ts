@@ -1,3 +1,4 @@
+
 import { CommonControllerConfig } from "../common/common.controllers.config";
 import UserMiddleware  from "../middleware/user.middleware";
 import User from "../models/user";
@@ -6,7 +7,7 @@ import {v4 as uuidv4} from "uuid";
 import { Request,Response } from "express";
 
 
-class UserController extends CommonControllerConfig{
+class EducationController extends CommonControllerConfig{
 
 	async registration(req:Request,res: Response){
 		return await UserMiddleware.create(req,res);
@@ -87,4 +88,4 @@ class UserController extends CommonControllerConfig{
 
 
 
-export default new UserController();
+export default new EducationController();
