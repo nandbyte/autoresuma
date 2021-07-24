@@ -17,7 +17,7 @@ const HomePage = () => {
     return (
         <Stack
             h="100vh"
-            px={{ base: 12, lg: 16, xl: 24 }}
+            px={{ base: 6, lg: 12, xl: 24 }}
             justifyContent="space-between"
         >
             <Box textAlign="center" pt={{ base: 36, lg: 48 }}>
@@ -44,31 +44,28 @@ const HomePage = () => {
                     </Box>
                 </AnimationZoom>
                 <Center>
-                    <SimpleGrid columns={2}>
-                        <AnimationZoom>
-                            <Link
-                                as={RouterLink}
-                                backgroundColor="red.600"
-                                _hover={{
-                                    bg: "red.700",
-                                }}
-                                to="/profile"
-                            >
-                                Login
-                            </Link>
-                        </AnimationZoom>
-                        <AnimationZoom>
-                            <Link
-                                as={RouterLink}
-                                backgroundColor="red.600"
-                                _hover={{
-                                    bg: "red.700",
-                                }}
-                                to="/profile"
-                            >
-                                Register
-                            </Link>
-                        </AnimationZoom>
+                    <SimpleGrid columns={2} gap={6} width="500px">
+                        <Link
+                            as={RouterLink}
+                            backgroundColor="red.600"
+                            _hover={{
+                                bg: "red.700",
+                            }}
+                            to="/profile/bio"
+                        >
+                            Login
+                        </Link>
+
+                        <Link
+                            as={RouterLink}
+                            backgroundColor="red.600"
+                            _hover={{
+                                bg: "red.700",
+                            }}
+                            to="/profile/bio"
+                        >
+                            Register
+                        </Link>
                     </SimpleGrid>
                 </Center>
             </Box>

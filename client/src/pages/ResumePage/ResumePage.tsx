@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Heading, Box, Link } from "@chakra-ui/layout";
+import { Text, Heading, Box, Link, Flex } from "@chakra-ui/layout";
 import { Link as RouterLink } from "react-router-dom";
 import { Stack, Button } from "@chakra-ui/react";
 import Credit from "../../components/Credit";
@@ -9,16 +9,24 @@ import SubsectionDivider from "../../components/SubsectionDivider";
 
 const ResumePage = () => {
     return (
-        <>
+        <Box justifyItems="center">
             <Navbar />
-            <Stack
-                h="100vh"
-                px={{ base: 12, lg: 16, xl: 24 }}
-                justifyContent="space-between"
-            >
-                <Box pt={{ base: 12, lg: 24 }}>
-                    <Heading fontWeight="black">Résumé</Heading>
-                    <SubsectionDivider />
+            <Flex width="100%" justifyContent="center">
+                <Stack
+                    px={{ base: 8, xl: 16 }}
+                    justifyContent="space-between"
+                    width={{ base: "100%", xl: "1200px" }}
+                >
+                    <Box pt={{ base: 8, xl: 16 }}>
+                        <Heading
+                            textAlign={{ base: "center", lg: "left" }}
+                            fontWeight="black"
+                        >
+                            Resume
+                        </Heading>
+                        <SubsectionDivider />
+                    </Box>
+
                     <Box pb={{ base: 8 }}>
                         <Button
                             w={48}
@@ -31,33 +39,21 @@ const ResumePage = () => {
                         </Button>
                     </Box>
                     <Stack>
-                        <Link
-                            fontSize={{ base: 16, lg: 24 }}
-                            color="gray.200"
-                            fontWeight="bold"
-                        >
+                        <Link fontSize="lg" color="gray.200" fontWeight="bold">
                             Download as PDF
                         </Link>
-                        <Link
-                            fontSize={{ base: 16, lg: 24 }}
-                            color="gray.200"
-                            fontWeight="bold"
-                        >
+                        <Link fontSize="lg" color="gray.200" fontWeight="bold">
                             Download as PNG
                         </Link>
-                        <Link
-                            fontSize={{ base: 16, lg: 24 }}
-                            color="gray.200"
-                            fontWeight="bold"
-                        >
+                        <Link fontSize="lg" color="gray.200" fontWeight="bold">
                             Download as TEX
                         </Link>
 
-                        <Text fontSize={{ base: 16, lg: 24 }} pt={4}>
+                        <Text fontSize="md" pt={4}>
                             Want to update your information?{" "}
                             <Link
                                 as={RouterLink}
-                                fontSize={{ base: 16, lg: 24 }}
+                                fontSize="md"
                                 color="gray.200"
                                 fontWeight="bold"
                                 to="/profile"
@@ -66,13 +62,14 @@ const ResumePage = () => {
                             </Link>
                         </Text>
                     </Stack>
-                </Box>
-                <Box textAlign="center">
-                    <SectionDivider />
-                    <Credit />
-                </Box>
-            </Stack>
-        </>
+
+                    <Box textAlign="center" pt={36}>
+                        <SectionDivider />
+                        <Credit />
+                    </Box>
+                </Stack>
+            </Flex>
+        </Box>
     );
 };
 

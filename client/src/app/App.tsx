@@ -20,7 +20,7 @@ const App = () => {
                 <Route exact path="/">
                     <HomePage />
                 </Route>
-                <Route exact path="/profile">
+                <Route path="/profile">
                     <ProfilePage />
                 </Route>
                 <Route exact path="/resume">

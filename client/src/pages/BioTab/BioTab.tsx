@@ -1,5 +1,5 @@
 import React from "react";
-import { Heading, Box } from "@chakra-ui/layout";
+import { Box } from "@chakra-ui/layout";
 import {
     FormControl,
     FormLabel,
@@ -8,15 +8,17 @@ import {
     Select,
     Button,
 } from "@chakra-ui/react";
-import SubsectionDivider from "../../components/SubsectionDivider";
 
 const BioTab = () => {
     return (
-        <>
-            <Box py={6}>
-                <Heading fontSize={24}>Bio</Heading>
-                <SubsectionDivider />
-            </Box>
+        <Box
+            w="100%"
+            bgColor="gray.700"
+            color="white"
+            p={6}
+            borderRadius="md"
+            my={6}
+        >
             <form>
                 <Stack spacing={6}>
                     <FormControl id="first-name" isRequired>
@@ -42,18 +44,27 @@ const BioTab = () => {
                         <FormLabel>ZIP Code</FormLabel>
                         <Input placeholder="ZIP code" />
                     </FormControl>
-                    <Button
-                        w="100%"
-                        backgroundColor="red.600"
-                        _hover={{
-                            bg: "red.700",
-                        }}
-                    >
-                        Save
-                    </Button>
+                    <Stack direction="row">
+                        <Button
+                            backgroundColor="red.600"
+                            _hover={{
+                                bg: "red.700",
+                            }}
+                        >
+                            Update
+                        </Button>
+                        <Button
+                            backgroundColor="red.600"
+                            _hover={{
+                                bg: "red.700",
+                            }}
+                        >
+                            Save
+                        </Button>
+                    </Stack>
                 </Stack>
             </form>
-        </>
+        </Box>
     );
 };
 
