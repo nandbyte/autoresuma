@@ -1,25 +1,27 @@
+
+
 import {CommonRoutesConfig} from "../common/common.routes.config";
-import  UserController  from "../controller/user.controller.config";
+import  SkillController  from "../controller/skill.controller.config";
 
 import express from "express";
 
 //let usercont = new UserController();
 
-export class UserRoutes extends CommonRoutesConfig{
+export class SkillRoutes extends CommonRoutesConfig{
 	constructor(app: express.Application){
-		super(app,'UserRoutes');
+		super(app,'SkillRoutes');
 	}
 
 	configureRoutes(){
 		//we'll add the actual route config here next
 
 
-		this.app.route('/users')
-			.get(UserController.getAllUsers)
-			.post(UserController.registration,(req,res)=>{
+		this.app.route('/skill/:userId')
+			.get(SkillController.getAll)
+			.post(SkillController.create,(req,res)=>{
 				res.status(200).send("Dhuke nai keno ?");
 			});
-		this.app.route('/user/:userId')
+		this.app.route('/skill/:userId/:skillId')
 			.all((req: express.Request,res: express.Response,next: express.NextFunction)=>{
 				//this middleware function runs before any request to /user/:userid
 
@@ -27,7 +29,7 @@ export class UserRoutes extends CommonRoutesConfig{
 			})
 			.get(
 
-				UserController.getById
+				SkillController.getById
 			)
 			.put((req,res)=>{
 				res.status(200).send('Put requested for id PUT requested for id ${req.params.userID}');

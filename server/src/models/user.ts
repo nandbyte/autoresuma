@@ -6,6 +6,9 @@ import Experience from "./experience";
 import Skill from "./skill";
 import Resume from "./resume";
 import Project from "./project";
+import Bio from "./bio";
+
+
 
 interface UserAttributes{
 	id: string;
@@ -158,6 +161,19 @@ Resume.belongsTo(User,{
 	as:"userRes"
 });
 //resume ends
+
+//Bio
+User.hasMany(Bio,{
+	sourceKey: 'id',
+	foreignKey: 'userId',
+	as: 'userBio'
+});
+Bio.belongsTo(User,{
+	foreignKey: "userId",
+	as:"usrBio"
+});
+//Bio Ends
+
 
 
 

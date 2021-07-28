@@ -1,21 +1,29 @@
-
 import { CommonControllerConfig } from "../common/common.controllers.config";
-import UserMiddleware  from "../middleware/user.middleware";
-import User from "../models/user";
+import Skill from "../models/skill";
 import {v4 as uuidv4} from "uuid";
-
 import { Request,Response } from "express";
 
 
 class SkillController extends CommonControllerConfig{
 
-	async registration(req:Request,res: Response){
-		return await UserMiddleware.create(req,res);
+   	async create(req: Request,res: Response){
+		const id = uuidv4();
+		try{
+			const record = await Skill.create({...req.body,id});
+			return res.json({record,msg: "Successfully created user"});
+		}
+		catch(e){
+			return res.json({msg: "failed to create", status:500, route:"/users" });
+		}
 	}
 
-	async getAllUsers(req: Request,res: Response){
+
+	async getAll(req: Request,res: Response){
+		const uid = req.params.userId;
 		try{
-			const record = await User.findAll({where: {}});
+			const record = await Skill.findAll({where: {
+				userId: uid
+			}});
 			return res.json({record,msg:"list of all users"});
 		}catch(e){
 			return res.json({msg: "failed to get list of all users", status: 500 , router:"/users"});
@@ -23,17 +31,17 @@ class SkillController extends CommonControllerConfig{
 	}
 
 
-	async getProfileById(req: Request , res: Response){
-		return UserMiddleware.getUserDetails(req, res);
-	}
-
-//you need to "id" here and also in the route
-
-	async getUserDetails(req: Request,res: Response){
-		const uid = req.params.id;
+	async getById(req: Request,res: Response){
+		const uid = req.params.userId;
+		const resumeId = req.params.resumeId;
 		try{
 
-			const record = await User.findOne({where:{id : uid }});
+			const record = await Skill.findOne({where:{
+				id : resumeId,
+				userId: uid
+
+
+			}});
 
 			if(!record){
 				return res.json({msg: "No User with this email exists!"});
@@ -46,45 +54,7 @@ class SkillController extends CommonControllerConfig{
 		}
 	}
 
-
-
-	async update(req: Request,res: Response){
-		//const {id} = req.params;
-
-		try{
-			const {id} = req.params;
-			const record = await User.findOne({where: {id}});
-
-			if(!record){
-				return res.json({msg: "no record found bout this user"});
-			}
-
-			const updatedRecord = await record.update({
-				completed: !record.getDataValue('completed'),
-			});
-			return res.json({record: updatedRecord});
-		}
-		catch(e){
-			return res.json({
-				msg: "fail to read",
-				status: 500,
-				route:"/update/:userId",
-			}
-			);
-		}
-	}
-
-
-	async userSearch(req : Request , res: Response){
-
-		try{
-
-		}catch(e){
-
-		}
-	}
-
- }
+}
 
 
 

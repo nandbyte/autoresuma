@@ -1,6 +1,5 @@
 
 // /models/education.ts
-import User from './user';
 import {DataTypes, Model,Optional} from 'sequelize';
 import { sequelize } from '../config/db.config';
 

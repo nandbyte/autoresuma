@@ -33,7 +33,7 @@ import { Request,Response } from "express";
 
 
 	async getUserDetails(req: Request,res: Response){
-		const uid = req.params.id;
+		const uid = req.params.userId;
 		try{
 			const record = await User.findOne({where:{id : uid}});
 

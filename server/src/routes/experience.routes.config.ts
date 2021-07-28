@@ -1,25 +1,27 @@
+
+
 import {CommonRoutesConfig} from "../common/common.routes.config";
-import  UserController  from "../controller/user.controller.config";
+import  ExperienceController  from "../controller/experience.controller.config";
 
 import express from "express";
 
 //let usercont = new UserController();
 
-export class UserRoutes extends CommonRoutesConfig{
+export class ExperienceRoutes extends CommonRoutesConfig{
 	constructor(app: express.Application){
-		super(app,'UserRoutes');
+		super(app,'ExperienceRoutes');
 	}
 
 	configureRoutes(){
 		//we'll add the actual route config here next
 
 
-		this.app.route('/users')
-			.get(UserController.getAllUsers)
-			.post(UserController.registration,(req,res)=>{
+		this.app.route('/experience/:userId')
+			.get(ExperienceController.getAll)
+			.post(ExperienceController.create,(req,res)=>{
 				res.status(200).send("Dhuke nai keno ?");
 			});
-		this.app.route('/user/:userId')
+		this.app.route('/experience/:userId/:experienceId')
 			.all((req: express.Request,res: express.Response,next: express.NextFunction)=>{
 				//this middleware function runs before any request to /user/:userid
 
@@ -27,7 +29,7 @@ export class UserRoutes extends CommonRoutesConfig{
 			})
 			.get(
 
-				UserController.getById
+				ExperienceController.getById
 			)
 			.put((req,res)=>{
 				res.status(200).send('Put requested for id PUT requested for id ${req.params.userID}');

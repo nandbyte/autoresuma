@@ -1,25 +1,25 @@
 import {CommonRoutesConfig} from "../common/common.routes.config";
-import  UserController  from "../controller/user.controller.config";
+import  TemplateController  from "../controller/template.controller.config";
 
 import express from "express";
 
 //let usercont = new UserController();
 
-export class UserRoutes extends CommonRoutesConfig{
+export class TemplateRoutes extends CommonRoutesConfig{
 	constructor(app: express.Application){
-		super(app,'UserRoutes');
+		super(app,'TemplateRoutes');
 	}
 
 	configureRoutes(){
 		//we'll add the actual route config here next
 
 
-		this.app.route('/users')
-			.get(UserController.getAllUsers)
-			.post(UserController.registration,(req,res)=>{
+		this.app.route('/template')
+			.get(TemplateController.getAll)
+			.post(TemplateController.create,(req,res)=>{
 				res.status(200).send("Dhuke nai keno ?");
 			});
-		this.app.route('/user/:userId')
+		this.app.route('/template/:userId/:templateId')
 			.all((req: express.Request,res: express.Response,next: express.NextFunction)=>{
 				//this middleware function runs before any request to /user/:userid
 
@@ -27,7 +27,7 @@ export class UserRoutes extends CommonRoutesConfig{
 			})
 			.get(
 
-				UserController.getById
+				TemplateController.getById
 			)
 			.put((req,res)=>{
 				res.status(200).send('Put requested for id PUT requested for id ${req.params.userID}');

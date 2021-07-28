@@ -1,44 +1,50 @@
+
+
 import { CommonControllerConfig } from "../common/common.controllers.config";
-import Resume from "../models/resume";
+import Bio from "../models/bio";
 import {v4 as uuidv4} from "uuid";
 
 import { Request,Response } from "express";
 
 
-class ResumeController extends CommonControllerConfig{
+class BioController extends CommonControllerConfig{
 
    	async create(req: Request,res: Response){
 		const id = uuidv4();
 		try{
-			const record = await Resume.create({...req.body,id});
+			const record = await Bio.create({...req.body,id});
 			return res.json({record,msg: "Successfully created user"});
 		}
 		catch(e){
-			return res.json({msg: "failed to create", status:500, route:"/users" });
+			return res.json({msg: "failed to create bio", status:500, route:"/bio" });
 		}
 	}
+
 
 
 	async getAll(req: Request,res: Response){
 		const uid = req.params.userId;
 		try{
-			const record = await Resume.findAll({where: {
-				userId: uid
+			const record = await Bio.findAll({where: {
+				userId : uid
 			}});
-			return res.json({record,msg:"list of all users"});
+			return res.json({record,msg:"list of all bio"});
 		}catch(e){
-			return res.json({msg: "failed to get list of all users", status: 500 , router:"/users"});
+			return res.json({msg: "failed to get list of all bio", status: 500 , router:"/bio"});
 		}
 	}
 
 
+
+
+
 	async getById(req: Request,res: Response){
 		const uid = req.params.userId;
-		const resumeId = req.params.resumeId;
+		const eduId = req.params.bioId;
 		try{
 
-			const record = await Resume.findOne({where:{
-				id : resumeId,
+			const record = await Bio.findOne({where:{
+				id : eduId,
 				userId: uid
 
 
@@ -59,4 +65,4 @@ class ResumeController extends CommonControllerConfig{
 
 
 
-export default new ResumeController();
+export default new BioController();

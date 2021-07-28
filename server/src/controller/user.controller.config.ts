@@ -22,14 +22,14 @@ class UserController extends CommonControllerConfig{
 	}
 
 
-	async getProfileById(req: Request , res: Response){
+/*	async getProfileById(req: Request , res: Response){
 		return UserMiddleware.getUserDetails(req, res);
 	}
-
+*/
 //you need to "id" here and also in the route
 
-	async getUserDetails(req: Request,res: Response){
-		const uid = req.params.id;
+	async getById(req: Request,res: Response){
+		const uid = req.params.userId;
 		try{
 
 			const record = await User.findOne({where:{id : uid }});
@@ -38,7 +38,18 @@ class UserController extends CommonControllerConfig{
 				return res.json({msg: "No User with this email exists!"});
 			}
 
-			return res.json({record,msg: "user details got successfully"});
+			const data = {
+				id : record.id,
+				username : record.username,
+				firstName : record.firstName,
+				lastName : record.lastName,
+				email: record.email,
+				title: record.title,
+				github: record.github,
+				linkedin: record.linkedin,
+			}
+
+			return res.json({data,msg: "user details got successfully"});
 		}
 		catch(e){
 			return res.json({msg: "failed to get user details ",status: 500 , route:"/user/:userId" });
