@@ -11,6 +11,7 @@ import colors from "./foundations/colors";
 // Component style overrides
 import Button from "./components/button";
 import Link from "./components/link";
+import Input from "./components/input";
 
 const overrides = {
     config,
@@ -18,11 +19,10 @@ const overrides = {
     fonts,
     colors,
 
-    // Other foundational style overrides go here
     components: {
         Button,
         Link,
-        // Other components go here
+        Input,
     },
 };
 export default extendTheme(overrides);
