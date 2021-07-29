@@ -49,7 +49,7 @@ const HomePage = () => {
                             as={RouterLink}
                             backgroundColor="red.600"
                             _hover={{
-                                bg: "red.700",
+                                bg: "orange.700",
                             }}
                             to="/profile/bio"
                         >

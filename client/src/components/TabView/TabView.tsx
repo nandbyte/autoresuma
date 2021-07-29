@@ -41,6 +41,7 @@ const TabView = (props: any) => {
                 >
                     {tabList.map((tabs) => (
                         <Tab
+                            color="white"
                             bgColor="gray.600"
                             fontWeight="normal"
                             fontSize={{ base: "lg" }}
