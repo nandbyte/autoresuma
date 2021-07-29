@@ -38,12 +38,13 @@ export const saveBio = (newBio: Bio) => {
                 newBio
             );
 
-            if (status === 200)
+            if (status === 200) {
                 dispatch({
                     type: ActionType.SAVE_BIO_SUCCESS,
                     payload: newBio,
                 });
-            dispatch({ type: ActionType.UPDATE_BIO_SUCCESS });
+                dispatch({ type: ActionType.UPDATE_BIO_SUCCESS });
+            }
         } catch (error: any) {
             dispatch({
                 type: ActionType.BIO_ERROR,
