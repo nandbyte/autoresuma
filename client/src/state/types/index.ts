@@ -1,1 +1,2 @@
-export * from "./bio";
+export * from "./bio.type";
+export * from "./education.type";

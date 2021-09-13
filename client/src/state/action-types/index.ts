@@ -7,4 +7,12 @@ export enum ActionType {
     UPDATE_BIO = "update_bio",
     UPDATE_BIO_SUCCESS = "update_bio_success",
     BIO_ERROR = "bio_error",
+    FETCH_EDUCATIONS = "fetch_educations",
+    FETCH_EDUCATIONS_SUCCESS = "fetch_educations_success",
+    UPDATE_EDUCATION = "update_education",
+    UPDATE_EDUCATION_SUCCESS = "update_education_success",
+    SAVE_EDUCATION = "save_education",
+    SAVE_EDUCATION_SUCCESS = "save_education_success",
+    EDUCATION_ERROR = "education_error",
+    ADD_EDUCATION = "add_education",
 }
