@@ -18,6 +18,7 @@ const HomePage = () => {
         <Stack
             h="100vh"
             px={{ base: 6, lg: 12, xl: 24 }}
+            width={{ base: "100%", xl: "80em" }}
             justifyContent="space-between"
         >
             <Box textAlign="center" pt={{ base: 36, lg: 48 }}>

@@ -7,7 +7,7 @@ interface Props {}
 const SubsectionDivider = (props: Props) => {
     return (
         <AnimationAppear duration={1}>
-            <Box mt={2} mb={4} w={{ base: "50%", lg: "33%" }}>
+            <Box mt={2} mb={4} w={{ base: "100%" }}>
                 <hr
                     style={{
                         border: 0,

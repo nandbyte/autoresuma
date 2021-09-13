@@ -28,20 +28,12 @@ const ExperienceComponent: React.FC<Props> = (props: Props) => {
                                 w="10px"
                                 borderRadius="md"
                                 icon={<FaArrowUp />}
-                                backgroundColor="red.600"
-                                _hover={{
-                                    bg: "red.700",
-                                }}
                             />
                             <IconButton
                                 aria-label="Move Down"
                                 w="10px"
                                 borderRadius="md"
                                 icon={<FaArrowDown />}
-                                backgroundColor="red.600"
-                                _hover={{
-                                    bg: "red.700",
-                                }}
                             />
                         </Stack>
                     </Stack>
