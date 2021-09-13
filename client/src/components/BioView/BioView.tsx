@@ -1,5 +1,11 @@
 import React, { useEffect } from "react";
-import { FormControl, FormLabel, Stack, Button, Text } from "@chakra-ui/react";
+import {
+    FormControl,
+    FormLabel,
+    Stack,
+    Button,
+    Heading,
+} from "@chakra-ui/react";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useActions } from "../../hooks/useActions";
 
@@ -23,46 +29,39 @@ const BioView = () => {
     return (
         <form>
             <Stack spacing={6}>
+                <Heading variant="tab">Biodata</Heading>
                 <FormControl id="first-name">
                     <FormLabel>
-                        <Text textDecoration="underline">First Name</Text>
+                        <Heading variant="label">First Name</Heading>
                     </FormLabel>
                     <FormLabel>{currentState?.firstName}</FormLabel>
                 </FormControl>
                 <FormControl id="last-name">
                     <FormLabel>
-                        <Text textDecoration="underline">Last Name</Text>
+                        <Heading variant="label">Last Name</Heading>
                     </FormLabel>
                     <FormLabel>{currentState?.lastName} </FormLabel>
                 </FormControl>
                 <FormControl id="address">
                     <FormLabel>
-                        <Text textDecoration="underline">Address</Text>
+                        <Heading variant="label">Address</Heading>
                     </FormLabel>
                     <FormLabel> {currentState?.address} </FormLabel>
                 </FormControl>
                 <FormControl id="country">
                     <FormLabel>
-                        <Text textDecoration="underline">Country</Text>
+                        <Heading variant="label">Country</Heading>
                     </FormLabel>
                     <FormLabel> {currentState?.country} </FormLabel>
                 </FormControl>
                 <FormControl id="zip-code">
                     <FormLabel>
-                        <Text textDecoration="underline">ZIP Code</Text>
+                        <Heading variant="label">ZIP Code</Heading>
                     </FormLabel>
                     <FormLabel>{savedState?.zipCode}</FormLabel>
                 </FormControl>
                 <Stack direction="row">
-                    <Button
-                        backgroundColor="red.600"
-                        _hover={{
-                            bg: "red.700",
-                        }}
-                        onClick={handleUpdate}
-                    >
-                        Update
-                    </Button>
+                    <Button onClick={handleUpdate}>Update</Button>
                 </Stack>
             </Stack>
         </form>
