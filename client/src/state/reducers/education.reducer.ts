@@ -70,7 +70,8 @@ const reducer = (
                 currentState: state.currentState,
             };
 
-        case ActionType.SAVE_EDUCATIONS:
+        // TODO: Rethink how SAVE_EDUCATION and loading state should work
+        case ActionType.SAVE_EDUCATION:
             return {
                 loading: Array(state.currentState.length).fill(false),
                 updating: Array(state.currentState.length).fill(false),
@@ -79,7 +80,7 @@ const reducer = (
                 currentState: state.currentState,
             };
 
-        case ActionType.SAVE_EDUCATIONS_SUCCESS:
+        case ActionType.SAVE_EDUCATION_SUCCESS:
             return {
                 loading: Array(state.currentState.length).fill(false),
                 updating: Object.assign([], state.updating, {
@@ -96,6 +97,7 @@ const reducer = (
                 }),
             };
 
+        // Fix how savedState should behave
         case ActionType.ADD_EDUCATION:
             return {
                 loading: Array(state.currentState.length).fill(false),
