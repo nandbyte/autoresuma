@@ -8,20 +8,13 @@ import {
     SimpleGrid,
 } from "@chakra-ui/layout";
 import { Link as RouterLink } from "react-router-dom";
-import { Stack } from "@chakra-ui/react";
-import Credit from "../../components/Credit";
-import SectionDivider from "../../components/SectionDivider";
 import AnimationZoom from "../../components/AnimationZoom";
+import PageContainer from "../../components/PageContainer";
 
 const HomePage = () => {
     return (
-        <Stack
-            h="100vh"
-            px={{ base: 6, lg: 12, xl: 24 }}
-            width={{ base: "100%", xl: "80em" }}
-            justifyContent="space-between"
-        >
-            <Box textAlign="center" pt={{ base: 36, lg: 48 }}>
+        <PageContainer>
+            <Box textAlign="center" pt={{ base: 22, lg: 32 }}>
                 <AnimationZoom>
                     <Heading
                         fontSize={{ base: 36, md: 64, lg: 96 }}
@@ -50,7 +43,7 @@ const HomePage = () => {
                             as={RouterLink}
                             backgroundColor="red.600"
                             _hover={{
-                                bg: "orange.700",
+                                bg: "red.700",
                             }}
                             to="/profile/bio"
                         >
@@ -70,11 +63,7 @@ const HomePage = () => {
                     </SimpleGrid>
                 </Center>
             </Box>
-            <Box textAlign="center">
-                <SectionDivider />
-                <Credit />
-            </Box>
-        </Stack>
+        </PageContainer>
     );
 };
 
