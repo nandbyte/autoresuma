@@ -10,7 +10,7 @@ const LogoContainer = () => {
                 letterSpacing="wide"
                 fontSize="2xl"
                 textTransform="lowercase"
-                color={useColorModeValue("gray.900", "white")}
+                color={useColorModeValue("white", "white")}
             >
                 autorésuma
             </Heading>
