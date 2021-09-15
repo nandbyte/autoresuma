@@ -33,11 +33,11 @@ class SkillController extends CommonControllerConfig{
 
 	async getById(req: Request,res: Response){
 		const uid = req.params.userId;
-		const resumeId = req.params.resumeId;
+		const skillId = req.params.skillId;
 		try{
 
 			const record = await Skill.findOne({where:{
-				id : resumeId,
+				id : skillId,
 				userId: uid
 
 
@@ -51,6 +51,46 @@ class SkillController extends CommonControllerConfig{
 		}
 		catch(e){
 			return res.json({msg: "failed to get user details ",status: 500 , route:"/user/:userId" });
+		}
+	}
+
+	update = async(req: Request, res: Response)=>{
+		try{
+			const uid = req.params.userId;
+			const skillId = req.params.skillId;
+			const record = await Skill.findOne({where:{
+				id: skillId,
+				userId: uid
+			}});
+
+			if(!record){
+				return res.json({msg:"No records with such credentials exists."});
+			}
+			const newRec = await record.update({...req.body});
+			return res.json({newRec,msg:"Updated successfully",status:200});
+
+		}catch(e){
+			return res.json({msg:"Couldn't Update.",error:e.message});
+		}
+	}
+
+	delete = async(req: Request, res: Response)=>{
+		try{
+			const uid = req.params.userId;
+			const skillId = req.params.skillId;
+
+			const record = await Skill.findOne({where:{
+				id: skillId,
+				userId:uid
+			}});
+			if(!record){
+				return res.json({msg:"No records with such credentials exist."});
+			}
+			await record.destroy();
+			return res.json({msg:"Deleted successfully."});
+		}
+		catch(e){
+			res.json({msg:"Couldn't delete .", error:e.message});
 		}
 	}
 

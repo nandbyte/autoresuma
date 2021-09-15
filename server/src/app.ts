@@ -9,6 +9,8 @@ import cors from 'cors';
 
 import { CommonRoutesConfig } from './common/common.routes.config';
 import { UserRoutes } from './routes/users.routes.config';
+import { EducationRoutes } from './routes/education.routes.config';
+
 
 import debug from 'debug';
 import { sequelize } from './config/db.config';
@@ -85,6 +87,8 @@ app.use(expressWinston.logger(loggerOption));
 // added to our app
 
 routes.push(new UserRoutes(app));
+routes.push(new EducationRoutes(app));
+
 
 //this is a simple route to make sure everything is working properly
 

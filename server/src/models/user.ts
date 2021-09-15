@@ -9,7 +9,6 @@ import Project from "./project";
 import Bio from "./bio";
 
 
-
 interface UserAttributes{
 	id: string;
 	username: string;
@@ -174,7 +173,15 @@ Bio.belongsTo(User,{
 });
 //Bio Ends
 
-
+//template
+/*
+Template.hasMany(Bio,{
+	sourceKey: 'id',
+	foreignKey:'userId',
+	as:
+});
+*/
+//template
 
 
 export default User;

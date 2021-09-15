@@ -34,17 +34,13 @@ class BioController extends CommonControllerConfig{
 		}
 	}
 
-
-
-
-
 	async getById(req: Request,res: Response){
 		const uid = req.params.userId;
-		const eduId = req.params.bioId;
+		const bioId = req.params.bioId;
 		try{
 
 			const record = await Bio.findOne({where:{
-				id : eduId,
+				id : bioId,
 				userId: uid
 
 
@@ -57,9 +53,57 @@ class BioController extends CommonControllerConfig{
 			return res.json({record,msg: "user details got successfully"});
 		}
 		catch(e){
-			return res.json({msg: "failed to get user details ",status: 500 , route:"/user/:userId" });
+			return res.json({msg: "failed to get user details ",status: 500 , route:"/bio/:userId/:bioId"});
 		}
 	}
+
+	update = async(req: Request, res: Response)=>{
+		try{
+
+			const uid = req.params.userId;
+			const bioId = req.params.bioId;
+
+			const record = await Bio.findOne({where:{
+				id: bioId,
+				userId: uid
+			}});
+
+			if(!record){
+				return res.json({msg: "No records with these credentials exist."});
+			}
+
+			const newRec = await record.update({...req.body});
+			return res.json({newRec,msg:"Updated Successfully."});
+
+		}
+		catch(e){
+			return res.json({msg: "failed to update user bio .",status: 500 , source:"/bio/:userId/:bioId",error: e.message});
+		}
+	}
+
+	 delete = async(req: Request , res: Response)=>{
+
+		 try{
+		  	const uid = req.params.userId;
+		 	const bioId = req.params.bioId;
+			const record = await Bio.findOne({where:{
+				id: bioId,
+				userId: uid
+			}});
+
+			if(!record){
+				return res.json({msg:"No record with these credentials exist."});
+			}
+
+			const newRec = await record.update({...req.body});
+			return res.json({newRec, msg:"Updated successfully."});
+
+
+		 }
+		 catch(e){
+			 return res.json({msg:"failed to delete user bio.",status: 500, source:"bio/:userId/:bioId",error: e.message});
+		 }
+	 }
 
 }
 

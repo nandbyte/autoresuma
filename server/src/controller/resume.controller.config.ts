@@ -55,6 +55,46 @@ class ResumeController extends CommonControllerConfig{
 		}
 	}
 
+	update = async(req: Request,res: Response)=>{
+		try{
+			const uid = req.params.userId;
+			const resumeId = req.params.resumeId;
+				const record = await Resume.findOne({where:{
+					id: resumeId,
+					userId: uid
+				}});
+				if(!record){
+					return res.json({msg: "No record with these credentials exist."});
+				}
+				const newRec = await record.update({...req.body});
+				return res.json({newRec,msg:"Updated Successfully.",status:200});
+
+		}
+		catch(e){
+			return res.json({msg:"Can't update.",status:500, error:e.message});
+		}
+	}
+
+	delete = async(req: Request , res: Response)=>{
+		try{
+			const uid = req.params.userId;
+			const resumeId = req.params.resumeId;
+			const record = await Resume.findOne({where:{
+				id: resumeId,
+				userId:uid
+			}});
+
+			if(!record){
+				return res.json({msg:"No record with these credentials exists."});
+			}
+			await record.destroy();
+			return res.json({msg:"deleted successfully",status:200});
+		}
+		catch(e){
+			return res.json({msg:"Could Not Delete.",status:500,error:e.message});
+		}
+	}
+
 }
 
 

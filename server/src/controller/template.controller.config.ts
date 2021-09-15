@@ -59,6 +59,7 @@ class TemplateController extends CommonControllerConfig{
 			const record = await Template.findOne({where:{
 				id : templateId,
 				userId: userId
+
 			}});
 
 			if(!record){
@@ -72,6 +73,47 @@ class TemplateController extends CommonControllerConfig{
 		}
 	}
 
+
+	update = async(req: Request, res: Response)=>{
+		const templateId = req.params.templateId;
+		const userId = req.params.userId;
+		try{
+			const record = await Template.findOne({where:{
+				id: templateId,
+				userId : userId
+			}});
+
+			if(!record){
+				return res.json({msg: "No records with these credentials exists. "});
+			}
+
+			const newRec = await record.update({...req.body});
+			return res.json({newRec,msg:"Updated Successfully."});
+		}
+		catch(e){
+			return res.json({msg:"Update failed.",status:500,route:"/template/:userId/:templateId",error:e.message});
+		}
+	}
+
+	/*delete = async(req: Request, res: Response)=>{
+	 	try{
+			const templateId = req.params.templateId;
+			//const userId = req.params.userId;
+
+			const record = await Template.findOne({where:{
+				id : templateId,
+				//userId: userId
+			}});
+			/*if(!record){
+				res.json({msg:"No record with these credentials exist."});
+			}
+			await record.destroy();
+			return res.json({msg:"Record deleted successfully"});
+		}
+		catch(e){
+			return res.json({msg:"Delete failed.",status:500,route:"/template/:userId/:templateId"});
+		}
+	}*/
 
 
 }

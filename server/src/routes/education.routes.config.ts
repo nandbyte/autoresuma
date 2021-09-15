@@ -26,19 +26,9 @@ export class EducationRoutes extends CommonRoutesConfig{
 
 				next();
 			})
-			.get(
-
-				EducationController.getById
-			)
-			.put((req,res)=>{
-				res.status(200).send('Put requested for id PUT requested for id ${req.params.userID}');
-			})
-			.patch((req: express.Request , res:express.Response)=>{
-				res.status(200).send("PATCH request for id $(req.params.userId)");
-			})
-			.delete((req:express.Request , res: express.Response)=>{
-				res.status(200).send("delete requested for id ${req.params.userId}");
-			});
+			.get(EducationController.getById)
+			.put(EducationController.update)
+			.delete(EducationController.delete);
 		return this.app;
 	}
 }

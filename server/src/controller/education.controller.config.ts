@@ -8,20 +8,21 @@ import { Request,Response } from "express";
 
 class EducationController extends CommonControllerConfig{
 
-   	async create(req: Request,res: Response){
+   	  create = async (req: Request,res: Response)=>{
 		const id = uuidv4();
 		try{
 			const record = await Education.create({...req.body,id});
-			return res.json({record,msg: "Successfully created user"});
+			return res.json({record,msg: "Successfully created education"});
 		}
 		catch(e){
-			return res.json({msg: "failed to create education", status:500, route:"/users" });
+			console.log(id);
+			return res.json({msg: "failed to create education", status:500, route:"/education" });
 		}
 	}
 
 
 
-	async getAll(req: Request,res: Response){
+	 getAll = async(req: Request,res: Response)=>{
 		const uid = req.params.userId;
 		try{
 			const record = await Education.findAll({where: {
@@ -37,7 +38,7 @@ class EducationController extends CommonControllerConfig{
 
 
 
-	async getById(req: Request,res: Response){
+	getById = async(req: Request,res: Response)=>{
 		const uid = req.params.userId;
 		const eduId = req.params.educationId;
 		try{
@@ -57,6 +58,56 @@ class EducationController extends CommonControllerConfig{
 		}
 		catch(e){
 			return res.json({msg: "failed to get user details ",status: 500 , route:"/user/:userId" });
+		}
+	}
+	//update
+	update = async(req: Request , res: Response)=>{
+		//const uid = req.params.userId;
+		//const eduId = req.params.eduId;
+
+		try{
+			const uid = req.params.userId;
+			const eduId =  req.params.educationId;
+			const record = await Education.findOne({where:{
+
+				id : eduId,
+				userId: uid
+
+			}});
+
+			if(!record){
+				return res.json({ msg: "No record with these credentials exist."});
+			}
+
+			const newRec = await record.update({...req.body});
+			return res.json({newRec, msg:"Updated successfully."});
+		}
+		catch(e){
+			return res.json({error: e.message});
+		}
+	}
+
+
+	//delete function
+
+	delete = async(req: Request, res: Response)=>{
+		const uid = req.params.userId;
+		const eduId = req.params.educationId;
+
+		try{
+			const record = await Education.findOne({where:{
+				id: eduId,
+				userId: uid
+			}});
+
+			if(!record){
+				return  res.json({msg: "No record with these credentials exist."});
+			}
+			await record.destroy();
+			return res.json({msg:"Deleted Successfully."});
+		}
+		catch(e){
+			return res.json({error: e.message});
 		}
 	}
 

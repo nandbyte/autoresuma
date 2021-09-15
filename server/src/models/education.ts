@@ -39,11 +39,11 @@ const Education = sequelize.define<EducationInstance>(
 		},
 		passingYear:{
 			allowNull: true,
-			type:  DataTypes.TEXT
+			type:  DataTypes.INTEGER,
 		},
 		result:{
 			allowNull: true,
-			type: DataTypes.TEXT,
+			type: DataTypes.FLOAT,
 		},
 		institution:{
 			allowNull: false,
@@ -51,7 +51,7 @@ const Education = sequelize.define<EducationInstance>(
 		},
 		serial:{
 			allowNull: true,
-			type: DataTypes.TEXT,
+			type: DataTypes.INTEGER,
 		},
 		userId:{
 			allowNull: false,

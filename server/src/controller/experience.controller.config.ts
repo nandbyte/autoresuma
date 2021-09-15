@@ -57,6 +57,58 @@ class ExperienceController extends CommonControllerConfig{
 		}
 	}
 
+	//update
+	update = async(req: Request , res: Response)=>{
+		//const uid = req.params.userId;
+		//const eduId = req.params.eduId;
+
+		try{
+			const uid = req.params.userId;
+			const expId =  req.params.experinceId;
+			const record = await Experience.findOne({where:{
+
+				id : expId,
+				userId: uid
+
+			}});
+
+			if(!record){
+				return res.json({ msg: "No record with these credentials exist."});
+			}
+
+			const newRec = await record.update({...req.body});
+			return res.json({newRec, msg:"Updated successfully."});
+		}
+		catch(e){
+			return res.json({error: e.message});
+		}
+	}
+
+
+	//delete function
+
+	delete = async(req: Request, res: Response)=>{
+
+		const uid = req.params.userId;
+		const expId = req.params.experienceId;
+
+		try{
+			const record = await Experience.findOne({where:{
+				id: expId,
+				userId: uid
+			}});
+
+			if(!record){
+				return  res.json({msg: "No record with these credentials exist."});
+			}
+			await record.destroy();
+			return res.json({msg:"Deleted Successfully."});
+		}
+		catch(e){
+			return res.json({error: e.message});
+		}
+	}
+
 }
 
 

@@ -3,17 +3,12 @@ import  BioController  from "../controller/bio.controller.config";
 
 import express from "express";
 
-//let usercont = new UserController();
-
 export class BioRoutes extends CommonRoutesConfig{
 	constructor(app: express.Application){
 		super(app,'BioRoutes');
 	}
 
 	configureRoutes(){
-		//we'll add the actual route config here next
-
-
 		this.app.route('/bio/:userId')
 			.get(BioController.getAll)
 			.post(BioController.create,(req,res)=>{
@@ -25,19 +20,9 @@ export class BioRoutes extends CommonRoutesConfig{
 
 				next();
 			})
-			.get(
-
-				BioController.getById
-			)
-			.put((req,res)=>{
-				res.status(200).send('Put requested for id PUT requested for id ${req.params.userID}');
-			})
-			.patch((req: express.Request , res:express.Response)=>{
-				res.status(200).send("PATCH request for id $(req.params.userId)");
-			})
-			.delete((req:express.Request , res: express.Response)=>{
-				res.status(200).send("delete requested for id ${req.params.userId}");
-			});
+			.get(BioController.getById)
+			.put(BioController.update)
+			.delete(BioController.delete);
 		return this.app;
 	}
 }

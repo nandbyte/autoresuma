@@ -1,6 +1,3 @@
-
-
-
 import { CommonControllerConfig } from "../common/common.controllers.config";
 import Project from "../models/project";
 import {v4 as uuidv4} from "uuid";
@@ -57,6 +54,50 @@ class ProjectController extends CommonControllerConfig{
 			return res.json({msg: "failed to get user details ",status: 500 , route:"/user/:userId" });
 		}
 	}
+
+	update = async(req: Request, res: Response)=>{
+		try{
+			const uid = req.params.userId;
+			const projectId = req.params.projectId;
+
+			const record = await Project.findOne({where:{
+				id: projectId,
+				userId: uid
+			}});
+
+			if(!record){
+				return res.json({msg: "No record with these credentials exists ."});
+			}
+
+			const newRec = await record.update({...req.body});
+			return res.json({newRec,msg:"Updated succesfully . "});
+		}
+		catch(e){
+			return res.json({msg: "Failed to Update", status:500 , route: "/project/:userId/:experienceId"});
+		}
+	}
+
+	delete = async(req: Request,res: Response)=>{
+		try{
+			const uid = req.params.userId;
+			const projectId = req.params.projectId;
+			const record = await Project.findOne({where:{
+				id: projectId,
+				userId: uid
+			}});
+
+			if(!record){
+				return res.json({msg: "No record with these credentials exist. "});
+			}
+			await record.destroy({...req.body});
+			return res.json({msg: "Deleted Successfully.",status:200});
+		}
+		catch(e){
+			return res.json({msg:"Failed to delete.", status:500 , route: "/project/:userId/:experienceId"});
+		}
+	}
+
+
 
 }
 

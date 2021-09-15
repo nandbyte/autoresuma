@@ -4,15 +4,16 @@ import User from "../models/user";
 import {v4 as uuidv4} from "uuid";
 
 import { Request,Response } from "express";
+import {where} from "sequelize/types";
 
 
 class UserController extends CommonControllerConfig{
 
-	async registration(req:Request,res: Response){
+	registration = async(req:Request,res: Response)=>{
 		return await UserMiddleware.create(req,res);
 	}
 
-	async getAllUsers(req: Request,res: Response){
+	getAllUsers = async(req: Request,res: Response)=>{
 		try{
 			const record = await User.findAll({where: {}});
 			return res.json({record,msg:"list of all users"});
@@ -28,7 +29,7 @@ class UserController extends CommonControllerConfig{
 */
 //you need to "id" here and also in the route
 
-	async getById(req: Request,res: Response){
+	 getById = async(req: Request,res: Response)=>{
 		const uid = req.params.userId;
 		try{
 
@@ -62,28 +63,50 @@ class UserController extends CommonControllerConfig{
 		//const {id} = req.params;
 
 		try{
-			const {id} = req.params;
-			const record = await User.findOne({where: {id}});
-
+			const uid = req.params.userId;
+			const record = await User.findOne({where: {id:uid}});
+			console.log("ok");
 			if(!record){
 				return res.json({msg: "no record found bout this user"});
 			}
+			console.log(req.body);
 
-			const updatedRecord = await record.update({
-				completed: !record.getDataValue('completed'),
-			});
-			return res.json({record: updatedRecord});
+
+
+
+			const newRec = await record.update({...req.body}
+			);
+
+
+
+
+		      	//const newRec2 = await record.update(newRec,{where: {id:uid}});
+			return res.json({msg:"puts done",record:newRec});
+
 		}
 		catch(e){
 			return res.json({
-				msg: "fail to read",
-				status: 500,
-				route:"/update/:userId",
+				error: e.message
 			}
 			);
 		}
 	}
 
+	 delete = async(req: Request , res: Response)=>{
+		try{
+			const uid = req.params.userId;
+			const record = await User.findOne({where: {id:uid}});
+			if(!record){
+				return res.json({msg: "no record found about this user"});
+			}
+			await record.destroy();
+		}
+		catch(e){
+			return res.json({
+				error: e.message
+			});
+		}
+	}
 
 	async userSearch(req : Request , res: Response){
 
