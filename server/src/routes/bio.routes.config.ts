@@ -9,14 +9,11 @@ export class BioRoutes extends CommonRoutesConfig{
 	}
 
 	configureRoutes(){
-		this.app.route('/bio/:userId')
+		this.app.route('/v1/bio/:userId')
 			.get(BioController.getAll)
-			.post(BioController.create,(req,res)=>{
-				res.status(200).send("Dhuke nai keno ?");
-			});
-		this.app.route('/bio/:userId/:bioId')
+			.post(BioController.create);
+		this.app.route('/v1/bio/:userId/:bioId')
 			.all((req: express.Request,res: express.Response,next: express.NextFunction)=>{
-				//this middleware function runs before any request to /user/:userid
 
 				next();
 			})

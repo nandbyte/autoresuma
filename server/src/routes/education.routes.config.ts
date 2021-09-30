@@ -15,12 +15,10 @@ export class EducationRoutes extends CommonRoutesConfig{
 		//we'll add the actual route config here next
 
 
-		this.app.route('/education/:userId')
+		this.app.route('/v1/education/:userId')
 			.get(EducationController.getAll)
-			.post(EducationController.create,(req,res)=>{
-				res.status(200).send("Dhuke nai keno ?");
-			});
-		this.app.route('/education/:userId/:educationId')
+			.post(EducationController.create);
+		this.app.route('/v1/education/:userId/:educationId')
 			.all((req: express.Request,res: express.Response,next: express.NextFunction)=>{
 				//this middleware function runs before any request to /user/:userid
 

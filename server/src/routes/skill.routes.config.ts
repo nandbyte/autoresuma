@@ -16,12 +16,12 @@ export class SkillRoutes extends CommonRoutesConfig{
 		//we'll add the actual route config here next
 
 
-		this.app.route('/skill/:userId')
+		this.app.route('/v1/skill/:userId')
 			.get(SkillController.getAll)
 			.post(SkillController.create,(req,res)=>{
 				res.status(200).send("Dhuke nai keno ?");
 			});
-		this.app.route('/skill/:userId/:skillId')
+		this.app.route('/v1/skill/:userId/:skillId')
 			.all((req: express.Request,res: express.Response,next: express.NextFunction)=>{
 				//this middleware function runs before any request to /user/:userid
 
@@ -31,15 +31,8 @@ export class SkillRoutes extends CommonRoutesConfig{
 
 				SkillController.getById
 			)
-			.put((req,res)=>{
-				res.status(200).send('Put requested for id PUT requested for id ${req.params.userID}');
-			})
-			.patch((req: express.Request , res:express.Response)=>{
-				res.status(200).send("PATCH request for id $(req.params.userId)");
-			})
-			.delete((req:express.Request , res: express.Response)=>{
-				res.status(200).send("delete requested for id ${req.params.userId}");
-			});
+			.put(SkillController.update)
+			.delete(SkillController.delete);
 		return this.app;
 	}
 }

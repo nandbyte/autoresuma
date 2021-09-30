@@ -1,9 +1,7 @@
 
-
 import { CommonControllerConfig } from "../common/common.controllers.config";
 import Bio from "../models/bio";
 import {v4 as uuidv4} from "uuid";
-
 import { Request,Response } from "express";
 
 
@@ -13,14 +11,12 @@ class BioController extends CommonControllerConfig{
 		const id = uuidv4();
 		try{
 			const record = await Bio.create({...req.body,id});
-			return res.json({record,msg: "Successfully created user"});
+			return res.json({status:201,msg: "OK",route:"/bio",record});
 		}
 		catch(e){
-			return res.json({msg: "failed to create bio", status:500, route:"/bio" });
+			return res.json({msg:e.message, status:500, route:"/v1/bio" });
 		}
 	}
-
-
 
 	async getAll(req: Request,res: Response){
 		const uid = req.params.userId;
@@ -28,9 +24,9 @@ class BioController extends CommonControllerConfig{
 			const record = await Bio.findAll({where: {
 				userId : uid
 			}});
-			return res.json({record,msg:"list of all bio"});
+			return res.json({status:200,msg:"OK",router:"/v1/bio",record});
 		}catch(e){
-			return res.json({msg: "failed to get list of all bio", status: 500 , router:"/bio"});
+			return res.json({status:500, msg: e.message, router:"/v1/bio"});
 		}
 	}
 
@@ -42,18 +38,16 @@ class BioController extends CommonControllerConfig{
 			const record = await Bio.findOne({where:{
 				id : bioId,
 				userId: uid
-
-
 			}});
 
 			if(!record){
-				return res.json({msg: "No User with this email exists!"});
+				return res.json({status:204,msg:"NO CONTENT",route:"/v1/bio/:userId/:bioId"});
 			}
 
-			return res.json({record,msg: "user details got successfully"});
+			return res.json({status:200,msg:"OK",route:"/v1/bio/:userId/:bioId",record});
 		}
 		catch(e){
-			return res.json({msg: "failed to get user details ",status: 500 , route:"/bio/:userId/:bioId"});
+			return res.json({status:500,msg:e.message , route:"v1/bio/:userId/:bioId"});
 		}
 	}
 
@@ -69,15 +63,15 @@ class BioController extends CommonControllerConfig{
 			}});
 
 			if(!record){
-				return res.json({msg: "No records with these credentials exist."});
+				return res.json({status:204,msg: "NO CONTENT",route:"/v1/bio/:userId/:bioId"});
 			}
 
 			const newRec = await record.update({...req.body});
-			return res.json({newRec,msg:"Updated Successfully."});
+			return res.json({status:200,msg:"OK",route:"/v1/bio/:userId/:bioId",newRec});
 
 		}
 		catch(e){
-			return res.json({msg: "failed to update user bio .",status: 500 , source:"/bio/:userId/:bioId",error: e.message});
+			return res.json({status:500, msg:e.message, source:"/v1/bio/:userId/:bioId"});
 		}
 	}
 
@@ -92,16 +86,16 @@ class BioController extends CommonControllerConfig{
 			}});
 
 			if(!record){
-				return res.json({msg:"No record with these credentials exist."});
+				return res.json({status:204, msg:"NO CONTENT", route:"/v1/bio/:userId/:bioId"});
 			}
 
 			const newRec = await record.update({...req.body});
-			return res.json({newRec, msg:"Updated successfully."});
+			return res.json({status:200,msg:"OK",route:"/v1/bio/:userId/:bioId",newRec});
 
 
 		 }
 		 catch(e){
-			 return res.json({msg:"failed to delete user bio.",status: 500, source:"bio/:userId/:bioId",error: e.message});
+			 return res.json({status: 500, msg: e.message, route:"/v1/bio/:userId/:bioId"});
 		 }
 	 }
 

@@ -2,68 +2,56 @@
 import { CommonControllerConfig } from "../common/common.controllers.config";
 import Education from "../models/education";
 import {v4 as uuidv4} from "uuid";
-
 import { Request,Response } from "express";
 
 
 class EducationController extends CommonControllerConfig{
 
-   	  create = async (req: Request,res: Response)=>{
-		const id = uuidv4();
+   	create = async (req: Request,res: Response)=>{
 		try{
+			const id = uuidv4();
 			const record = await Education.create({...req.body,id});
-			return res.json({record,msg: "Successfully created education"});
+			return res.json({status:200, msg:"OK", route:"/v1/education", record});
 		}
 		catch(e){
-			console.log(id);
-			return res.json({msg: "failed to create education", status:500, route:"/education" });
+			return res.json({status:500,msg:e.message, route:"/v1/education" });
 		}
 	}
 
 
-
-	 getAll = async(req: Request,res: Response)=>{
-		const uid = req.params.userId;
+	getAll = async(req: Request,res: Response)=>{
 		try{
-			const record = await Education.findAll({where: {
-				userId : uid
-			}});
-			return res.json({record,msg:"list of all users"});
+			const uid = req.params.userId;
+			const record = await Education.findAll({where: {userId : uid}});
+			return res.json({status:200,msg:"OK",route:"/v1/education",record});
 		}catch(e){
-			return res.json({msg: "failed to get list of all users", status: 500 , router:"/users"});
+			return res.json({status: 500 ,msg:e.message, router:"/v1/education"});
 		}
 	}
-
-
-
 
 
 	getById = async(req: Request,res: Response)=>{
-		const uid = req.params.userId;
-		const eduId = req.params.educationId;
 		try{
 
+			const uid = req.params.userId;
+			const eduId = req.params.educationId;
 			const record = await Education.findOne({where:{
 				id : eduId,
 				userId: uid
-
-
 			}});
 
 			if(!record){
-				return res.json({msg: "No User with this email exists!"});
+				return res.json({status:204, msg:"NO CONTENT",route:"/v1/education/:userId/:educationId"});
 			}
 
-			return res.json({record,msg: "user details got successfully"});
+			return res.json({status:200, msg:"OK", route:"/v1/education/:userId/:educationId"});
 		}
 		catch(e){
-			return res.json({msg: "failed to get user details ",status: 500 , route:"/user/:userId" });
+			return res.json({status:500, msg: e.message, route:"/v1/education/:userId/:educationId" });
 		}
 	}
-	//update
+
 	update = async(req: Request , res: Response)=>{
-		//const uid = req.params.userId;
-		//const eduId = req.params.eduId;
 
 		try{
 			const uid = req.params.userId;
@@ -76,38 +64,35 @@ class EducationController extends CommonControllerConfig{
 			}});
 
 			if(!record){
-				return res.json({ msg: "No record with these credentials exist."});
+				return res.json({ status:204,msg: "NO CONTENT",route:"/v1/education/:userId/:educationId"});
 			}
 
 			const newRec = await record.update({...req.body});
-			return res.json({newRec, msg:"Updated successfully."});
+			return res.json({status:200,msg:"OK",route:"/v1/education/:userId/:educationId",newRec});
 		}
 		catch(e){
-			return res.json({error: e.message});
+			return res.json({status:500, msg: e.message, route:"/v1/education/:userId/:educationId"});
 		}
 	}
 
-
-	//delete function
-
 	delete = async(req: Request, res: Response)=>{
-		const uid = req.params.userId;
-		const eduId = req.params.educationId;
 
 		try{
+			const uid = req.params.userId;
+			const eduId = req.params.educationId;
 			const record = await Education.findOne({where:{
 				id: eduId,
 				userId: uid
 			}});
 
 			if(!record){
-				return  res.json({msg: "No record with these credentials exist."});
+				return  res.json({status:204,msg:"NO CONTENT",route:"/v1/education/:userId/:educationId"});
 			}
 			await record.destroy();
-			return res.json({msg:"Deleted Successfully."});
+			return res.json({status:200,msg:"OK",route:"/v1/education/:userId/:educationId"});
 		}
 		catch(e){
-			return res.json({error: e.message});
+			return res.json({status:500, msg: e.message, route:"/v1/education/:userId/:educationId"});
 		}
 	}
 

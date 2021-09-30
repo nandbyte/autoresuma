@@ -17,12 +17,12 @@ export class ResumeRoutes extends CommonRoutesConfig{
 		//we'll add the actual route config here next
 
 
-		this.app.route('/resume/:userId')
+		this.app.route('/v1/resume/:userId')
 			.get(ResumeController.getAll)
 			.post(ResumeController.create,(req,res)=>{
 				res.status(200).send("Dhuke nai keno ?");
 			});
-		this.app.route('/resume/:userId/:resumeId')
+		this.app.route('/v1/resume/:userId/:resumeId')
 			.all((req: express.Request,res: express.Response,next: express.NextFunction)=>{
 				//this middleware function runs before any request to /user/:userid
 
@@ -32,15 +32,8 @@ export class ResumeRoutes extends CommonRoutesConfig{
 
 				ResumeController.getById
 			)
-			.put((req,res)=>{
-				res.status(200).send('Put requested for id PUT requested for id ${req.params.userID}');
-			})
-			.patch((req: express.Request , res:express.Response)=>{
-				res.status(200).send("PATCH request for id $(req.params.userId)");
-			})
-			.delete((req:express.Request , res: express.Response)=>{
-				res.status(200).send("delete requested for id ${req.params.userId}");
-			});
+			.put(ResumeController.update)
+			.delete(ResumeController.delete);
 		return this.app;
 	}
 }

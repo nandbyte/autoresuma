@@ -16,12 +16,10 @@ export class ExperienceRoutes extends CommonRoutesConfig{
 		//we'll add the actual route config here next
 
 
-		this.app.route('/experience/:userId')
+		this.app.route('/v1/experience/:userId')
 			.get(ExperienceController.getAll)
-			.post(ExperienceController.create,(req,res)=>{
-				res.status(200).send("Dhuke nai keno ?");
-			});
-		this.app.route('/experience/:userId/:experienceId')
+			.post(ExperienceController.create);
+		this.app.route('/v1/experience/:userId/:experienceId')
 			.all((req: express.Request,res: express.Response,next: express.NextFunction)=>{
 				//this middleware function runs before any request to /user/:userid
 

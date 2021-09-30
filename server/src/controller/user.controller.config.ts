@@ -1,42 +1,53 @@
 import { CommonControllerConfig } from "../common/common.controllers.config";
-import UserMiddleware  from "../middleware/user.middleware";
 import User from "../models/user";
 import {v4 as uuidv4} from "uuid";
 
 import { Request,Response } from "express";
-import {where} from "sequelize/types";
 
 
 class UserController extends CommonControllerConfig{
 
-	registration = async(req:Request,res: Response)=>{
-		return await UserMiddleware.create(req,res);
-	}
 
-	getAllUsers = async(req: Request,res: Response)=>{
+	create = async(req: Request, res: Response)=>{
+
 		try{
-			const record = await User.findAll({where: {}});
-			return res.json({record,msg:"list of all users"});
-		}catch(e){
-			return res.json({msg: "failed to get list of all users", status: 500 , router:"/users"});
+			const id = uuidv4();
+			const record = await User.create({...req.body,id});
+
+			return res.json({status:201, msg:"OK", route:"/v1/profile/:userId", record});
+		}
+		catch(e){
+
+			return res.json({status:500,msg:e.message,route: "/v1/profile/:userId"});
 		}
 	}
 
+	getAllUsers = async(res: Response)=>{
+		try{
+			const record = await User.findAll({where: {}});
 
-/*	async getProfileById(req: Request , res: Response){
-		return UserMiddleware.getUserDetails(req, res);
+			if(!record){
+				return res.json({status:204, msg:"NOT FOUND",route:"/profile"});
+			}
+
+			return res.json({status:200, msg:"OK", route:"/v1/profile", record });
+
+		}
+		catch(e){
+
+			return res.json({status:500,msg: e.message, router:"/v1/profile"});
+		}
 	}
-*/
-//you need to "id" here and also in the route
 
-	 getById = async(req: Request,res: Response)=>{
-		const uid = req.params.userId;
+	getById = async(req: Request,res: Response)=>{
+
 		try{
 
+			const uid = req.params.userId;
 			const record = await User.findOne({where:{id : uid }});
 
 			if(!record){
-				return res.json({msg: "No User with this email exists!"});
+				return res.json({status:204,msg: "NO CONTENT",route:"/v1/profile/:userId"});
 			}
 
 			const data = {
@@ -50,45 +61,30 @@ class UserController extends CommonControllerConfig{
 				linkedin: record.linkedin,
 			}
 
-			return res.json({data,msg: "user details got successfully"});
+			return res.json({status:200, msg: "OK", route:"/v1/profile/:userId" ,data});
 		}
 		catch(e){
-			return res.json({msg: "failed to get user details ",status: 500 , route:"/user/:userId" });
+			return res.json({status:500, msg: e.message, route:"/v1/profile/:userId" });
 		}
 	}
 
-
-
-	async update(req: Request,res: Response){
-		//const {id} = req.params;
-
+	update = async(req: Request,res: Response)=>{
 		try{
 			const uid = req.params.userId;
 			const record = await User.findOne({where: {id:uid}});
-			console.log("ok");
+
 			if(!record){
-				return res.json({msg: "no record found bout this user"});
+				return res.json({status:204, msg: "NO CONTENT", route:"/v1/profile/:userId"});
 			}
-			console.log(req.body);
 
 
+			const newRec = await record.update({...req.body});
 
-
-			const newRec = await record.update({...req.body}
-			);
-
-
-
-
-		      	//const newRec2 = await record.update(newRec,{where: {id:uid}});
-			return res.json({msg:"puts done",record:newRec});
+			return res.json({status:200,msg:"OK", route:"/v1/profile/:userId", record: newRec});
 
 		}
 		catch(e){
-			return res.json({
-				error: e.message
-			}
-			);
+			return res.json({status:500,msg: e.message,route:"/v1/profile/:userId"});
 		}
 	}
 
@@ -97,28 +93,14 @@ class UserController extends CommonControllerConfig{
 			const uid = req.params.userId;
 			const record = await User.findOne({where: {id:uid}});
 			if(!record){
-				return res.json({msg: "no record found about this user"});
+				return res.json({status:204, msg: "NO CONTENT", route:"/v1/profile/:userId"});
 			}
 			await record.destroy();
+			return res.json({staus:200, msg:"OK",route:"/v1/profile/:userId"});
 		}
 		catch(e){
-			return res.json({
-				error: e.message
-			});
+			return res.json({status:500,error: e.message,route:"/v1/profile/:userId"});
 		}
 	}
-
-	async userSearch(req : Request , res: Response){
-
-		try{
-
-		}catch(e){
-
-		}
-	}
-
- }
-
-
-
+}
 export default new UserController();

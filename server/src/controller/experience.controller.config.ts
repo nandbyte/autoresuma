@@ -1,44 +1,44 @@
 
-
 import { CommonControllerConfig } from "../common/common.controllers.config";
 import Experience from "../models/experience";
 import {v4 as uuidv4} from "uuid";
-
 import { Request,Response } from "express";
 
 
 class ExperienceController extends CommonControllerConfig{
 
-   	async create(req: Request,res: Response){
-		const id = uuidv4();
+   	 create = async(req: Request,res: Response) => {
+
 		try{
+			const id = uuidv4();
 			const record = await Experience.create({...req.body,id});
-			return res.json({record,msg: "Successfully created user"});
+			return res.json({status:200, msg:"OK", route:"/v1/experience",record});
 		}
 		catch(e){
-			return res.json({msg: "failed to create", status:500, route:"/users" });
+			return res.json({status:500, msg: e.message , router:"/v1/experience"});
 		}
 	}
 
 
-	async getAll(req: Request,res: Response){
-		const uid = req.params.userId;
+	getAll = async(req: Request,res: Response) => {
+
 		try{
+			const uid = req.params.userId;
 			const record = await Experience.findAll({where: {
 				userId: uid
 			}});
-			return res.json({record,msg:"list of all users"});
+			return res.json({status:200, msg:"OK",route:"/v1/experience",record});
 		}catch(e){
-			return res.json({msg: "failed to get list of all users", status: 500 , router:"/users"});
+			return res.json({status:500, msg: e.message , router:"/v1/experience"});
 		}
 	}
 
 
-	async getById(req: Request,res: Response){
-		const uid = req.params.userId;
-		const expId = req.params.experinceId;
-		try{
+	getById = async(req: Request,res: Response)=>{
 
+		try{
+			const uid = req.params.userId;
+			const expId = req.params.experinceId;
 			const record = await Experience.findOne({where:{
 				id : expId,
 				userId: uid
@@ -47,20 +47,17 @@ class ExperienceController extends CommonControllerConfig{
 			}});
 
 			if(!record){
-				return res.json({msg: "No User with this email exists!"});
+				return res.json({status:204,msg: "NO CONTENT",route:"/v1/experience/:userId/:experinceId"});
 			}
 
-			return res.json({record,msg: "user details got successfully"});
+			return res.json({status:200,msg:"OK",record,route:"/v1/experience/:userId/:experinceId"});
 		}
 		catch(e){
-			return res.json({msg: "failed to get user details ",status: 500 , route:"/user/:userId" });
+			return res.json({status: 500 ,msg:e.message ,route:"/v1/experience/:userId/:experinceId" });
 		}
 	}
 
-	//update
 	update = async(req: Request , res: Response)=>{
-		//const uid = req.params.userId;
-		//const eduId = req.params.eduId;
 
 		try{
 			const uid = req.params.userId;
@@ -73,39 +70,36 @@ class ExperienceController extends CommonControllerConfig{
 			}});
 
 			if(!record){
-				return res.json({ msg: "No record with these credentials exist."});
+				return res.json({ status:204,msg: "NO CONTENT",route:"/v1/experience/:userId/:experinceId"});
 			}
 
 			const newRec = await record.update({...req.body});
-			return res.json({newRec, msg:"Updated successfully."});
+			return res.json({status:200,msg:"OK",route:"/v1/experience/:userId/:experinceId",newRec});
 		}
 		catch(e){
-			return res.json({error: e.message});
+			return res.json({status:500,msg:e.message,route:"/v1/experience/:userId/:experinceId"});
 		}
 	}
 
-
-	//delete function
-
 	delete = async(req: Request, res: Response)=>{
 
-		const uid = req.params.userId;
-		const expId = req.params.experienceId;
 
 		try{
+			const uid = req.params.userId;
+			const expId = req.params.experienceId;
 			const record = await Experience.findOne({where:{
 				id: expId,
 				userId: uid
 			}});
 
 			if(!record){
-				return  res.json({msg: "No record with these credentials exist."});
+				return res.json({ status:204,msg: "NO CONTENT",route:"/v1/experience/:userId/:experinceId"});
 			}
 			await record.destroy();
-			return res.json({msg:"Deleted Successfully."});
+			return res.json({status:200,msg:"OK",route:"/v1/experience/:userId/:experinceId"});
 		}
 		catch(e){
-			return res.json({error: e.message});
+			return res.json({status:500,msg:e.message,route:"/v1/experience/:userId/:experinceId"});
 		}
 	}
 
