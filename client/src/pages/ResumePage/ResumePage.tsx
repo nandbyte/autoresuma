@@ -15,7 +15,7 @@ const ResumePage = () => {
                 <Stack
                     px={{ base: 8, xl: 16 }}
                     justifyContent="space-between"
-                    width={{ base: "100%", xl: "1200px" }}
+                    width={{ base: "100%", xl: "80em" }}
                 >
                     <Box pt={{ base: 8, xl: 16 }}>
                         <Heading

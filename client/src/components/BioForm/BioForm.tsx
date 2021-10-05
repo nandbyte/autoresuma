@@ -42,6 +42,7 @@ const BioForm = () => {
         event.preventDefault();
         switchToBioView();
     };
+
     const handleSave: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         event.preventDefault();
         saveBio({
@@ -59,7 +60,6 @@ const BioForm = () => {
                 <FormControl id="first-name">
                     <FormLabel>First Name</FormLabel>
                     <Input
-                        focusBorderColor="gray.300"
                         placeholder="First Name"
                         value={firstName}
                         onChange={(event) => {
@@ -70,7 +70,6 @@ const BioForm = () => {
                 <FormControl id="last-name">
                     <FormLabel>Last Name</FormLabel>
                     <Input
-                        focusBorderColor="gray.300"
                         placeholder="Last Name"
                         value={lastName}
                         onChange={(event) => {
@@ -81,7 +80,6 @@ const BioForm = () => {
                 <FormControl id="address">
                     <FormLabel>Address</FormLabel>
                     <Input
-                        focusBorderColor="gray.300"
                         placeholder="Address"
                         value={address}
                         onChange={(event) => {
@@ -92,7 +90,6 @@ const BioForm = () => {
                 <FormControl id="country">
                     <FormLabel>Country</FormLabel>
                     <Select
-                        focusBorderColor="gray.300"
                         placeholder="Select country"
                         value={country}
                         onChange={(event) => {
@@ -106,7 +103,6 @@ const BioForm = () => {
                 <FormControl id="zip-code">
                     <FormLabel>ZIP Code</FormLabel>
                     <Input
-                        focusBorderColor="gray.300"
                         placeholder="ZIP code"
                         value={zipCode}
                         onChange={(event) => {
@@ -115,24 +111,8 @@ const BioForm = () => {
                     />
                 </FormControl>
                 <Stack direction="row">
-                    <Button
-                        backgroundColor="red.600"
-                        _hover={{
-                            bg: "red.700",
-                        }}
-                        onClick={handleSave}
-                    >
-                        Save
-                    </Button>
-                    <Button
-                        backgroundColor="red.600"
-                        _hover={{
-                            bg: "red.700",
-                        }}
-                        onClick={handleCancel}
-                    >
-                        Cancel
-                    </Button>
+                    <Button onClick={handleSave}>Save</Button>
+                    <Button onClick={handleCancel}>Cancel</Button>
                 </Stack>
             </Stack>
         </form>

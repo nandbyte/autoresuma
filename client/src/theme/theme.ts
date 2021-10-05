@@ -12,6 +12,7 @@ import colors from "./foundations/colors";
 import Button from "./components/button";
 import Link from "./components/link";
 import Input from "./components/input";
+import Heading from "./components/heading";
 
 const overrides = {
     config,
@@ -23,6 +24,8 @@ const overrides = {
         Button,
         Link,
         Input,
+        Heading,
     },
 };
+
 export default extendTheme(overrides);

@@ -1,6 +1,13 @@
+import { InputProps } from "@chakra-ui/input";
+
 const Input = {
-    baseStyle: {
-        focusBorderColor: "red.500",
+    variants: {
+        outline: (props: InputProps) => ({
+            fontWeight: "bold",
+        }),
+    },
+    defaultProps: {
+        focusBorderColor: "red.200",
     },
 };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SimpleGrid } from "@chakra-ui/react";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 import { useHistory, useLocation } from "react-router-dom";
@@ -14,11 +14,18 @@ const TabView = (props: any) => {
     const location = useLocation();
     const history = useHistory();
 
-    const getCurrentLocation = (): number => {
+    const [currentTab, setCurrentTab] = useState<number>(0);
+
+    useEffect(() => {
+        refreshTabIndex();
+    }, [location]);
+
+    const refreshTabIndex = (): void => {
         for (let i = 0; i < tabList.length; i++) {
-            if (tabList[i].tabLink === location.pathname) return i;
+            if (tabList[i].tabLink === location.pathname) {
+                setCurrentTab(i);
+            }
         }
-        return 0;
     };
 
     const handleTabChange = (index: number) => {
@@ -27,7 +34,7 @@ const TabView = (props: any) => {
 
     return (
         <Tabs
-            defaultIndex={getCurrentLocation()}
+            index={currentTab}
             onChange={(index) => handleTabChange(index)}
             colorScheme="red"
             variant="solid-rounded"

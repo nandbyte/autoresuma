@@ -34,51 +34,55 @@ const Navbar = () => {
     );
 
     return (
-        <Box
-            bg={useColorModeValue("gray.900", "gray.900")}
-            px={4}
-            shadow={"md"}
-        >
-            <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-                <Box display={{ base: "flex", lg: "none" }} w={8} />
-                <LogoContainer />
-                <HStack
-                    as={"nav"}
-                    spacing={4}
-                    display={{ base: "none", lg: "flex" }}
+        <Box bg={useColorModeValue("gray.900", "gray.900")} shadow={"md"}>
+            <Flex w="100%" justifyContent="space-around">
+                <Flex
+                    h={16}
+                    alignItems={"center"}
+                    justifyContent={"space-between"}
+                    w={{ base: "100%", xl: "80em" }}
+                    px={{ base: 8, lg: 16, xl: 16 }}
                 >
-                    {Links.map((link) => (
-                        <NavLink
-                            key={link.href}
-                            href={link.href}
-                            hoverTextColor={"primary.700"}
-                            hoverBgColor={"primary.50"}
-                        >
-                            {link.name}
-                        </NavLink>
-                    ))}
+                    <Box display={{ base: "flex", lg: "none" }} w={8} />
+                    <LogoContainer />
+                    <HStack
+                        as={"nav"}
+                        spacing={4}
+                        display={{ base: "none", lg: "flex" }}
+                    >
+                        {Links.map((link) => (
+                            <NavLink
+                                key={link.href}
+                                href={link.href}
+                                hoverTextColor={"primary.700"}
+                                hoverBgColor={"primary.50"}
+                            >
+                                {link.name}
+                            </NavLink>
+                        ))}
+                        <IconButton
+                            size="md"
+                            fontSize="lg"
+                            variant="ghost"
+                            color="current"
+                            icon={isOpen ? CrossIcon : BarIcon}
+                            aria-label={"Open Navigation Menu"}
+                            display={{ lg: "none" }}
+                            onClick={isOpen ? onClose : onOpen}
+                        />
+                    </HStack>
                     <IconButton
                         size="md"
                         fontSize="lg"
                         variant="ghost"
                         color="current"
+                        w={8}
                         icon={isOpen ? CrossIcon : BarIcon}
                         aria-label={"Open Navigation Menu"}
                         display={{ lg: "none" }}
                         onClick={isOpen ? onClose : onOpen}
                     />
-                </HStack>
-                <IconButton
-                    size="md"
-                    fontSize="lg"
-                    variant="ghost"
-                    color="current"
-                    w={8}
-                    icon={isOpen ? CrossIcon : BarIcon}
-                    aria-label={"Open Navigation Menu"}
-                    display={{ lg: "none" }}
-                    onClick={isOpen ? onClose : onOpen}
-                />
+                </Flex>
             </Flex>
             {isOpen ? (
                 <Box pb={4} display={{ lg: "none" }}>

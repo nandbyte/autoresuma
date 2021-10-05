@@ -47,63 +47,31 @@ const ProjectComponent: React.FC<Props> = (props: Props) => {
                     </Stack>
                     <FormControl id="project-title" isRequired>
                         <FormLabel>Project Title</FormLabel>
-                        <Input
-                            focusBorderColor="gray.300"
-                            placeholder="Google"
-                        />
+                        <Input placeholder="Google" />
                     </FormControl>
                     <FormControl id="project-description" isRequired>
                         <FormLabel>Project Description</FormLabel>
-                        <Input
-                            focusBorderColor="gray.300"
-                            placeholder="Search Engine"
-                        />
+                        <Input placeholder="Search Engine" />
                     </FormControl>
                     <FormControl id="language">
                         <FormLabel>Language</FormLabel>
-                        <Input
-                            focusBorderColor="gray.300"
-                            placeholder="C++, JS"
-                        />
+                        <Input placeholder="C++, JS" />
                     </FormControl>
                     <FormControl id="technology">
                         <FormLabel>Technology</FormLabel>
-                        <Input
-                            focusBorderColor="gray.300"
-                            placeholder="Flutter, Firebase"
-                        />
+                        <Input placeholder="Flutter, Firebase" />
                     </FormControl>
                     <FormControl id="github-link">
                         <FormLabel>Github Link</FormLabel>
-                        <Input
-                            focusBorderColor="gray.300"
-                            placeholder="https://github.com/nandbyte/autoresuma"
-                        />
+                        <Input placeholder="https://github.com/nandbyte/autoresuma" />
                     </FormControl>
                     <FormControl id="date">
                         <FormLabel>Date of Completion</FormLabel>
-                        <Input
-                            focusBorderColor="gray.300"
-                            placeholder="December, 2020"
-                        />
+                        <Input placeholder="December, 2020" />
                     </FormControl>
                     <Stack direction="row">
-                        <Button
-                            backgroundColor="red.600"
-                            _hover={{
-                                bg: "red.700",
-                            }}
-                        >
-                            Update
-                        </Button>
-                        <Button
-                            backgroundColor="red.600"
-                            _hover={{
-                                bg: "red.700",
-                            }}
-                        >
-                            Save
-                        </Button>
+                        <Button>Update</Button>
+                        <Button>Save</Button>
                     </Stack>
                 </Stack>
             </form>

@@ -13,6 +13,7 @@ import SkillTab from "../SkillTab";
 import ExperienceTab from "../ExperienceTab";
 import { Flex } from "@chakra-ui/react";
 import SubsectionDivider from "../../components/SubsectionDivider";
+import PageContainer from "../../components/PageContainer";
 
 const tabs: Array<TabObject> = [
     {
@@ -45,31 +46,16 @@ const tabs: Array<TabObject> = [
 
 const ProfilePage = () => {
     return (
-        <Box justifyItems="center">
-            <Navbar />
-            <Flex width="100%" justifyContent="center">
-                <Stack
-                    px={{ base: 8, xl: 16 }}
-                    justifyContent="space-between"
-                    width={{ base: "100%", xl: "1200px" }}
-                >
-                    <Box py={{ base: 8, xl: 16 }}>
-                        <Heading
-                            textAlign={{ base: "center", lg: "left" }}
-                            fontWeight="black"
-                        >
-                            Profile
-                        </Heading>
-                        <SubsectionDivider />
-                        <TabView tabList={tabs} />
-                    </Box>
-                    <Box>
-                        <SectionDivider />
-                        <Credit />
-                    </Box>
-                </Stack>
-            </Flex>
-        </Box>
+        <PageContainer>
+            <Heading
+                textAlign={{ base: "center", lg: "left" }}
+                fontWeight="black"
+            >
+                Profile
+            </Heading>
+            <SubsectionDivider />
+            <TabView tabList={tabs} />
+        </PageContainer>
     );
 };
 
