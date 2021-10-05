@@ -32,7 +32,7 @@ const EducationView: React.FC<Props> = (props: Props) => {
     return (
         <Stack>
             <Stack direction="row" justifyContent="space-between">
-                <Heading variant="tab">{props.content.degree}</Heading>
+                <Heading variant="tab">{props.content.certificateName}</Heading>
                 <Stack direction="row">
                     <IconButton
                         aria-label="Move Up"
@@ -58,7 +58,7 @@ const EducationView: React.FC<Props> = (props: Props) => {
                                     Year of Passing
                                 </Heading>
                             </FormLabel>
-                            <FormLabel>{props.content.yearOfPassing}</FormLabel>
+                            <FormLabel>{props.content.passingYear}</FormLabel>
                         </FormControl>
                     </SkeletonText>
                     <SkeletonText
@@ -81,17 +81,6 @@ const EducationView: React.FC<Props> = (props: Props) => {
                                 <Heading variant="label">Institution</Heading>
                             </FormLabel>
                             <FormLabel>{props.content.institution}</FormLabel>
-                        </FormControl>
-                    </SkeletonText>
-                    <SkeletonText
-                        noOfLines={3}
-                        isLoaded={!loading[props.index]}
-                    >
-                        <FormControl id="subject">
-                            <FormLabel>
-                                <Heading variant="label">Subject</Heading>
-                            </FormLabel>
-                            <FormLabel>{props.content.subject}</FormLabel>
                         </FormControl>
                     </SkeletonText>
                 </Stack>

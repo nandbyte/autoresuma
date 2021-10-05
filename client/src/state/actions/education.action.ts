@@ -7,48 +7,89 @@ interface FetchEducationsAction {
 
 interface FetchEducationsSuccessAction {
     type: ActionType.FETCH_EDUCATIONS_SUCCESS;
-    payload: Education[];
-}
-
-interface UpdateEducationAction {
-    type: ActionType.UPDATE_EDUCATION;
-    payload: number;
-}
-
-interface UpdateEducationSuccessAction {
-    type: ActionType.UPDATE_EDUCATION_SUCCESS;
-    payload: number;
-}
-interface SaveEducationAction {
-    type: ActionType.SAVE_EDUCATION;
-}
-
-interface SaveEducationSuccessAction {
-    type: ActionType.SAVE_EDUCATION_SUCCESS;
     payload: {
-        targetIndex: number;
-        updatedEducation: Education;
+        educations: Education[];
+    };
+}
+
+interface FormUpdateEducationAction {
+    type: ActionType.FORM_UPDATE_EDUCATION;
+    payload: {
+        formIndex: number;
+    };
+}
+
+interface FormUpdateEducationSuccessAction {
+    type: ActionType.FORM_UPDATE_EDUCATION_SUCCESS;
+    payload: {
+        formIndex: number;
+    };
+}
+
+interface UpdateEducationsAction {
+    type: ActionType.UPDATE_EDUCATIONS;
+}
+
+interface UpdateEducationsSuccessAction {
+    type: ActionType.UPDATE_EDUCATIONS_SUCCESS;
+    payload: {
+        updatedEducations: Education[];
     };
 }
 
 interface AddEducationAction {
     type: ActionType.ADD_EDUCATION;
-    payload: Education;
+    payload: {
+        newIndex: number;
+        newEducation: Education;
+    };
+}
+interface CancelAddEducationAction {
+    type: ActionType.CANCEL_ADD_EDUCATION;
+}
+
+interface AddEducationSuccessAction {
+    type: ActionType.ADD_EDUCATION_SUCCESS;
+    payload: {
+        newIndex: number;
+    };
+}
+
+interface SaveNewEducationAction {
+    type: ActionType.SAVE_NEW_EDUCATION;
+    payload: {
+        newIndex: number;
+        newEducation: Education;
+    };
+}
+
+interface SaveNewEducationSuccessAction {
+    type: ActionType.SAVE_NEW_EDUCATION_SUCCESS;
+    payload: {
+        newIndex: number;
+        newEducation: Education;
+    };
 }
 
 interface EducationErrorAction {
     type: ActionType.EDUCATION_ERROR;
-    payload: string;
+    payload: {
+        error: string;
+    };
 }
 
 type EducationAction =
     | FetchEducationsAction
     | FetchEducationsSuccessAction
-    | UpdateEducationAction
-    | UpdateEducationSuccessAction
-    | SaveEducationAction
-    | SaveEducationSuccessAction
+    | FormUpdateEducationAction
+    | FormUpdateEducationSuccessAction
+    | UpdateEducationsAction
+    | UpdateEducationsSuccessAction
     | AddEducationAction
+    | CancelAddEducationAction
+    | AddEducationSuccessAction
+    | SaveNewEducationAction
+    | SaveNewEducationSuccessAction
     | EducationErrorAction;
 
 export default EducationAction;

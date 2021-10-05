@@ -1,20 +1,23 @@
 import React, { useEffect } from "react";
 import { Box } from "@chakra-ui/layout";
-import { Stack } from "@chakra-ui/react";
+import { Stack, Button } from "@chakra-ui/react";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import EducationView from "../../components/EducationView";
 import EducationForm from "../../components/EducationForm";
+import EducationAddition from "../../components/EducationAddition";
+
+import dummyId from "../../api/dummy";
 
 const EducationTab = () => {
-    const { currentState, updating } = useTypedSelector(
+    const { currentState, updating, loading, adding } = useTypedSelector(
         (state) => state.educations
     );
 
     const { fetchEducations } = useActions();
 
     useEffect(() => {
-        fetchEducations();
+        fetchEducations(dummyId);
     }, []);
 
     return (
@@ -30,7 +33,7 @@ const EducationTab = () => {
                                 p={6}
                                 borderRadius="md"
                             >
-                                {updating[index] === true ? (
+                                {updating[index] && !loading[index] ? (
                                     <EducationForm
                                         key={index}
                                         index={index}
@@ -46,6 +49,11 @@ const EducationTab = () => {
                             </Box>
                         );
                     })}
+                    {adding ? (
+                        <EducationAddition />
+                    ) : (
+                        <Button>Add Education</Button>
+                    )}
                 </Stack>
             </Box>
         </>

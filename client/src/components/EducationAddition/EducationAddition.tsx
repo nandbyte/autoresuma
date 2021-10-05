@@ -1,60 +1,45 @@
 import React, { useState } from "react";
 import { Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react";
-import { Education } from "../../state/types";
+
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { updateEducations } from "../../state/action-creators";
 
 import dummyId from "../../api/dummy";
 
-interface Props {
-    index: number;
-    content: Education;
-}
+interface Props {}
 
-const EducationForm: React.FC<Props> = (props: Props) => {
+const EducationAddition: React.FC<Props> = (props: Props) => {
     const { currentState } = useTypedSelector((state) => state.educations);
 
-    const [certificateName, setDegree] = useState<string>(
-        currentState ? currentState[props.index].certificateName : ""
-    );
+    const [certificateName, setDegree] = useState<string>("");
 
-    const [passingYear, setYearOfPassing] = useState<number>(
-        currentState ? currentState[props.index].passingYear : 2000
-    );
+    const [passingYear, setYearOfPassing] = useState<number>(2000);
 
-    const [result, setResult] = useState<number>(
-        currentState ? currentState[props.index].result : 0.0
-    );
+    const [result, setResult] = useState<number>(0.0);
 
-    const [institution, setInstitution] = useState<string>(
-        currentState ? currentState[props.index].institution : ""
-    );
+    const [institution, setInstitution] = useState<string>("");
 
-    const [subject, setSubject] = useState<string>(
-        currentState ? currentState[props.index].certificateName : ""
-    );
+    const [subject, setSubject] = useState<string>("");
 
-    const { switchToEducationView } = useActions();
+    const { addEducation, cancelAddEducation } = useActions();
 
     const handleCancel: React.MouseEventHandler<HTMLButtonElement> = (
         event
     ) => {
         event.preventDefault();
-        switchToEducationView(props.index);
+        cancelAddEducation();
     };
 
-    const handleSave: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+    const handleAdd: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         event.preventDefault();
-        updateEducations(
-            currentState,
+        addEducation(
             {
-                id: currentState[props.index].id,
+                id: "0",
                 certificateName,
                 passingYear,
                 result,
                 institution,
-                serial: props.index,
+                serial: currentState.length + 1,
                 userId: dummyId,
             },
             dummyId
@@ -124,11 +109,11 @@ const EducationForm: React.FC<Props> = (props: Props) => {
                 </Stack>
             </form>
             <Stack direction="row">
-                <Button onClick={handleSave}>Save</Button>
+                <Button onClick={handleAdd}>Add</Button>
                 <Button onClick={handleCancel}>Cancel</Button>
             </Stack>
         </Stack>
     );
 };
 
-export default EducationForm;
+export default EducationAddition;
