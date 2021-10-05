@@ -1,8 +1,9 @@
 export interface Education {
-    serial: number;
-    degree: string;
-    yearOfPassing: number;
-    result: string;
+    id: string;
+    certificateName: string;
+    passingYear: number;
+    result: number;
     institution: string;
-    subject: string;
+    serial: number;
+    userId: string;
 }
