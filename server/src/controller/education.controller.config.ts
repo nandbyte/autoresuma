@@ -23,6 +23,11 @@ class EducationController extends CommonControllerConfig{
 		try{
 			const uid = req.params.userId;
 			const record = await Education.findAll({where: {userId : uid}});
+
+			if(!record){
+				return res.json({data:[]});
+			}
+
 			return res.json({status:200,msg:"OK",route:"/v1/education",record});
 		}catch(e){
 			return res.json({status: 500 ,msg:e.message, router:"/v1/education"});
