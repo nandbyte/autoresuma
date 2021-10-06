@@ -4,7 +4,7 @@ import { ActionType } from "../action-types";
 import { Action } from "../actions";
 import { Education } from "../types";
 
-const api: string = "https://localhost:3030/v1/";
+const api: string = "https://localhost:3000/v1/";
 
 export const fetchEducations = (userId: string) => {
     return async (dispatch: Dispatch<Action>) => {
