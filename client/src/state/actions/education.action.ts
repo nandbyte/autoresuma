@@ -55,6 +55,10 @@ interface AddEducationSuccessAction {
     };
 }
 
+interface SwitchAddEducationAction {
+    type: ActionType.SWITCH_ADD_EDUCATION;
+}
+
 interface SaveNewEducationAction {
     type: ActionType.SAVE_NEW_EDUCATION;
     payload: {
@@ -88,6 +92,7 @@ type EducationAction =
     | AddEducationAction
     | CancelAddEducationAction
     | AddEducationSuccessAction
+    | SwitchAddEducationAction
     | SaveNewEducationAction
     | SaveNewEducationSuccessAction
     | EducationErrorAction;

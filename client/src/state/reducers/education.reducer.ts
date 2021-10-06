@@ -124,6 +124,17 @@ const reducer = (
                 currentState: state.currentState.concat(
                     action.payload.newEducation
                 ),
+                adding: false,
+            };
+
+        // Form mode for new education
+        case ActionType.SWITCH_ADD_EDUCATION:
+            return {
+                loading: state.loading,
+                updating: state.updating,
+                error: null,
+                savedState: state.savedState,
+                currentState: state.currentState,
                 adding: true,
             };
 

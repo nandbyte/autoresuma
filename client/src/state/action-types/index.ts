@@ -17,6 +17,7 @@ export enum ActionType {
     ADD_EDUCATION = "add_education",
     CANCEL_ADD_EDUCATION = "cancel_add_education",
     ADD_EDUCATION_SUCCESS = "add_education_success",
+    SWITCH_ADD_EDUCATION = "switch_add_education",
     SAVE_NEW_EDUCATION = "save_new_education",
     SAVE_NEW_EDUCATION_SUCCESS = "save_new_education_success",
     DELETE_EDUCATION = "delete_education",

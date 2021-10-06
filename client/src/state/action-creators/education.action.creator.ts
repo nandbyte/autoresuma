@@ -60,7 +60,14 @@ export const addEducation = (newEducation: Education, userId: string) => {
     };
 };
 
-// TODO: Implement
+export const switchToAddEducationMode = () => {
+    return async (dispatch: Dispatch<Action>) => {
+        dispatch({
+            type: ActionType.SWITCH_ADD_EDUCATION,
+        });
+    };
+};
+
 export const cancelAddEducation = () => {
     return async (dispatch: Dispatch<Action>) => {
         dispatch({

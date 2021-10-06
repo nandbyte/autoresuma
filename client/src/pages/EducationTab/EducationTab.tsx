@@ -14,7 +14,7 @@ const EducationTab = () => {
         (state) => state.educations
     );
 
-    const { fetchEducations } = useActions();
+    const { fetchEducations, switchToAddEducationMode } = useActions();
 
     useEffect(() => {
         fetchEducations(dummyId);
@@ -52,7 +52,9 @@ const EducationTab = () => {
                     {adding ? (
                         <EducationAddition />
                     ) : (
-                        <Button>Add Education</Button>
+                        <Button onClick={switchToAddEducationMode}>
+                            Add Education
+                        </Button>
                     )}
                 </Stack>
             </Box>
