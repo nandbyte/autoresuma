@@ -20,11 +20,11 @@ const EducationForm: React.FC<Props> = (props: Props) => {
     );
 
     const [passingYear, setYearOfPassing] = useState<number>(
-        currentState ? currentState[props.index].passingYear : 2000
+        currentState ? currentState[props.index].passingYear : 2010
     );
 
     const [result, setResult] = useState<number>(
-        currentState ? currentState[props.index].result : 0.0
+        currentState ? currentState[props.index].result : 5.0
     );
 
     const [institution, setInstitution] = useState<string>(
@@ -97,7 +97,7 @@ const EducationForm: React.FC<Props> = (props: Props) => {
                     </FormControl>
 
                     <FormControl id="result" isRequired>
-                        <FormLabel>Result</FormLabel>
+                        <FormLabel>Result (CGPA)</FormLabel>
                         <Input
                             placeholder="5.00"
                             value={result}

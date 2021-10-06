@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Heading } from "@chakra-ui/layout";
 import {
     IconButton,
@@ -95,7 +95,7 @@ const EducationView: React.FC<Props> = (props: Props) => {
                     >
                         <FormControl id="result">
                             <FormLabel>
-                                <Heading variant="label">Result</Heading>
+                                <Heading variant="label">Result (CGPA)</Heading>
                             </FormLabel>
                             <FormLabel>{props.content.result}</FormLabel>
                         </FormControl>
@@ -113,7 +113,7 @@ const EducationView: React.FC<Props> = (props: Props) => {
                     </SkeletonText>
                 </Stack>
             </form>
-            <Stack direction="row">
+            <Stack direction="row" pt={2}>
                 <Button leftIcon={<FaEdit />} onClick={handleUpdate}>
                     Edit
                 </Button>

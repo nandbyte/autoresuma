@@ -30,7 +30,7 @@ const EducationTab = () => {
                             <Heading variant="tab">No Education Added.</Heading>
                         </Center>
                     ) : (
-                        <Box height="0"></Box>
+                        <></>
                     )}
                     {currentState.map((education, index) => {
                         return (
