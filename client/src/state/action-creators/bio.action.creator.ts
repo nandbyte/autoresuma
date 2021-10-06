@@ -9,7 +9,7 @@ export const fetchBio = () => {
         dispatch({ type: ActionType.FETCH_BIO });
 
         try {
-            const { data } = await axios.get("http://localhost:3030/");
+            const { data } = await axios.get("http://localhost:3000/");
 
             const fetchedBio: Bio = data;
 
@@ -34,7 +34,7 @@ export const saveBio = (newBio: Bio) => {
         });
         try {
             const { status } = await axios.post(
-                "http://localhost:3030/",
+                "http://localhost:3000/",
                 newBio
             );
 

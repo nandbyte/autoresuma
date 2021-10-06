@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react";
+import {
+    Button,
+    FormControl,
+    FormLabel,
+    Heading,
+    Input,
+    Stack,
+} from "@chakra-ui/react";
 
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -39,7 +46,7 @@ const EducationAddition: React.FC<Props> = (props: Props) => {
                 passingYear,
                 result,
                 institution,
-                serial: currentState.length + 1,
+                serial: currentState.length,
                 userId: dummyId,
             },
             dummyId
@@ -48,6 +55,7 @@ const EducationAddition: React.FC<Props> = (props: Props) => {
 
     return (
         <Stack spacing={6}>
+            <Heading variant="tab">Add New Education</Heading>
             <form>
                 <Stack spacing={6}>
                     <FormControl id="degree" isRequired>

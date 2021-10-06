@@ -5,7 +5,6 @@
 // Create an ActionType enum for the action types
 // Create the reducer
 
-import { FaSellcast } from "react-icons/fa";
 import { ActionType } from "../action-types";
 import { Action } from "../actions";
 import { Education } from "../types";
@@ -61,8 +60,12 @@ const reducer = (
                 loading: Array(action.payload.educations.length).fill(false),
                 updating: Array(action.payload.educations.length).fill(false),
                 error: null,
-                savedState: action.payload.educations,
-                currentState: action.payload.educations,
+                savedState: action.payload.educations.sort(
+                    (a, b) => a.serial - b.serial
+                ),
+                currentState: action.payload.educations.sort(
+                    (a, b) => a.serial - b.serial
+                ),
                 adding: false,
             };
 
@@ -93,10 +96,14 @@ const reducer = (
             };
 
         // Update education to database
-        case ActionType.UPDATE_EDUCATIONS:
+        case ActionType.UPDATE_EDUCATION:
             return {
-                loading: Array(state.currentState.length).fill(true),
-                updating: Array(state.currentState.length).fill(false),
+                loading: Object.assign([], state.loading, {
+                    [action.payload.updateIndex]: true,
+                }),
+                updating: Object.assign([], state.updating, {
+                    [action.payload.updateIndex]: false,
+                }),
                 error: null,
                 savedState: state.savedState,
                 currentState: state.currentState,
@@ -104,26 +111,30 @@ const reducer = (
             };
 
         // Updating successful
-        case ActionType.UPDATE_EDUCATIONS_SUCCESS:
+        case ActionType.UPDATE_EDUCATION_SUCCESS:
             return {
                 loading: Array(state.currentState.length).fill(false),
-                updating: state.updating,
+                updating: Array(state.currentState.length).fill(false),
                 error: null,
-                savedState: action.payload.updatedEducations,
-                currentState: action.payload.updatedEducations,
+                savedState: Object.assign([], state.savedState, {
+                    [action.payload.updateIndex]:
+                        action.payload.updatedEducation,
+                }),
+                currentState: Object.assign([], state.currentState, {
+                    [action.payload.updateIndex]:
+                        action.payload.updatedEducation,
+                }).sort((a: Education, b: Education) => a.serial - b.serial),
                 adding: false,
             };
 
         // Form mode for new education
         case ActionType.ADD_EDUCATION:
             return {
-                loading: state.loading.concat(false),
-                updating: state.updating.concat(true),
+                loading: state.loading.concat(true),
+                updating: state.updating.concat(false),
                 error: null,
                 savedState: state.savedState,
-                currentState: state.currentState.concat(
-                    action.payload.newEducation
-                ),
+                currentState: state.currentState,
                 adding: false,
             };
 
@@ -153,13 +164,17 @@ const reducer = (
         case ActionType.ADD_EDUCATION_SUCCESS:
             return {
                 loading: Object.assign([], state.loading, {
-                    [action.payload.newIndex]: true,
+                    [action.payload.newIndex]: false,
                 }),
-                updating: state.updating.concat(true),
+                updating: state.updating,
                 error: null,
-                savedState: state.currentState,
-                currentState: state.currentState,
-                adding: true,
+                savedState: state.currentState.concat(
+                    action.payload.newEducation
+                ),
+                currentState: state.currentState.concat(
+                    action.payload.newEducation
+                ),
+                adding: false,
             };
 
         // Save new education to database
@@ -184,7 +199,41 @@ const reducer = (
                 }),
                 error: null,
                 savedState: state.savedState,
+                currentState: state.currentState.sort(
+                    (a, b) => a.serial - b.serial
+                ),
+                adding: false,
+            };
+
+        // View mode for new education
+        case ActionType.DELETE_EDUCATION:
+            return {
+                loading: Object.assign([], state.updating, {
+                    [action.payload.deleteIndex]: true,
+                }),
+                updating: state.updating,
+                error: null,
+                savedState: state.savedState,
                 currentState: state.currentState,
+                adding: false,
+            };
+
+        // View mode for new education
+        case ActionType.DELETE_EDUCATION_SUCCESS:
+            return {
+                loading: state.loading.filter(
+                    (value, index) => index !== action.payload.deleteIndex
+                ),
+                updating: state.loading.filter(
+                    (value, index) => index !== action.payload.deleteIndex
+                ),
+                error: null,
+                savedState: state.savedState.filter(
+                    (value, index) => index !== action.payload.deleteIndex
+                ),
+                currentState: state.currentState.filter(
+                    (value, index) => index !== action.payload.deleteIndex
+                ),
                 adding: false,
             };
 

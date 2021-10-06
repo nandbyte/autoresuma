@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Box } from "@chakra-ui/layout";
+import { Box, Center, Heading } from "@chakra-ui/layout";
 import { Stack, Button } from "@chakra-ui/react";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -8,6 +8,7 @@ import EducationForm from "../../components/EducationForm";
 import EducationAddition from "../../components/EducationAddition";
 
 import dummyId from "../../api/dummy";
+import { FaPlus } from "react-icons/fa";
 
 const EducationTab = () => {
     const { currentState, updating, loading, adding } = useTypedSelector(
@@ -24,9 +25,20 @@ const EducationTab = () => {
         <>
             <Box py={6}>
                 <Stack spacing={12}>
+                    {currentState.length === 0 ? (
+                        <Center>
+                            <Heading variant="tab">No Education Added.</Heading>
+                        </Center>
+                    ) : (
+                        <Box height="0"></Box>
+                    )}
                     {currentState.map((education, index) => {
                         return (
                             <Box
+                                key={
+                                    education.certificateName +
+                                    education.passingYear
+                                }
                                 w="100%"
                                 bgColor="gray.700"
                                 color="white"
@@ -49,12 +61,25 @@ const EducationTab = () => {
                             </Box>
                         );
                     })}
-                    {adding ? (
-                        <EducationAddition />
+                    {adding === true ? (
+                        <Box
+                            w="100%"
+                            bgColor="gray.700"
+                            color="white"
+                            p={6}
+                            borderRadius="md"
+                        >
+                            <EducationAddition />
+                        </Box>
                     ) : (
-                        <Button onClick={switchToAddEducationMode}>
-                            Add Education
-                        </Button>
+                        <Center>
+                            <Button
+                                onClick={switchToAddEducationMode}
+                                leftIcon={<FaPlus />}
+                            >
+                                Add Education
+                            </Button>
+                        </Center>
                     )}
                 </Stack>
             </Box>
