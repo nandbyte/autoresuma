@@ -1,8 +1,8 @@
 export interface Experience {
     id: string;
     workplace: string;
-    location: number;
-    dateFrom: number;
+    location: string;
+    dateFrom: string;
     dateTo: string;
     designation: string;
     description: string;
