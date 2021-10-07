@@ -93,7 +93,7 @@ const SkillForm: React.FC<Props> = (props: Props) => {
                         <FormLabel>Proficiency Level</FormLabel>
                         <Input
                             placeholder="Lead"
-                            value={type}
+                            value={level}
                             onChange={(event) => {
                                 setLevel(event.target.value);
                             }}
