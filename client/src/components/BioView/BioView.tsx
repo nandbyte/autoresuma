@@ -13,8 +13,7 @@ import dummyId from "../../api/dummy";
 import { FaEdit } from "react-icons/fa";
 
 const BioView = () => {
-    const { loading, saving, savedState, currentState, error } =
-        useTypedSelector((state) => state.bio);
+    const { savedState, currentState } = useTypedSelector((state) => state.bio);
 
     const { fetchBio, switchToBioForm } = useActions();
 
