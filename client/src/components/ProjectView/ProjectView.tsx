@@ -56,10 +56,12 @@ const ProjectView: React.FC<Props> = (props: Props) => {
     return (
         <Stack>
             <Stack direction="row" justifyContent="space-between">
-                <Heading variant="tab">{props.content.title}</Heading>
-                <Heading fontSize="lg" color="gray.500">
-                    {props.content.type}
-                </Heading>
+                <Stack direction="column" pb={2}>
+                    <Heading variant="tab">{props.content.title}</Heading>
+                    <Heading fontSize="lg" color="gray.500">
+                        {props.content.type}
+                    </Heading>
+                </Stack>
                 <Stack direction="row">
                     <IconButton
                         disabled={props.index === 0}
