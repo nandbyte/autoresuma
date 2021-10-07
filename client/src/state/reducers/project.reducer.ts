@@ -191,7 +191,7 @@ const reducer = (
                 error: null,
                 savedState: state.savedState,
                 currentState: state.currentState.sort(
-                    (a, b) => a.serial - b.serial
+                    (a: Project, b: Project) => a.serial - b.serial
                 ),
                 adding: false,
             };
