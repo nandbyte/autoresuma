@@ -1,13 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, Heading, Box, Link, Flex } from "@chakra-ui/layout";
 import { Link as RouterLink } from "react-router-dom";
 import { Stack, Button } from "@chakra-ui/react";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 import Credit from "../../components/Credit";
 import SectionDivider from "../../components/SectionDivider";
 import Navbar from "../../components/Navbar";
 import SubsectionDivider from "../../components/SubsectionDivider";
-
+import { useActions } from "../../hooks/useActions";
+import dummyId from "../../api/dummy";
+import Resume from "./templates/Basic1";
 const ResumePage = () => {
+    const { fetchEducations, fetchSkills, fetchExperiences, fetchProjects } = useActions();
+
+    useEffect(() => {
+        fetchEducations(dummyId);
+        fetchSkills(dummyId);
+        fetchExperiences(dummyId);
+        fetchProjects(dummyId);
+    }, []);
+
+    
+
+    // const { currentState, updating, loading, adding } = useTypedSelector(
+    //     (state) => console.log({ ...state })
+    // );
+
     return (
         <Box justifyItems="center">
             <Navbar />
@@ -61,6 +79,9 @@ const ResumePage = () => {
                                 Go to Profile.
                             </Link>
                         </Text>
+                        <div>
+                            <Resume />
+                        </div>
                     </Stack>
 
                     <Box textAlign="center" pt={36}>
