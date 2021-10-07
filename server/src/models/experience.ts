@@ -9,11 +9,11 @@ import { sequelize } from '../config/db.config';
 
 interface ExperienceAttributes{
 	id: string;
+	designation: string;
 	workplace: string;
 	location: string;
 	dateFrom: number;
 	dateTo: number;
-	designation: string;
 	description: string;
 	serial:number;
 	userId: string;
