@@ -12,7 +12,7 @@ export const fetchSkills = (userId: string) => {
 
         try {
             const { data } = await axios.get(api + "skill/" + userId);
-            console.log("Fetched Skills Data", data);
+
             const skills: Skill[] = data.records;
 
             dispatch({

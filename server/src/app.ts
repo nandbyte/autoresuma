@@ -16,6 +16,7 @@ import { EducationRoutes } from "./routes/education.routes.config";
 import { ProjectRoutes } from "./routes/project.routes.config";
 import { SkillRoutes } from "./routes/skill.routes.config";
 import { ExperienceRoutes } from "./routes/experience.routes.config";
+import { BioRoutes } from "./routes/bio.routes.config";
 
 //variable declaration
 
@@ -83,6 +84,7 @@ app.use(expressWinston.logger(loggerOption));
 // added to our app
 
 routes.push(new UserRoutes(app));
+routes.push(new BioRoutes(app));
 routes.push(new EducationRoutes(app));
 routes.push(new ProjectRoutes(app));
 routes.push(new SkillRoutes(app));
