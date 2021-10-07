@@ -10,7 +10,7 @@ import { sequelize } from '../config/db.config';
 interface ExperienceAttributes{
 	id: string;
 	workplace: string;
-	location: number;
+	location: string;
 	dateFrom: number;
 	dateTo: string;
 	designation: string;

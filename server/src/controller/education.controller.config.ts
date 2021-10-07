@@ -25,7 +25,7 @@ class EducationController extends CommonControllerConfig{
 			const record = await Education.findAll({where: {userId : uid}});
 
 			if(!record){
-				return res.json({data:[]});
+				res.json({status:204,msg:"Not found",record:[]});
 			}
 
 			return res.json({status:200,msg:"OK",route:"/v1/education",record});

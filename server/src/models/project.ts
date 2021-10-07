@@ -9,8 +9,8 @@ import { sequelize } from '../config/db.config';
 interface ProjectAttributes{
 	id: string;
 	type: string;
-	title: number;
-	description: number;
+	title: string;
+	description: string;
 	date: string;
 	githubLink: string;
 	language: string;
