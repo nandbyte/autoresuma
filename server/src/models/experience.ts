@@ -10,9 +10,9 @@ import { sequelize } from '../config/db.config';
 interface ExperienceAttributes{
 	id: string;
 	workplace: string;
-	location: number;
+	location: string;
 	dateFrom: number;
-	dateTo: string;
+	dateTo: number;
 	designation: string;
 	description: string;
 	serial:number;
@@ -63,7 +63,7 @@ const Experience = sequelize.define<ExperienceInstance>(
 		},
 		serial:{
 			allowNull: true,
-			type: DataTypes.TEXT,
+			type: DataTypes.INTEGER,
 		},
 		userId:{
 			allowNull: true,
