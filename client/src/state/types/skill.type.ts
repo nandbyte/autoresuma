@@ -3,5 +3,6 @@ export interface Skill {
     type: string;
     description: string;
     level: string;
+    serial: number;
     userId: string;
 }
