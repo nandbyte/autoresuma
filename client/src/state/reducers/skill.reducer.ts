@@ -1,13 +1,13 @@
 import { ActionType } from "../action-types";
 import { Action } from "../actions";
-import { Project } from "../types";
+import { Skill } from "../types";
 
-interface ProjectState {
+interface SkillState {
     // Current state on client
-    currentState: Project[];
+    currentState: Skill[];
 
     // Saved state on server
-    savedState: Project[];
+    savedState: Skill[];
 
     // Initial fetching
     loading: boolean[];
@@ -15,14 +15,14 @@ interface ProjectState {
     // Form mode
     updating: boolean[];
 
-    // If any new project is being added
+    // If any new skill is being added
     adding: boolean;
 
     // Error
     error: string | null;
 }
 
-const initialState: ProjectState = {
+const initialState: SkillState = {
     currentState: [],
     savedState: [],
     loading: [false],
@@ -32,12 +32,12 @@ const initialState: ProjectState = {
 };
 
 const reducer = (
-    state: ProjectState = initialState,
+    state: SkillState = initialState,
     action: Action
-): ProjectState => {
+): SkillState => {
     switch (action.type) {
         // Fetch from database on first load
-        case ActionType.FETCH_PROJECTS:
+        case ActionType.FETCH_SKILLS:
             return {
                 loading: [false],
                 updating: [],
@@ -48,22 +48,22 @@ const reducer = (
             };
 
         // First fetch success
-        case ActionType.FETCH_PROJECTS_SUCCESS:
+        case ActionType.FETCH_SKILLS_SUCCESS:
             return {
-                loading: Array(action.payload.projects.length).fill(false),
-                updating: Array(action.payload.projects.length).fill(false),
+                loading: Array(action.payload.skills.length).fill(false),
+                updating: Array(action.payload.skills.length).fill(false),
                 error: null,
-                savedState: action.payload.projects.sort(
-                    (a: Project, b: Project) => a.serial - b.serial
+                savedState: action.payload.skills.sort(
+                    (a: Skill, b: Skill) => a.serial - b.serial
                 ),
-                currentState: action.payload.projects.sort(
-                    (a: Project, b: Project) => a.serial - b.serial
+                currentState: action.payload.skills.sort(
+                    (a: Skill, b: Skill) => a.serial - b.serial
                 ),
                 adding: false,
             };
 
         // Form mode
-        case ActionType.FORM_UPDATE_PROJECT:
+        case ActionType.FORM_UPDATE_SKILL:
             return {
                 loading: Array(state.currentState.length).fill(false),
                 updating: Object.assign([], state.updating, {
@@ -76,7 +76,7 @@ const reducer = (
             };
 
         // View mode
-        case ActionType.FORM_UPDATE_PROJECT_SUCCESS:
+        case ActionType.FORM_UPDATE_SKILL_SUCCESS:
             return {
                 loading: Array(state.currentState.length).fill(false),
                 updating: Object.assign([], state.updating, {
@@ -88,8 +88,8 @@ const reducer = (
                 adding: false,
             };
 
-        // Update project to database
-        case ActionType.UPDATE_PROJECT:
+        // Update skill to database
+        case ActionType.UPDATE_SKILL:
             return {
                 loading: Object.assign([], state.loading, {
                     [action.payload.updateIndex]: true,
@@ -104,22 +104,22 @@ const reducer = (
             };
 
         // Updating successful
-        case ActionType.UPDATE_PROJECT_SUCCESS:
+        case ActionType.UPDATE_SKILL_SUCCESS:
             return {
                 loading: Array(state.currentState.length).fill(false),
                 updating: Array(state.currentState.length).fill(false),
                 error: null,
                 savedState: Object.assign([], state.savedState, {
-                    [action.payload.updateIndex]: action.payload.updatedProject,
+                    [action.payload.updateIndex]: action.payload.updatedSkill,
                 }),
                 currentState: Object.assign([], state.currentState, {
-                    [action.payload.updateIndex]: action.payload.updatedProject,
-                }).sort((a: Project, b: Project) => a.serial - b.serial),
+                    [action.payload.updateIndex]: action.payload.updatedSkill,
+                }).sort((a: Skill, b: Skill) => a.serial - b.serial),
                 adding: false,
             };
 
-        // Form mode for new project
-        case ActionType.ADD_PROJECT:
+        // Form mode for new skill
+        case ActionType.ADD_SKILL:
             return {
                 loading: state.loading.concat(true),
                 updating: state.updating.concat(false),
@@ -129,8 +129,8 @@ const reducer = (
                 adding: false,
             };
 
-        // Form mode for new project
-        case ActionType.SWITCH_ADD_PROJECT:
+        // Form mode for new skill
+        case ActionType.SWITCH_ADD_SKILL:
             return {
                 loading: state.loading,
                 updating: state.updating,
@@ -140,8 +140,8 @@ const reducer = (
                 adding: true,
             };
 
-        // Cancel new project
-        case ActionType.CANCEL_ADD_PROJECT:
+        // Cancel new skill
+        case ActionType.CANCEL_ADD_SKILL:
             return {
                 loading: state.loading,
                 updating: state.updating,
@@ -151,25 +151,23 @@ const reducer = (
                 adding: false,
             };
 
-        // View mode for new project
-        case ActionType.ADD_PROJECT_SUCCESS:
+        // View mode for new skill
+        case ActionType.ADD_SKILL_SUCCESS:
             return {
                 loading: Object.assign([], state.loading, {
                     [action.payload.newIndex]: false,
                 }),
                 updating: state.updating,
                 error: null,
-                savedState: state.currentState.concat(
-                    action.payload.newProject
-                ),
+                savedState: state.currentState.concat(action.payload.newSkill),
                 currentState: state.currentState.concat(
-                    action.payload.newProject
+                    action.payload.newSkill
                 ),
                 adding: false,
             };
 
-        // Save new project to database
-        case ActionType.SAVE_NEW_PROJECT:
+        // Save new skill to database
+        case ActionType.SAVE_NEW_SKILL:
             return {
                 loading: Array(state.currentState.length).fill(false),
                 updating: Object.assign([], state.updating, {
@@ -181,8 +179,8 @@ const reducer = (
                 adding: false,
             };
 
-        // View mode for new project
-        case ActionType.SAVE_NEW_PROJECT_SUCCESS:
+        // View mode for new skill
+        case ActionType.SAVE_NEW_SKILL_SUCCESS:
             return {
                 loading: Array(state.currentState.length).fill(false),
                 updating: Object.assign([], state.updating, {
@@ -191,13 +189,13 @@ const reducer = (
                 error: null,
                 savedState: state.savedState,
                 currentState: state.currentState.sort(
-                    (a: Project, b: Project) => a.serial - b.serial
+                    (a: Skill, b: Skill) => a.serial - b.serial
                 ),
                 adding: false,
             };
 
-        // View mode for new project
-        case ActionType.DELETE_PROJECT:
+        // View mode for new skill
+        case ActionType.DELETE_SKILL:
             return {
                 loading: Object.assign([], state.updating, {
                     [action.payload.deleteIndex]: true,
@@ -209,8 +207,8 @@ const reducer = (
                 adding: false,
             };
 
-        // View mode for new project
-        case ActionType.DELETE_PROJECT_SUCCESS:
+        // View mode for new skill
+        case ActionType.DELETE_SKILL_SUCCESS:
             return {
                 loading: state.loading.filter(
                     (value, index) => index !== action.payload.deleteIndex
@@ -228,7 +226,7 @@ const reducer = (
                 adding: false,
             };
 
-        case ActionType.PROJECT_ERROR:
+        case ActionType.SKILL_ERROR:
             return {
                 loading: Array(state.currentState.length).fill(false),
                 updating: Array(state.currentState.length).fill(false),
