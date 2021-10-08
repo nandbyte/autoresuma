@@ -63,7 +63,7 @@ const reducer = (state: BioState = initialState, action: Action): BioState => {
                 saving: false,
                 error: null,
                 savedState: action.payload,
-                currentState: state.currentState,
+                currentState: action.payload,
             };
         case ActionType.SAVE_CURRENT_BIO:
             return {
