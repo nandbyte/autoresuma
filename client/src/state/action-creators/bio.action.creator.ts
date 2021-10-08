@@ -21,8 +21,6 @@ export const fetchBio = (userId: string) => {
         try {
             const { data } = await axios.get(api + userId, config);
 
-            console.log(data);
-
             const fetchedBio: Bio = data.record[0];
 
             dispatch({
@@ -59,13 +57,14 @@ export const saveBio = (newBio: Bio, userId: string) => {
                 config
             );
 
+            console.log(data);
+
             const updatedBio = data.newRec;
 
             dispatch({
                 type: ActionType.SAVE_BIO_SUCCESS,
                 payload: updatedBio,
             });
-            dispatch({ type: ActionType.UPDATE_BIO_SUCCESS });
         } catch (error: any) {
             dispatch({
                 type: ActionType.BIO_ERROR,

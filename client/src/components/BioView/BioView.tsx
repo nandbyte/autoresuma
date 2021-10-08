@@ -38,7 +38,11 @@ const BioView = () => {
                         <Heading variant="label">First Name</Heading>
                     </FormLabel>
                     <FormLabel>
-                        {currentState !== null ? currentState.firstName : "-"}
+                        {currentState !== null
+                            ? currentState.firstName !== null
+                                ? currentState.firstName
+                                : "-"
+                            : "-"}
                     </FormLabel>
                 </FormControl>
 
@@ -47,7 +51,11 @@ const BioView = () => {
                         <Heading variant="label">Last Name</Heading>
                     </FormLabel>
                     <FormLabel>
-                        {currentState !== null ? currentState.lastName : "-"}
+                        {currentState !== null
+                            ? currentState.lastName !== null
+                                ? currentState.lastName
+                                : "-"
+                            : "-"}
                     </FormLabel>
                 </FormControl>
 
@@ -56,7 +64,11 @@ const BioView = () => {
                         <Heading variant="label">Job Title</Heading>
                     </FormLabel>
                     <FormLabel>
-                        {currentState !== null ? currentState.jobTitle : "-"}
+                        {currentState !== null
+                            ? currentState.jobTitle !== null
+                                ? currentState.jobTitle
+                                : "-"
+                            : "-"}
                     </FormLabel>
                 </FormControl>
 
@@ -65,7 +77,11 @@ const BioView = () => {
                         <Heading variant="label">GitHub Username</Heading>
                     </FormLabel>
                     <FormLabel>
-                        {currentState !== null ? currentState.githubLink : "-"}
+                        {currentState !== null
+                            ? currentState.githubLink !== null
+                                ? currentState.githubLink
+                                : "-"
+                            : "-"}
                     </FormLabel>
                 </FormControl>
 
@@ -75,7 +91,9 @@ const BioView = () => {
                     </FormLabel>
                     <FormLabel>
                         {currentState !== null
-                            ? currentState.linkedInLink
+                            ? currentState.linkedInLink !== null
+                                ? currentState.linkedInLink
+                                : "-"
                             : "-"}
                     </FormLabel>
                 </FormControl>
@@ -85,7 +103,11 @@ const BioView = () => {
                         <Heading variant="label">Address</Heading>
                     </FormLabel>
                     <FormLabel>
-                        {currentState !== null ? currentState.address : "-"}
+                        {currentState !== null
+                            ? currentState.address !== null
+                                ? currentState.address
+                                : "-"
+                            : "-"}
                     </FormLabel>
                 </FormControl>
 
@@ -94,7 +116,11 @@ const BioView = () => {
                         <Heading variant="label">ZIP Code</Heading>
                     </FormLabel>
                     <FormLabel>
-                        {currentState !== null ? currentState.zip : "-"}
+                        {currentState !== null
+                            ? currentState.zip !== null
+                                ? currentState.zip
+                                : "-"
+                            : "-"}
                     </FormLabel>
                 </FormControl>
 
@@ -103,7 +129,11 @@ const BioView = () => {
                         <Heading variant="label">Country</Heading>
                     </FormLabel>
                     <FormLabel>
-                        {currentState !== null ? currentState.country : "-"}
+                        {currentState !== null
+                            ? currentState.country !== null
+                                ? currentState.country
+                                : "-"
+                            : "-"}
                     </FormLabel>
                 </FormControl>
 
