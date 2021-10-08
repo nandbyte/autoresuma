@@ -41,8 +41,8 @@ class UserController extends CommonControllerConfig{
 			const bioId = uuidv4();
 
 
-			const duplicateErr = await User.findAll({where: {email: req.body.email} })
-			if(duplicateErr){
+			const duplicateErrs = await User.findOne({where: {email: req.body.email} })
+			if(duplicateErrs){
 				return res.json({status:400,msg:"mail duplicate error"});
 			}
 			const record = await User.create({...req.body,id});
