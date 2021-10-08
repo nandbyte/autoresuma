@@ -3,8 +3,6 @@ import { Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react";
 import { Project } from "../../state/types";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-
-import dummyId from "../../api/dummy";
 import { FaSave, FaTimes, FaTrash } from "react-icons/fa";
 
 interface Props {
@@ -14,6 +12,7 @@ interface Props {
 
 const ProjectForm: React.FC<Props> = (props: Props) => {
     const { currentState } = useTypedSelector((state) => state.projects);
+    const { user } = useTypedSelector((state) => state.user);
 
     const [title, setTitle] = useState<string>(
         currentState ? currentState[props.index].title : ""
@@ -55,7 +54,7 @@ const ProjectForm: React.FC<Props> = (props: Props) => {
             currentState,
             props.index,
             currentState[props.index],
-            dummyId
+            user !== null ? user.id : ""
         );
     };
 
@@ -72,9 +71,9 @@ const ProjectForm: React.FC<Props> = (props: Props) => {
                 githubLink,
                 language,
                 serial: props.index,
-                userId: dummyId,
+                userId: user !== null ? user.id : "",
             },
-            dummyId
+            user !== null ? user.id : ""
         );
     };
 

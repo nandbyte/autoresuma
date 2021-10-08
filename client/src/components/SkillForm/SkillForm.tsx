@@ -4,7 +4,6 @@ import { Skill } from "../../state/types";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
-import dummyId from "../../api/dummy";
 import { FaSave, FaTimes, FaTrash } from "react-icons/fa";
 
 interface Props {
@@ -14,6 +13,7 @@ interface Props {
 
 const SkillForm: React.FC<Props> = (props: Props) => {
     const { currentState } = useTypedSelector((state) => state.skills);
+    const { user } = useTypedSelector((state) => state.user);
 
     const [type, setType] = useState<string>(
         currentState ? currentState[props.index].type : ""
@@ -43,7 +43,7 @@ const SkillForm: React.FC<Props> = (props: Props) => {
             currentState,
             props.index,
             currentState[props.index],
-            dummyId
+            user !== null ? user.id : ""
         );
     };
 
@@ -57,9 +57,9 @@ const SkillForm: React.FC<Props> = (props: Props) => {
                 description,
                 level,
                 serial: props.index,
-                userId: dummyId,
+                userId: user !== null ? user.id : "",
             },
-            dummyId
+            user !== null ? user.id : ""
         );
     };
 

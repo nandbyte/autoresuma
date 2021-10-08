@@ -7,18 +7,18 @@ import SkillView from "../../components/SkillView";
 import SkillForm from "../../components/SkillForm";
 import SkillAddition from "../../components/SkillAddition";
 
-import dummyId from "../../api/dummy";
 import { FaPlus } from "react-icons/fa";
 
 const SkillTab = () => {
     const { currentState, updating, loading, adding } = useTypedSelector(
         (state) => state.skills
     );
+    const { user } = useTypedSelector((state) => state.user);
 
     const { fetchSkills, switchToAddSkillMode } = useActions();
 
     useEffect(() => {
-        fetchSkills(dummyId);
+        fetchSkills(user !== null ? user.id : "");
     }, []);
 
     return (

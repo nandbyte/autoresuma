@@ -10,14 +10,13 @@ import {
 
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-
-import dummyId from "../../api/dummy";
 import { FaPlus, FaTimes } from "react-icons/fa";
 
 interface Props {}
 
 const ProjectAddition: React.FC<Props> = (props: Props) => {
     const { currentState } = useTypedSelector((state) => state.projects);
+    const { user } = useTypedSelector((state) => state.user);
 
     const [title, setTitle] = useState<string>("");
 
@@ -52,9 +51,9 @@ const ProjectAddition: React.FC<Props> = (props: Props) => {
                 githubLink,
                 language,
                 serial: currentState.length,
-                userId: dummyId,
+                userId: user !== null ? user.id : "",
             },
-            dummyId
+            user !== null ? user.id : ""
         );
     };
 

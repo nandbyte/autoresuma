@@ -7,18 +7,18 @@ import ExperienceView from "../../components/ExperienceView";
 import ExperienceForm from "../../components/ExperienceForm";
 import ExperienceAddition from "../../components/ExperienceAddition";
 
-import dummyId from "../../api/dummy";
 import { FaPlus } from "react-icons/fa";
 
 const ExperienceTab = () => {
     const { currentState, updating, loading, adding } = useTypedSelector(
         (state) => state.experiences
     );
+    const { user } = useTypedSelector((state) => state.user);
 
     const { fetchExperiences, switchToAddExperienceMode } = useActions();
 
     useEffect(() => {
-        fetchExperiences(dummyId);
+        fetchExperiences(user !== null ? user.id : "");
     }, []);
 
     return (
