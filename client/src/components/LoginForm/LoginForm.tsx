@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import {
+    Alert,
+    AlertIcon,
+    AlertTitle,
     Button,
     FormControl,
     FormLabel,
@@ -20,17 +23,42 @@ const LoginForm: React.FC<Props> = (props: Props) => {
 
     const handleLogin: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         event.preventDefault();
-        logIn(email, password);
+
+        const emailRegexPattern =
+            /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+        if (!emailRegexPattern.test(email)) {
+            setError("Please provide a valid email address.");
+        } else {
+            setError("");
+            logIn(email, password);
+        }
     };
 
     const [email, setEmail] = useState<string>("");
 
     const [password, setPassword] = useState<string>("");
 
+    const [error, setError] = useState<string>("");
+
     return (
         <Stack spacing={6} p={4}>
             <form>
                 <Stack spacing={{ base: 8 }}>
+                    {error !== "" ? (
+                        <Alert status="error">
+                            <AlertIcon />
+                            <AlertTitle
+                                mr={2}
+                                fontSize={{ lg: "lg" }}
+                                color="gray.900"
+                            >
+                                {error}
+                            </AlertTitle>
+                        </Alert>
+                    ) : (
+                        <></>
+                    )}
                     <FormControl id="login-email">
                         <FormLabel>
                             <Heading
