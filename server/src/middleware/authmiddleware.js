@@ -16,7 +16,7 @@ const protect = async(req, res)=>{
       const decoded = jwt.verify(token, "secret")
 
 
-	if(decoded.id != req.body.id){
+	if(decoded.id !== req.params.userId){
 		return res.json({status:500,msg:"Unauthorized access will not be granted."});
 	}
 
