@@ -9,9 +9,15 @@ const api: string = "http://localhost:3000/v1/";
 export const fetchSkills = (userId: string) => {
     return async (dispatch: Dispatch<Action>) => {
         dispatch({ type: ActionType.FETCH_SKILLS });
-
+        const token = localStorage.getItem("token");
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        };
         try {
-            const { data } = await axios.get(api + "skill/" + userId);
+            const { data } = await axios.get(api + "skill/" + userId,config);
 
             const skills: Skill[] = data.records;
 
@@ -33,6 +39,13 @@ export const fetchSkills = (userId: string) => {
 
 // TODO: Update
 export const addSkill = (newSkill: Skill, userId: string) => {
+    const token = localStorage.getItem("token");
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        };
     return async (dispatch: Dispatch<Action>) => {
         dispatch({
             type: ActionType.ADD_SKILL,
@@ -45,7 +58,8 @@ export const addSkill = (newSkill: Skill, userId: string) => {
         try {
             const { data } = await axios.post(
                 api + "skill/" + userId,
-                newSkill
+                newSkill,
+                config
             );
 
             console.log(newSkill);
@@ -91,6 +105,14 @@ export const updateSkill = (
     userId: string
 ) => {
     return async (dispatch: Dispatch<Action>) => {
+        const token = localStorage.getItem("token");
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        };
+
         dispatch({
             type: ActionType.UPDATE_SKILL,
             payload: {
@@ -101,7 +123,8 @@ export const updateSkill = (
         try {
             await axios.put(
                 api + "skill/" + userId + "/" + updatedSkill.id,
-                updatedSkill
+                updatedSkill,
+                config
             );
 
             dispatch({
@@ -134,9 +157,15 @@ export const deleteSkill = (
                 deleteIndex: deleteIndex,
             },
         });
-
+        const token = localStorage.getItem("token");
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        };
         try {
-            await axios.delete(api + "skill/" + userId + "/" + deletedSkill.id);
+            await axios.delete(api + "skill/" + userId + "/" + deletedSkill.id,config);
 
             dispatch({
                 type: ActionType.DELETE_SKILL_SUCCESS,
@@ -197,6 +226,15 @@ export const swapSkill = (
                 updateIndex: firstSkill.serial,
             },
         });
+
+        const token = localStorage.getItem("token");
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        };
+
         dispatch({
             type: ActionType.UPDATE_SKILL,
             payload: {
@@ -214,7 +252,8 @@ export const swapSkill = (
         try {
             await axios.put(
                 api + "skill/" + userId + "/" + firstSkill.id,
-                firstSkill
+                firstSkill,
+                config,
             );
 
             await axios.put(

@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react";
+import {
+    Button,
+    FormControl,
+    FormLabel,
+    Input,
+    Select,
+    Stack,
+} from "@chakra-ui/react";
 import { Skill } from "../../state/types";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -91,13 +98,16 @@ const SkillForm: React.FC<Props> = (props: Props) => {
 
                     <FormControl id="skill-level" isRequired>
                         <FormLabel>Proficiency Level</FormLabel>
-                        <Input
-                            placeholder="Lead"
+                        <Select
+                            placeholder="Select Level"
                             value={level}
                             onChange={(event) => {
                                 setLevel(event.target.value);
                             }}
-                        />
+                        >
+                            <option value="Familiar">Familiar</option>
+                            <option value="Proficient">Proficient</option>
+                        </Select>
                     </FormControl>
                 </Stack>
             </form>

@@ -84,9 +84,6 @@ const SkillView: React.FC<Props> = (props: Props) => {
                         isLoaded={!loading[props.index]}
                     >
                         <FormControl id="skill-level">
-                            <FormLabel>
-                                <Heading variant="label">Skill Level</Heading>
-                            </FormLabel>
                             <FormLabel>{props.content.level}</FormLabel>
                         </FormControl>
                     </SkeletonText>

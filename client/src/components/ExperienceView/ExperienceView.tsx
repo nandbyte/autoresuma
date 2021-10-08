@@ -95,7 +95,7 @@ const ExperienceView: React.FC<Props> = (props: Props) => {
                         noOfLines={3}
                         isLoaded={!loading[props.index]}
                     >
-                        <FormControl id="experience-location" isRequired>
+                        <FormControl id="experience-location">
                             <FormLabel>
                                 <Heading variant="label">Location</Heading>
                             </FormLabel>
