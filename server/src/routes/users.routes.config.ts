@@ -12,7 +12,9 @@ export class UserRoutes extends CommonRoutesConfig{
 
 		this.app.route('/v1/profile')
 			.get(UserController.getAllUsers)
-			.post(protect,UserController.create);
+			.post(UserController.create);
+		this.app.route('/v1/profile/login')
+			.get(UserController.authUser)
 		this.app.route('/v1/profile/:userId')
 			.all((req: express.Request,res: express.Response,next: express.NextFunction)=>{next();})
 			.get(protect,UserController.getById)
