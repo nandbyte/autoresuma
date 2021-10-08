@@ -5,6 +5,7 @@ import {
     FormLabel,
     Heading,
     Input,
+    Select,
     Stack,
 } from "@chakra-ui/react";
 
@@ -78,13 +79,16 @@ const SkillAddition: React.FC<Props> = (props: Props) => {
 
                     <FormControl id="skill-level" isRequired>
                         <FormLabel>Proficiency Level</FormLabel>
-                        <Input
-                            placeholder="Lead"
+                        <Select
+                            placeholder="Select Level"
                             value={level}
                             onChange={(event) => {
                                 setLevel(event.target.value);
                             }}
-                        />
+                        >
+                            <option value="Familiar">Familiar</option>
+                            <option value="Proficient">Proficient</option>
+                        </Select>
                     </FormControl>
                 </Stack>
             </form>
