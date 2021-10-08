@@ -13,8 +13,6 @@ import { FaArrowDown, FaArrowUp, FaEdit } from "react-icons/fa";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useActions } from "../../hooks/useActions";
 
-import dummyId from "../../api/dummy";
-
 interface Props {
     index: number;
     content: Skill;
@@ -22,6 +20,7 @@ interface Props {
 
 const SkillView: React.FC<Props> = (props: Props) => {
     const { loading, currentState } = useTypedSelector((state) => state.skills);
+    const { user } = useTypedSelector((state) => state.user);
 
     const { switchToSkillForm, swapSkill } = useActions();
 
@@ -38,7 +37,7 @@ const SkillView: React.FC<Props> = (props: Props) => {
         swapSkill(
             currentState[props.index - 1],
             currentState[props.index],
-            dummyId
+            user !== null ? user.id : ""
         );
     };
 
@@ -48,7 +47,7 @@ const SkillView: React.FC<Props> = (props: Props) => {
         swapSkill(
             currentState[props.index],
             currentState[props.index + 1],
-            dummyId
+            user !== null ? user.id : ""
         );
     };
 

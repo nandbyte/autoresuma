@@ -7,18 +7,18 @@ import ProjectView from "../../components/ProjectView";
 import ProjectForm from "../../components/ProjectForm";
 import ProjectAddition from "../../components/ProjectAddition";
 
-import dummyId from "../../api/dummy";
 import { FaPlus } from "react-icons/fa";
 
 const ProjectTab = () => {
     const { currentState, updating, loading, adding } = useTypedSelector(
         (state) => state.projects
     );
+    const { user } = useTypedSelector((state) => state.user);
 
     const { fetchProjects, switchToAddProjectMode } = useActions();
 
     useEffect(() => {
-        fetchProjects(dummyId);
+        fetchProjects(user !== null ? user.id : "");
     }, []);
 
     return (

@@ -4,7 +4,6 @@ import { Education } from "../../state/types";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
-import dummyId from "../../api/dummy";
 import { FaSave, FaTimes, FaTrash } from "react-icons/fa";
 
 interface Props {
@@ -14,6 +13,7 @@ interface Props {
 
 const EducationForm: React.FC<Props> = (props: Props) => {
     const { currentState } = useTypedSelector((state) => state.educations);
+    const { user } = useTypedSelector((state) => state.user);
 
     const [certificateName, setDegree] = useState<string>(
         currentState ? currentState[props.index].certificateName : ""
@@ -48,7 +48,7 @@ const EducationForm: React.FC<Props> = (props: Props) => {
             currentState,
             props.index,
             currentState[props.index],
-            dummyId
+            user !== null ? user.id : ""
         );
     };
 
@@ -63,9 +63,9 @@ const EducationForm: React.FC<Props> = (props: Props) => {
                 result,
                 institution,
                 serial: props.index,
-                userId: dummyId,
+                userId: user !== null ? user.id : "",
             },
-            dummyId
+            user !== null ? user.id : ""
         );
     };
 

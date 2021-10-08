@@ -11,13 +11,13 @@ import {
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
-import dummyId from "../../api/dummy";
 import { FaPlus, FaTimes } from "react-icons/fa";
 
 interface Props {}
 
 const EducationAddition: React.FC<Props> = (props: Props) => {
     const { currentState } = useTypedSelector((state) => state.educations);
+    const { user } = useTypedSelector((state) => state.user);
 
     const [certificateName, setCertificateName] = useState<string>("");
 
@@ -46,9 +46,9 @@ const EducationAddition: React.FC<Props> = (props: Props) => {
                 result,
                 institution,
                 serial: currentState.length,
-                userId: dummyId,
+                userId: user !== null ? user.id : "",
             },
-            dummyId
+            user !== null ? user.id : ""
         );
     };
 

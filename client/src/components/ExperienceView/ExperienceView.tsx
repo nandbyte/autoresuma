@@ -13,8 +13,6 @@ import { FaArrowDown, FaArrowUp, FaEdit } from "react-icons/fa";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useActions } from "../../hooks/useActions";
 
-import dummyId from "../../api/dummy";
-
 interface Props {
     index: number;
     content: Experience;
@@ -24,6 +22,7 @@ const ExperienceView: React.FC<Props> = (props: Props) => {
     const { loading, currentState } = useTypedSelector(
         (state) => state.experiences
     );
+    const { user } = useTypedSelector((state) => state.user);
 
     const { switchToExperienceForm, swapExperience } = useActions();
 
@@ -40,7 +39,7 @@ const ExperienceView: React.FC<Props> = (props: Props) => {
         swapExperience(
             currentState[props.index - 1],
             currentState[props.index],
-            dummyId
+            user !== null ? user.id : ""
         );
     };
     const moveDown: React.MouseEventHandler<HTMLButtonElement> = (event) => {
@@ -49,7 +48,7 @@ const ExperienceView: React.FC<Props> = (props: Props) => {
         swapExperience(
             currentState[props.index],
             currentState[props.index + 1],
-            dummyId
+            user !== null ? user.id : ""
         );
     };
 
