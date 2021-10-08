@@ -14,6 +14,7 @@ import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import HomePage from "../pages/HomePage/HomePage";
 import { Provider } from "react-redux";
 import { store } from "../state";
+import LoginPage from "../pages/LoginPage";
 
 const App = () => {
     return (
@@ -28,6 +29,9 @@ const App = () => {
                     </Route>
                     <Route exact path="/resume">
                         <ResumePage />
+                    </Route>
+                    <Route exact path="/login">
+                        <LoginPage />
                     </Route>
                 </Router>
             </Provider>
