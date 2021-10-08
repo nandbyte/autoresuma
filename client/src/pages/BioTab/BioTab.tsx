@@ -4,10 +4,16 @@ import { Box } from "@chakra-ui/layout";
 import BioForm from "../../components/BioForm";
 import BioView from "../../components/BioView";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { Redirect } from "react-router";
 
 const BioTab = () => {
     const { updating } = useTypedSelector((state) => state.bio);
 
+    const { loggedIn } = useTypedSelector((state) => state.user);
+    if (!loggedIn) {
+        return <Redirect to="/" />
+    }
+    
     return (
         <Box
             w="100%"

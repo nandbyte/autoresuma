@@ -8,6 +8,7 @@ import ProjectForm from "../../components/ProjectForm";
 import ProjectAddition from "../../components/ProjectAddition";
 
 import { FaPlus } from "react-icons/fa";
+import { Redirect } from "react-router";
 
 const ProjectTab = () => {
     const { currentState, updating, loading, adding } = useTypedSelector(
@@ -21,7 +22,13 @@ const ProjectTab = () => {
         fetchProjects(user !== null ? user.id : "");
     }, []);
 
+    const { loggedIn } = useTypedSelector((state) => state.user);
+    if (!loggedIn) {
+        return <Redirect to="/login" />
+    }
+
     return (
+
         <>
             <Box py={6}>
                 <Stack spacing={12}>

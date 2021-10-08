@@ -9,6 +9,8 @@ import SkillTab from "../SkillTab";
 import ExperienceTab from "../ExperienceTab";
 import SubsectionDivider from "../../components/SubsectionDivider";
 import PageContainer from "../../components/PageContainer";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { Redirect } from "react-router";
 
 const tabs: Array<TabObject> = [
     {
@@ -40,6 +42,12 @@ const tabs: Array<TabObject> = [
 ];
 
 const ProfilePage = () => {
+
+    const { loggedIn } = useTypedSelector((state) => state.user);
+    if (!loggedIn) {
+        return <Redirect to="/" />
+    }
+
     return (
         <PageContainer variant="navbar">
             <Heading

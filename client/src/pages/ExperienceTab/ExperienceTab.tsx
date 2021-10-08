@@ -8,6 +8,7 @@ import ExperienceForm from "../../components/ExperienceForm";
 import ExperienceAddition from "../../components/ExperienceAddition";
 
 import { FaPlus } from "react-icons/fa";
+import { Redirect } from "react-router";
 
 const ExperienceTab = () => {
     const { currentState, updating, loading, adding } = useTypedSelector(
@@ -21,6 +22,10 @@ const ExperienceTab = () => {
         fetchExperiences(user !== null ? user.id : "");
     }, []);
 
+    const { loggedIn } = useTypedSelector((state) => state.user);
+    if (!loggedIn) {
+        return <Redirect to="/" />
+    }
     return (
         <>
             <Box py={6}>
