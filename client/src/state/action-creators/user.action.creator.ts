@@ -17,6 +17,7 @@ export const register = (newUser: User) => {
 
             const user: User = data.record;
 
+            console.log(data);
             dispatch({
                 type: ActionType.USER_REGISTER_SUCCESS,
                 payload: {
@@ -36,16 +37,18 @@ export const register = (newUser: User) => {
 export const logIn = (email: string, password: string) => {
     return async (dispatch: Dispatch<Action>) => {
         dispatch({ type: ActionType.USER_LOG_IN });
-
+        // console.log(email, password);
         try {
-            const { data } = await axios.get(api + "profile/", {
-                data: {
-                    email: email,
-                    password: password,
-                },
-            });
+            const { data } = await axios.post(api + "profile/login",
+                {
+                    email, password
+                }
+            );
 
-            const user: User = data.record;
+            // console.log(data.data.token);
+            const token: string = data.data.token;
+            localStorage.setItem("token",JSON.stringify(token));
+            const user: User = data.data;
 
             dispatch({
                 type: ActionType.USER_LOG_IN_SUCCESS,
