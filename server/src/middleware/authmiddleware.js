@@ -15,15 +15,20 @@ const protect = async(req, res)=>{
       const decoded = jwt.verify(token, "secret")
 
       req.user = await User.findOne({where:{
-	      userId: decoded.id
+	      id: decoded.id
       }});
+	return res.json({
+		id: decoded.id,
+		status:200,
+		msg:"ok"
+	})
 
-      next()
     } catch (error) {
 
       return res.json({
 	      status:401,
 	      msg:"Authorization failed",
+		error_msg:error.message
 
       });
     }
