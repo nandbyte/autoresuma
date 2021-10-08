@@ -17,11 +17,10 @@ const Registered: React.FC<Props> = (props: Props) => {
                         _hover={{
                             fontWeight: "bold",
                         }}
-                        to="/register"
+                        to="/login"
                     >
-                        log in
+                        log in.
                     </Link>
-                    to your account.
                 </Heading>
             </Stack>
         </Stack>
