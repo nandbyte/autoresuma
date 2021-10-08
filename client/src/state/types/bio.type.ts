@@ -5,7 +5,7 @@ export interface Bio {
     address: string;
     zip: string;
     country: string;
-    title: string;
+    jobTitle: string;
     githubLink: string;
     linkedInLink: string;
     userId: string;

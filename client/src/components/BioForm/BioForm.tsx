@@ -25,8 +25,8 @@ const BioForm = () => {
         currentState ? currentState.lastName : ""
     );
 
-    const [title, setTitle] = useState<string>(
-        currentState ? currentState.title : ""
+    const [jobTitle, setJobTitle] = useState<string>(
+        currentState ? currentState.jobTitle : ""
     );
 
     const [githubLink, setGithubLink] = useState<string>(
@@ -72,7 +72,7 @@ const BioForm = () => {
                 address,
                 zip,
                 country,
-                title,
+                jobTitle: jobTitle,
                 githubLink,
                 linkedInLink,
                 userId: user !== null ? user.id : "",
@@ -108,9 +108,9 @@ const BioForm = () => {
                     <FormLabel>Job Title</FormLabel>
                     <Input
                         placeholder="Junior Web Developer"
-                        value={title}
+                        value={jobTitle}
                         onChange={(event) => {
-                            setTitle(event.target.value);
+                            setJobTitle(event.target.value);
                         }}
                     />
                 </FormControl>

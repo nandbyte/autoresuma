@@ -53,11 +53,17 @@ export const saveBio = (newBio: Bio, userId: string) => {
             payload: newBio,
         });
         try {
-            await axios.put(api + userId + "/", newBio, config);
+            const { data } = await axios.put(
+                api + userId + "/",
+                newBio,
+                config
+            );
+
+            const updatedBio = data.newRec;
 
             dispatch({
                 type: ActionType.SAVE_BIO_SUCCESS,
-                payload: newBio,
+                payload: updatedBio,
             });
             dispatch({ type: ActionType.UPDATE_BIO_SUCCESS });
         } catch (error: any) {

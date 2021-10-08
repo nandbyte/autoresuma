@@ -56,7 +56,7 @@ const BioView = () => {
                         <Heading variant="label">Job Title</Heading>
                     </FormLabel>
                     <FormLabel>
-                        {currentState !== null ? currentState.title : "-"}
+                        {currentState !== null ? currentState.jobTitle : "-"}
                     </FormLabel>
                 </FormControl>
 
