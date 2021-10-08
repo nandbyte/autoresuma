@@ -7,11 +7,21 @@ import { Education } from "../types";
 const api: string = "http://localhost:3000/v1/";
 
 export const fetchEducations = (userId: string) => {
+    const token = localStorage.getItem("token");
     return async (dispatch: Dispatch<Action>) => {
         dispatch({ type: ActionType.FETCH_EDUCATIONS });
 
         try {
-            const { data } = await axios.get(api + "education/" + userId);
+            const config = {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+              };
+
+            const { data } = await axios.get(api + "education/" + userId,config);
+            
+            console.log(data);
 
             const educations: Education[] = data.record;
 
