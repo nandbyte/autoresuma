@@ -12,6 +12,8 @@ class UserController extends CommonControllerConfig{
 		try{
 		const email = req.body.email;
 		const password = req.body.password;
+
+
 		const record = await User.findOne({where: {email:email,password:password} });
 		if(!record){
 			return res.json({status:204, msg:"NOT FOUND",route:"/profile/login"});
@@ -38,12 +40,12 @@ class UserController extends CommonControllerConfig{
 			const id = uuidv4();
 			const bioId = uuidv4();
 
-			const record = await User.create({...req.body,id});
 
-			const data = {
-				firstName : req.body.firstName,
-				lastName : req.body.lastName,
+			const duplicateErr = await User.findAll({where: {email: req.body.email} })
+			if(duplicateErr){
+				return res.json({status:400,msg:"mail duplicate error"});
 			}
+			const record = await User.create({...req.body,id});
 			delete req.body.password;
 			req.body.userId = id;
 
