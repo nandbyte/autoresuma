@@ -97,7 +97,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
                         _hover={{
                             fontWeight: "bold",
                         }}
-                        to="/profile/bio"
+                        to="/register"
                     >
                         Register
                     </Link>
