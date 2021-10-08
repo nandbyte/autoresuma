@@ -4,7 +4,7 @@ import User from "../models/user";
 // auth middleware added
 const protect = async(req, res)=>{
 	let token;
-
+  console.log(req.headers.authorization);
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')
@@ -14,7 +14,7 @@ const protect = async(req, res)=>{
 
 
       const decoded = jwt.verify(token, "secret")
-
+      
 
 	if(decoded.id != req.body.id){
 		return res.json({status:500,msg:"Unauthorized access will not be granted."});
