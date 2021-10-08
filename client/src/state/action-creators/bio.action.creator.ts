@@ -47,8 +47,7 @@ export const saveBio = (newBio: Bio, userId: string) => {
 
     return async (dispatch: Dispatch<Action>) => {
         dispatch({
-            type: ActionType.SAVE_CURRENT_BIO,
-            payload: newBio,
+            type: ActionType.SAVE_BIO,
         });
         try {
             const { data } = await axios.put(

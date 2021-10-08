@@ -187,7 +187,6 @@ const BioForm = () => {
                     <FormLabel>Country</FormLabel>
                     <Select
                         placeholder="Select country"
-                        bgColor="gray.900"
                         value={country}
                         onChange={(event) => {
                             setCountry(event.target.value);
