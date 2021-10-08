@@ -38,8 +38,11 @@ export const logIn = (email: string, password: string) => {
         dispatch({ type: ActionType.USER_LOG_IN });
 
         try {
-            const { data } = await axios.get(api + "profile/" + email, {
-                data: password,
+            const { data } = await axios.get(api + "profile/", {
+                data: {
+                    email: email,
+                    password: password,
+                },
             });
 
             const user: User = data.record;

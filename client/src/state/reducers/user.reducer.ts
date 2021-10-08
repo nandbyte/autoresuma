@@ -67,7 +67,7 @@ const reducer = (
         //Successful registration
         case ActionType.USER_REGISTER_SUCCESS:
             return {
-                loggedIn: true,
+                loggedIn: false,
                 user: action.payload.user,
                 loading: false,
                 error: null,
