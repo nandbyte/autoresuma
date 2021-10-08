@@ -8,6 +8,7 @@ import EducationForm from "../../components/EducationForm";
 import EducationAddition from "../../components/EducationAddition";
 
 import { FaPlus } from "react-icons/fa";
+import { Redirect } from "react-router";
 
 const EducationTab = () => {
     const { currentState, updating, loading, adding } = useTypedSelector(
@@ -20,6 +21,11 @@ const EducationTab = () => {
     useEffect(() => {
         fetchEducations(user !== null ? user.id : "");
     }, []);
+    
+    const { loggedIn } = useTypedSelector((state) => state.user);
+    if (!loggedIn) {
+        return <Redirect to="/" />
+    }
 
     return (
         <>

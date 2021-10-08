@@ -32,6 +32,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
         } else {
             setError("");
             logIn(email, password);
+            
         }
     };
 

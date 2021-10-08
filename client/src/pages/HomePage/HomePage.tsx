@@ -45,7 +45,7 @@ const HomePage = () => {
                             _hover={{
                                 bg: "red.700",
                             }}
-                            to="/profile/bio"
+                            to="/login"
                         >
                             Login
                         </Link>
@@ -56,7 +56,7 @@ const HomePage = () => {
                             _hover={{
                                 bg: "red.700",
                             }}
-                            to="/profile/bio"
+                            to="/register"
                         >
                             Register
                         </Link>
