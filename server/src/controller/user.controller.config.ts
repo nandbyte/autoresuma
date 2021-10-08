@@ -45,7 +45,9 @@ class UserController extends CommonControllerConfig{
 				lastName : req.body.lastName,
 			}
 			delete req.body.password;
-			const bioRecord = await Bio.create({...req.body,bioId});
+			req.body.userId = id;
+
+			const bioRecord = await Bio.create({...req.body,id:bioId});
 
 
 
