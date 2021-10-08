@@ -31,7 +31,7 @@ export class ProjectRoutes extends CommonRoutesConfig{
 
 				protect,ProjectController.getById
 			)
-			.put(ProjectController.update)
+			.put(protect,ProjectController.update)
 			.delete(protect,ProjectController.delete);
 		return this.app;
 	}
