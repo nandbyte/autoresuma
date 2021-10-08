@@ -1,12 +1,36 @@
 import { CommonControllerConfig } from "../common/common.controllers.config";
 import User from "../models/user";
 import {v4 as uuidv4} from "uuid";
-
+import generateToken from "../utils/geenrateToken";
 import { Request,Response } from "express";
 
 
 class UserController extends CommonControllerConfig{
 
+	authUser = async(req:Request,res:Response)=>{
+
+		try{
+		const email = req.body.email;
+		const password = req.body.password;
+		const record = await User.findOne({where: {email:email,password:password} });
+		if(!record){
+			return res.json({status:204, msg:"NOT FOUND",route:"/profile/login"});
+		}else{
+			const data = {
+				id: record.id,
+				email: record.email,
+				token: generateToken(record.id)
+			}
+			return res.json({status:200,msg:"ok",route:"/v1/profile/login",data});
+
+		}
+		}catch(e){
+
+			return res.json({status:500,msg:e.message,route: "/v1/profile/:userId"});
+		}
+
+
+	}
 
 	create = async(req: Request, res: Response)=>{
 
