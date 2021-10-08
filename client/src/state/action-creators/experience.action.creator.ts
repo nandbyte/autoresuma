@@ -9,9 +9,15 @@ const api: string = "http://localhost:3000/v1/";
 export const fetchExperiences = (userId: string) => {
     return async (dispatch: Dispatch<Action>) => {
         dispatch({ type: ActionType.FETCH_EXPERIENCES });
-
+        const token = localStorage.getItem("token");
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        };
         try {
-            const { data } = await axios.get(api + "experience/" + userId);
+            const { data } = await axios.get(api + "experience/" + userId, config);
 
             const experiences: Experience[] = data.record;
 
@@ -32,6 +38,14 @@ export const fetchExperiences = (userId: string) => {
 
 // TODO: Update
 export const addExperience = (newExperience: Experience, userId: string) => {
+    const token = localStorage.getItem("token");
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        };
+
     return async (dispatch: Dispatch<Action>) => {
         dispatch({
             type: ActionType.ADD_EXPERIENCE,
@@ -44,7 +58,8 @@ export const addExperience = (newExperience: Experience, userId: string) => {
         try {
             const { data } = await axios.post(
                 api + "experience/" + userId,
-                newExperience
+                newExperience,
+                config
             );
 
             console.log(newExperience);
@@ -96,11 +111,19 @@ export const updateExperience = (
                 updateIndex: updateIndex,
             },
         });
-
+        const token = localStorage.getItem("token");
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+                
+            },
+        };
         try {
             await axios.put(
                 api + "experience/" + userId + "/" + updatedExperience.id,
-                updatedExperience
+                updatedExperience,
+                config
             );
 
             dispatch({
@@ -133,10 +156,16 @@ export const deleteExperience = (
                 deleteIndex: deleteIndex,
             },
         });
-
+        const token = localStorage.getItem("token");
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        };
         try {
             await axios.delete(
-                api + "experience/" + userId + "/" + deletedExperience.id
+                api + "experience/" + userId + "/" + deletedExperience.id,config
             );
 
             dispatch({
@@ -212,6 +241,14 @@ export const swapExperience = (
         firstExperience = { ...firstExperience, serial: secondIndex };
         secondExperience = { ...secondExperience, serial: firstIndex };
 
+        const token = localStorage.getItem("token");
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        };
+
         try {
             await axios.put(
                 api + "experience/" + userId + "/" + firstExperience.id,
@@ -220,7 +257,8 @@ export const swapExperience = (
 
             await axios.put(
                 api + "experience/" + userId + "/" + secondExperience.id,
-                secondExperience
+                secondExperience,
+                config
             );
 
             dispatch({

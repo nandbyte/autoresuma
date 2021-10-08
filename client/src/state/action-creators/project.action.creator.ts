@@ -9,9 +9,16 @@ const api: string = "http://localhost:3000/v1/";
 export const fetchProjects = (userId: string) => {
     return async (dispatch: Dispatch<Action>) => {
         dispatch({ type: ActionType.FETCH_PROJECTS });
+        const token = localStorage.getItem("token");
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        };
 
         try {
-            const { data } = await axios.get(api + "project/" + userId);
+            const { data } = await axios.get(api + "project/" + userId, config);
 
             const projects: Project[] = data.record;
 
@@ -32,6 +39,14 @@ export const fetchProjects = (userId: string) => {
 
 // TODO: Update
 export const addProject = (newProject: Project, userId: string) => {
+    const token = localStorage.getItem("token");
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
     return async (dispatch: Dispatch<Action>) => {
         dispatch({
             type: ActionType.ADD_PROJECT,
@@ -44,7 +59,8 @@ export const addProject = (newProject: Project, userId: string) => {
         try {
             const { data } = await axios.post(
                 api + "project/" + userId,
-                newProject
+                newProject,
+                config
             );
 
             console.log(newProject);
@@ -90,6 +106,13 @@ export const updateProject = (
     userId: string
 ) => {
     return async (dispatch: Dispatch<Action>) => {
+        const token = localStorage.getItem("token");
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        };
         dispatch({
             type: ActionType.UPDATE_PROJECT,
             payload: {
@@ -100,7 +123,8 @@ export const updateProject = (
         try {
             await axios.put(
                 api + "project/" + userId + "/" + updatedProject.id,
-                updatedProject
+                updatedProject,
+                config,
             );
 
             dispatch({
@@ -127,6 +151,13 @@ export const deleteProject = (
     userId: string
 ) => {
     return async (dispatch: Dispatch<Action>) => {
+        const token = localStorage.getItem("token");
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        };
         dispatch({
             type: ActionType.DELETE_PROJECT,
             payload: {
@@ -136,7 +167,7 @@ export const deleteProject = (
 
         try {
             await axios.delete(
-                api + "project/" + userId + "/" + deletedProject.id
+                api + "project/" + userId + "/" + deletedProject.id,config
             );
 
             dispatch({
@@ -212,10 +243,18 @@ export const swapProject = (
         firstProject = { ...firstProject, serial: secondIndex };
         secondProject = { ...secondProject, serial: firstIndex };
 
+        const token = localStorage.getItem("token");
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        };
+
         try {
             await axios.put(
                 api + "project/" + userId + "/" + firstProject.id,
-                firstProject
+                firstProject,config
             );
 
             await axios.put(
