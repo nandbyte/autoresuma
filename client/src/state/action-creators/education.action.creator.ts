@@ -8,19 +8,20 @@ const api: string = "http://localhost:3000/v1/";
 
 export const fetchEducations = (userId: string) => {
     const token = localStorage.getItem("token");
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    };
     return async (dispatch: Dispatch<Action>) => {
         dispatch({ type: ActionType.FETCH_EDUCATIONS });
 
         try {
-            const config = {
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${token}`,
-                },
-              };
 
-            const { data } = await axios.get(api + "education/" + userId,config);
-            
+
+            const { data } = await axios.get(api + "education/" + userId, config);
+
             console.log(data);
 
             const educations: Education[] = data.record;
@@ -42,6 +43,14 @@ export const fetchEducations = (userId: string) => {
 
 // TODO: Update
 export const addEducation = (newEducation: Education, userId: string) => {
+    const token = localStorage.getItem("token");
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
     return async (dispatch: Dispatch<Action>) => {
         dispatch({
             type: ActionType.ADD_EDUCATION,
@@ -54,7 +63,8 @@ export const addEducation = (newEducation: Education, userId: string) => {
         try {
             const { data } = await axios.post(
                 api + "education/" + userId,
-                newEducation
+                newEducation,
+                config,
             );
 
             console.log(newEducation);
@@ -99,6 +109,14 @@ export const updateEducation = (
     updatedEducation: Education,
     userId: string
 ) => {
+    const token = localStorage.getItem("token");
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
     return async (dispatch: Dispatch<Action>) => {
         dispatch({
             type: ActionType.UPDATE_EDUCATION,
@@ -110,7 +128,8 @@ export const updateEducation = (
         try {
             await axios.put(
                 api + "education/" + userId + "/" + updatedEducation.id,
-                updatedEducation
+                updatedEducation,
+                config
             );
 
             dispatch({
@@ -136,6 +155,13 @@ export const deleteEducation = (
     deletedEducation: Education,
     userId: string
 ) => {
+    const token = localStorage.getItem("token");
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    };
     return async (dispatch: Dispatch<Action>) => {
         dispatch({
             type: ActionType.DELETE_EDUCATION,
@@ -146,7 +172,7 @@ export const deleteEducation = (
 
         try {
             await axios.delete(
-                api + "education/" + userId + "/" + deletedEducation.id
+                api + "education/" + userId + "/" + deletedEducation.id, config
             );
 
             dispatch({
@@ -221,16 +247,24 @@ export const swapEducation = (
 
         firstEducation = { ...firstEducation, serial: secondIndex };
         secondEducation = { ...secondEducation, serial: firstIndex };
-
+        const token = localStorage.getItem("token");
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        };
         try {
             await axios.put(
                 api + "education/" + userId + "/" + firstEducation.id,
-                firstEducation
+                firstEducation,
+                config
             );
 
             await axios.put(
                 api + "education/" + userId + "/" + secondEducation.id,
-                secondEducation
+                secondEducation,
+                config
             );
 
             dispatch({

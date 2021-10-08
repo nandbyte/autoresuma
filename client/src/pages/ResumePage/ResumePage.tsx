@@ -8,8 +8,8 @@ import SectionDivider from "../../components/SectionDivider";
 import Navbar from "../../components/Navbar";
 import SubsectionDivider from "../../components/SubsectionDivider";
 import { useActions } from "../../hooks/useActions";
-import dummyId from "../../api/dummy";
-import Resume from "./templates/Basic1";
+// import dummyId from "../../api/dummy";
+// import Resume from "./templates/Basic1";
 const ResumePage = () => {
     const { fetchEducations, fetchSkills, fetchExperiences, fetchProjects } = useActions();
 
@@ -80,7 +80,7 @@ const ResumePage = () => {
                             </Link>
                         </Text>
                         <div>
-                            <Resume />
+                            {/* <Resume /> */}
                         </div>
                     </Stack>
 

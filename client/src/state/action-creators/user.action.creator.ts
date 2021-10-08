@@ -47,7 +47,7 @@ export const logIn = (email: string, password: string) => {
 
             // console.log(data.data.token);
             const token: string = data.data.token;
-            localStorage.setItem("token",JSON.stringify(token));
+            localStorage.setItem("token",token);
             const user: User = data.data;
 
             dispatch({
