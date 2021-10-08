@@ -52,13 +52,9 @@ class UserController extends CommonControllerConfig{
 
 			const data = {
 				id : record.id,
-				username : record.username,
 				firstName : record.firstName,
 				lastName : record.lastName,
-				email: record.email,
-				title: record.title,
-				github: record.github,
-				linkedin: record.linkedin,
+				email: record.email
 			}
 
 			return res.json({status:200, msg: "OK", route:"/v1/profile/:userId" ,data});
