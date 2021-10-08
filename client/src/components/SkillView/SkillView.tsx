@@ -41,6 +41,7 @@ const SkillView: React.FC<Props> = (props: Props) => {
             dummyId
         );
     };
+
     const moveDown: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         event.preventDefault();
 

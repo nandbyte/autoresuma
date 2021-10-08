@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Box } from "@chakra-ui/layout";
-import { CircularProgress } from "@chakra-ui/react";
 
 import BioForm from "../../components/BioForm";
 import BioView from "../../components/BioView";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 const BioTab = () => {
-    const { loading, updating } = useTypedSelector((state) => state.bio);
+    const { updating } = useTypedSelector((state) => state.bio);
 
     return (
         <Box

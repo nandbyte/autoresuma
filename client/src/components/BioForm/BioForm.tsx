@@ -10,6 +10,9 @@ import {
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useActions } from "../../hooks/useActions";
 
+import dummyId from "../../api/dummy";
+import { FaSave, FaTimes } from "react-icons/fa";
+
 const BioForm = () => {
     const { currentState } = useTypedSelector((state) => state.bio);
 
@@ -25,15 +28,14 @@ const BioForm = () => {
     const [country, setCountry] = useState<string>(
         currentState ? currentState.country : ""
     );
-    const [zipCode, setZipCode] = useState<string>(
-        currentState ? currentState.zipCode : ""
+    const [zip, setZip] = useState<string>(
+        currentState ? currentState.zip : ""
     );
 
     const { fetchBio, switchToBioView, saveBio } = useActions();
 
     useEffect(() => {
-        console.log("Here at Bio Form");
-        fetchBio();
+        fetchBio(dummyId);
     }, []);
 
     const handleCancel: React.MouseEventHandler<HTMLButtonElement> = (
@@ -45,13 +47,18 @@ const BioForm = () => {
 
     const handleSave: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         event.preventDefault();
-        saveBio({
-            firstName,
-            lastName,
-            address,
-            country,
-            zipCode,
-        });
+        saveBio(
+            {
+                id: currentState === null ? "0" : currentState.id,
+                firstName,
+                lastName,
+                address,
+                country,
+                zip,
+                userId: dummyId,
+            },
+            dummyId
+        );
     };
 
     return (
@@ -104,15 +111,19 @@ const BioForm = () => {
                     <FormLabel>ZIP Code</FormLabel>
                     <Input
                         placeholder="ZIP code"
-                        value={zipCode}
+                        value={zip}
                         onChange={(event) => {
-                            setZipCode(event.target.value);
+                            setZip(event.target.value);
                         }}
                     />
                 </FormControl>
                 <Stack direction="row">
-                    <Button onClick={handleSave}>Save</Button>
-                    <Button onClick={handleCancel}>Cancel</Button>
+                    <Button leftIcon={<FaSave />} onClick={handleSave}>
+                        Save
+                    </Button>
+                    <Button leftIcon={<FaTimes />} onClick={handleCancel}>
+                        Cancel
+                    </Button>
                 </Stack>
             </Stack>
         </form>

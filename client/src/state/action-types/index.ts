@@ -71,4 +71,11 @@ export enum ActionType {
     DELETE_EXPERIENCE = "delete_experience",
     DELETE_EXPERIENCE_SUCCESS = "delete_experience_success",
     EXPERIENCE_ERROR = "experience_error",
+
+    USER_LOG_IN = "user_log_in",
+    USER_LOG_IN_SUCCESS = "user_log_in_success",
+    USER_LOG_OUT = "user_log_out",
+    USER_REGISTER = "user_register",
+    USER_REGISTER_SUCCESS = "user_register_success",
+    USER_ERROR = "user_error",
 }

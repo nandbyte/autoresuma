@@ -9,14 +9,16 @@ import {
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useActions } from "../../hooks/useActions";
 
+import dummyId from "../../api/dummy";
+import { FaEdit } from "react-icons/fa";
+
 const BioView = () => {
-    const { loading, saving, savedState, currentState, error } =
-        useTypedSelector((state) => state.bio);
+    const { savedState, currentState } = useTypedSelector((state) => state.bio);
 
     const { fetchBio, switchToBioForm } = useActions();
 
     useEffect(() => {
-        fetchBio();
+        fetchBio(dummyId);
     }, []);
 
     const handleUpdate: React.MouseEventHandler<HTMLButtonElement> = (
@@ -46,7 +48,7 @@ const BioView = () => {
                     <FormLabel>
                         <Heading variant="label">Address</Heading>
                     </FormLabel>
-                    <FormLabel> {currentState?.address} </FormLabel>
+                    <FormLabel> {currentState?.address === ""} </FormLabel>
                 </FormControl>
                 <FormControl id="country">
                     <FormLabel>
@@ -58,10 +60,12 @@ const BioView = () => {
                     <FormLabel>
                         <Heading variant="label">ZIP Code</Heading>
                     </FormLabel>
-                    <FormLabel>{savedState?.zipCode}</FormLabel>
+                    <FormLabel>{savedState?.zip}</FormLabel>
                 </FormControl>
                 <Stack direction="row">
-                    <Button onClick={handleUpdate}>Update</Button>
+                    <Button leftIcon={<FaEdit />} onClick={handleUpdate}>
+                        Edit
+                    </Button>
                 </Stack>
             </Stack>
         </form>

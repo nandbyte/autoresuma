@@ -35,7 +35,7 @@ const SkillTab = () => {
                     {currentState.map((skill, index) => {
                         return (
                             <Box
-                                key={skill.id}
+                                key={skill.description + skill.type}
                                 w="100%"
                                 bgColor="gray.700"
                                 color="white"

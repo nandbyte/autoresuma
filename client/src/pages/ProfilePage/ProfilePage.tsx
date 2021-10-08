@@ -1,17 +1,12 @@
 import React from "react";
-import { Heading, Stack, Box } from "@chakra-ui/layout";
+import { Heading } from "@chakra-ui/layout";
 
-import Credit from "../../components/Credit";
-import SectionDivider from "../../components/SectionDivider";
-import Navbar from "../../components/Navbar";
 import TabView, { TabObject } from "../../components/TabView/TabView";
-
 import BioTab from "../BioTab";
 import EducationTab from "../EducationTab";
 import ProjectTab from "../ProjectTab";
 import SkillTab from "../SkillTab";
 import ExperienceTab from "../ExperienceTab";
-import { Flex } from "@chakra-ui/react";
 import SubsectionDivider from "../../components/SubsectionDivider";
 import PageContainer from "../../components/PageContainer";
 
@@ -46,7 +41,7 @@ const tabs: Array<TabObject> = [
 
 const ProfilePage = () => {
     return (
-        <PageContainer>
+        <PageContainer variant="navbar">
             <Heading
                 textAlign={{ base: "center", lg: "left" }}
                 fontWeight="black"
