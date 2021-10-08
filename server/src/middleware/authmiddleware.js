@@ -16,19 +16,25 @@ const protect = async(req, res)=>{
 
       req.user = await User.findOne({where:{
 	      userId: decoded.id
-      }}).select('-password')
+      }});
 
       next()
     } catch (error) {
-      console.error(error)
-      res.status(401)
-      throw new Error('Not authorized, token failed')
+
+      return res.json({
+	      status:401,
+	      msg:"Authorization failed",
+
+      });
     }
   }
 
   if (!token) {
-    res.status(401)
-    throw new Error('Not authorized, no token')
+
+      return res.json({
+	      status:401,
+	      msg:"NO TOKEN",
+      });
   }
 }
 
