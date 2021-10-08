@@ -37,7 +37,7 @@ const PageContainer: React.FC<Props> = (props: Props) => {
                             {props.children}
                         </Box>
                     </Stack>
-                    <Box>
+                    <Box pt={{ base: 16, lg: 32 }}>
                         <SectionDivider />
                         <Credit />
                     </Box>
