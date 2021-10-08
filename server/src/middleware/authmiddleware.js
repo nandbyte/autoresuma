@@ -1,7 +1,7 @@
 
 import jwt from "jsonwebtoken";
 import User from "../models/user";
-
+// auth middleware added
 const protect = async(req, res)=>{
 	let token;
 
