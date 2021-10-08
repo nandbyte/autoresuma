@@ -2,7 +2,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user";
 // auth middleware added
-const protect = async(req, res)=>{
+const protect = async(req, res, next)=>{
 	let token;
   console.log(req.headers.authorization);
   if (
@@ -14,7 +14,7 @@ const protect = async(req, res)=>{
 
 
       const decoded = jwt.verify(token, "secret")
-      
+
 
 	if(decoded.id !== req.params.userId){
 		return res.json({status:500,msg:"Unauthorized access will not be granted."});
@@ -25,11 +25,7 @@ const protect = async(req, res)=>{
       }});
 
 
-	return res.json({
-		id: decoded.id,
-		status:200,
-		msg:"ok"
-	})
+	next();
 
     } catch (error) {
 
