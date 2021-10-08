@@ -54,7 +54,7 @@ export const saveBio = (newBio: Bio, userId: string) => {
         });
         try {
             const { data } = await axios.put(
-                api + userId + "/",
+                api + userId + "/" + newBio.id,
                 newBio,
                 config
             );
