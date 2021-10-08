@@ -3,7 +3,7 @@ import User from "../models/user";
 import {v4 as uuidv4} from "uuid";
 import generateToken from "../utils/geenrateToken";
 import { Request,Response } from "express";
-
+import Bio from "../models/bio";
 
 class UserController extends CommonControllerConfig{
 
@@ -36,9 +36,21 @@ class UserController extends CommonControllerConfig{
 
 		try{
 			const id = uuidv4();
+			const bioId = uuidv4();
+
 			const record = await User.create({...req.body,id});
 
-			return res.json({status:201, msg:"OK", route:"/v1/profile/:userId", record});
+			const data = {
+				firstName : req.body.firstName,
+				lastName : req.body.lastName,
+			}
+			delete req.body.password;
+			const bioRecord = await Bio.create({...req.body,bioId});
+
+
+
+
+			return res.json({status:201, msg:"OK", route:"/v1/profile/:userId", record,bioRecord});
 		}
 		catch(e){
 

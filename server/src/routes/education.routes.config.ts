@@ -3,7 +3,7 @@ import {CommonRoutesConfig} from "../common/common.routes.config";
 import  EducationController  from "../controller/education.controller.config";
 
 import express from "express";
-
+import protect from "../middleware/authmiddleware";
 //let usercont = new UserController();
 
 export class EducationRoutes extends CommonRoutesConfig{
@@ -16,17 +16,17 @@ export class EducationRoutes extends CommonRoutesConfig{
 
 
 		this.app.route('/v1/education/:userId')
-			.get(EducationController.getAll)
-			.post(EducationController.create);
+			.get(protect,EducationController.getAll)
+			.post(protect,EducationController.create);
 		this.app.route('/v1/education/:userId/:educationId')
 			.all((req: express.Request,res: express.Response,next: express.NextFunction)=>{
 				//this middleware function runs before any request to /user/:userid
 
 				next();
 			})
-			.get(EducationController.getById)
-			.put(EducationController.update)
-			.delete(EducationController.delete);
+			.get(protect,EducationController.getById)
+			.put(protect,EducationController.update)
+			.delete(protect,EducationController.delete);
 		return this.app;
 	}
 }

@@ -2,6 +2,8 @@ import { CommonRoutesConfig } from "../common/common.routes.config";
 import BioController from "../controller/bio.controller.config";
 
 import express from "express";
+import protect from "../middleware/authmiddleware";
+
 
 export class BioRoutes extends CommonRoutesConfig {
     constructor(app: express.Application) {
@@ -11,8 +13,8 @@ export class BioRoutes extends CommonRoutesConfig {
     configureRoutes() {
         this.app
             .route("/v1/bio/:userId")
-            .get(BioController.getAll)
-            .post(BioController.create);
+            .get(protect,BioController.getAll)
+            .post(protect,BioController.create);
         this.app
             .route("/v1/bio/:userId/:bioId")
             .all(
@@ -24,9 +26,9 @@ export class BioRoutes extends CommonRoutesConfig {
                     next();
                 }
             )
-            .get(BioController.getById)
-            .put(BioController.update)
-            .delete(BioController.delete);
+            .get(protect,BioController.getById)
+            .put(protect,BioController.update)
+            .delete(protect,BioController.delete);
         return this.app;
     }
 }

@@ -54,12 +54,12 @@ const Bio = sequelize.define<BioInstance>(
 			type: DataTypes.TEXT,
 		},
 		address:{
-			allowNull: false,
+			allowNull: true,
 			type:DataTypes.TEXT,
 		},
 
 		zip:{
-			allowNull : false,
+			allowNull : true,
 			type: DataTypes.TEXT,
 		},
 		country:{
