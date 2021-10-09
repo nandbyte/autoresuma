@@ -7,13 +7,25 @@ import { Education } from "../types";
 const api: string = "http://localhost:3000/v1/";
 
 export const fetchEducations = (userId: string) => {
+    const token = localStorage.getItem("token");
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    };
     return async (dispatch: Dispatch<Action>) => {
         dispatch({ type: ActionType.FETCH_EDUCATIONS });
 
         try {
-            const { data } = await axios.get(api + "education/" + userId);
+            const { data } = await axios.get(
+                api + "education/" + userId,
+                config
+            );
 
-            const educations: Education[] = data;
+            console.log(data);
+
+            const educations: Education[] = data.record;
 
             dispatch({
                 type: ActionType.FETCH_EDUCATIONS_SUCCESS,
@@ -32,6 +44,14 @@ export const fetchEducations = (userId: string) => {
 
 // TODO: Update
 export const addEducation = (newEducation: Education, userId: string) => {
+    const token = localStorage.getItem("token");
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
     return async (dispatch: Dispatch<Action>) => {
         dispatch({
             type: ActionType.ADD_EDUCATION,
@@ -42,13 +62,17 @@ export const addEducation = (newEducation: Education, userId: string) => {
         });
 
         try {
-            await axios.post(api + "education/" + userId, newEducation);
+            const { data } = await axios.post(
+                api + "education/" + userId,
+                newEducation,
+                config
+            );
 
             dispatch({
                 type: ActionType.ADD_EDUCATION_SUCCESS,
                 payload: {
                     newIndex: newEducation.serial,
-                    newEducation: newEducation,
+                    newEducation: data.record,
                 },
             });
         } catch (error: any) {
@@ -56,6 +80,7 @@ export const addEducation = (newEducation: Education, userId: string) => {
                 type: ActionType.EDUCATION_ERROR,
                 payload: error.message,
             });
+            console.log(error);
         }
     };
 };
@@ -77,36 +102,41 @@ export const cancelAddEducation = () => {
 };
 
 // Fix this to send all educations
-export const updateEducations = (
-    currentEducations: Education[],
+export const updateEducation = (
+    updateIndex: number,
     updatedEducation: Education,
     userId: string
 ) => {
+    const token = localStorage.getItem("token");
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
     return async (dispatch: Dispatch<Action>) => {
         dispatch({
-            type: ActionType.UPDATE_EDUCATIONS,
+            type: ActionType.UPDATE_EDUCATION,
+            payload: {
+                updateIndex: updateIndex,
+            },
         });
 
-        const updatedEducations: Education[] = Object.assign(
-            [],
-            currentEducations,
-            { [updatedEducation.serial]: updatedEducation }
-        );
-
         try {
-            const { status } = await axios.put(
-                api + "education/" + userId,
-                updatedEducations
+            await axios.put(
+                api + "education/" + userId + "/" + updatedEducation.id,
+                updatedEducation,
+                config
             );
 
-            if (status === 200) {
-                dispatch({
-                    type: ActionType.UPDATE_EDUCATIONS_SUCCESS,
-                    payload: {
-                        updatedEducations: updatedEducations,
-                    },
-                });
-            }
+            dispatch({
+                type: ActionType.UPDATE_EDUCATION_SUCCESS,
+                payload: {
+                    updateIndex: updateIndex,
+                    updatedEducation: updatedEducation,
+                },
+            });
         } catch (error: any) {
             dispatch({
                 type: ActionType.EDUCATION_ERROR,
@@ -116,21 +146,40 @@ export const updateEducations = (
     };
 };
 
-// TODO: Fix userId
+// TODO: Use delete states
 export const deleteEducation = (
     currentEducations: Education[],
+    deleteIndex: number,
     deletedEducation: Education,
     userId: string
 ) => {
+    const token = localStorage.getItem("token");
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    };
     return async (dispatch: Dispatch<Action>) => {
         dispatch({
-            type: ActionType.UPDATE_EDUCATIONS,
+            type: ActionType.DELETE_EDUCATION,
+            payload: {
+                deleteIndex: deleteIndex,
+            },
         });
 
         try {
             await axios.delete(
-                api + "education/" + userId + "/" + deletedEducation.id
+                api + "education/" + userId + "/" + deletedEducation.id,
+                config
             );
+
+            dispatch({
+                type: ActionType.DELETE_EDUCATION_SUCCESS,
+                payload: {
+                    deleteIndex: deleteIndex,
+                },
+            });
 
             let updatedEducations = currentEducations.filter(
                 (value) => value !== deletedEducation
@@ -138,15 +187,7 @@ export const deleteEducation = (
 
             updatedEducations.forEach((value, index) => {
                 value.serial = index;
-            });
-
-            await axios.put(api + "education/" + userId, updateEducations);
-
-            dispatch({
-                type: ActionType.UPDATE_EDUCATIONS_SUCCESS,
-                payload: {
-                    updatedEducations: updatedEducations,
-                },
+                dispatch<any>(updateEducation(index, value, userId));
             });
         } catch (error: any) {
             dispatch({
@@ -180,45 +221,66 @@ export const switchToEducationView = (index: number) => {
 };
 
 export const swapEducation = (
-    currentEducations: Education[],
     firstEducation: Education,
     secondEducation: Education,
     userId: string
 ) => {
     return async (dispatch: Dispatch<Action>) => {
+        // Set both component to loading mode
         dispatch({
-            type: ActionType.UPDATE_EDUCATIONS,
+            type: ActionType.UPDATE_EDUCATION,
+            payload: {
+                updateIndex: firstEducation.serial,
+            },
+        });
+        dispatch({
+            type: ActionType.UPDATE_EDUCATION,
+            payload: {
+                updateIndex: secondEducation.serial,
+            },
         });
 
+        // Swap the serial
         const firstIndex = firstEducation.serial;
         const secondIndex = secondEducation.serial;
 
         firstEducation = { ...firstEducation, serial: secondIndex };
         secondEducation = { ...secondEducation, serial: firstIndex };
-
-        const updatedEducations: Education[] = Object.assign(
-            [],
-            currentEducations,
-            {
-                [firstIndex]: secondEducation,
-                [secondIndex]: firstEducation,
-            }
-        );
-
+        const token = localStorage.getItem("token");
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        };
         try {
-            const { status } = await axios.put(
-                api + "education/" + userId,
-                updatedEducations
+            await axios.put(
+                api + "education/" + userId + "/" + firstEducation.id,
+                firstEducation,
+                config
             );
 
-            if (status === 200) {
-                dispatch({
-                    type: ActionType.UPDATE_EDUCATIONS_SUCCESS,
-                    payload: {
-                        updatedEducations: updatedEducations,
-                    },
-                });
-            }
+            await axios.put(
+                api + "education/" + userId + "/" + secondEducation.id,
+                secondEducation,
+                config
+            );
+
+            dispatch({
+                type: ActionType.UPDATE_EDUCATION_SUCCESS,
+                payload: {
+                    updateIndex: firstIndex,
+                    updatedEducation: secondEducation,
+                },
+            });
+
+            dispatch({
+                type: ActionType.UPDATE_EDUCATION_SUCCESS,
+                payload: {
+                    updateIndex: secondIndex,
+                    updatedEducation: firstEducation,
+                },
+            });
         } catch (error: any) {
             dispatch({
                 type: ActionType.EDUCATION_ERROR,

@@ -48,6 +48,7 @@ const TabView = (props: any) => {
                 >
                     {tabList.map((tabs) => (
                         <Tab
+                            key={tabs.tabName}
                             color="white"
                             bgColor="gray.600"
                             fontWeight="normal"
@@ -61,7 +62,7 @@ const TabView = (props: any) => {
 
             <TabPanels>
                 {tabList.map((tabs) => (
-                    <TabPanel p={0} pt={6}>
+                    <TabPanel key={tabs.tabName} p={0} pt={6}>
                         {tabs.tabPanel}
                     </TabPanel>
                 ))}

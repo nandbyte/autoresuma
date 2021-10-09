@@ -7,7 +7,7 @@ const Input = {
         }),
     },
     defaultProps: {
-        focusBorderColor: "red.200",
+        focusBorderColor: "red.50",
     },
 };
 

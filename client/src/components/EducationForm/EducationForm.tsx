@@ -3,9 +3,8 @@ import { Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react";
 import { Education } from "../../state/types";
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { updateEducations } from "../../state/action-creators";
 
-import dummyId from "../../api/dummy";
+import { FaSave, FaTimes, FaTrash } from "react-icons/fa";
 
 interface Props {
     index: number;
@@ -14,28 +13,26 @@ interface Props {
 
 const EducationForm: React.FC<Props> = (props: Props) => {
     const { currentState } = useTypedSelector((state) => state.educations);
+    const { user } = useTypedSelector((state) => state.user);
 
     const [certificateName, setDegree] = useState<string>(
         currentState ? currentState[props.index].certificateName : ""
     );
 
     const [passingYear, setYearOfPassing] = useState<number>(
-        currentState ? currentState[props.index].passingYear : 2000
+        currentState ? currentState[props.index].passingYear : 2010
     );
 
     const [result, setResult] = useState<number>(
-        currentState ? currentState[props.index].result : 0.0
+        currentState ? currentState[props.index].result : 5.0
     );
 
     const [institution, setInstitution] = useState<string>(
         currentState ? currentState[props.index].institution : ""
     );
 
-    const [subject, setSubject] = useState<string>(
-        currentState ? currentState[props.index].certificateName : ""
-    );
-
-    const { switchToEducationView } = useActions();
+    const { switchToEducationView, updateEducation, deleteEducation } =
+        useActions();
 
     const handleCancel: React.MouseEventHandler<HTMLButtonElement> = (
         event
@@ -43,11 +40,22 @@ const EducationForm: React.FC<Props> = (props: Props) => {
         event.preventDefault();
         switchToEducationView(props.index);
     };
+    const handleDelete: React.MouseEventHandler<HTMLButtonElement> = (
+        event
+    ) => {
+        event.preventDefault();
+        deleteEducation(
+            currentState,
+            props.index,
+            currentState[props.index],
+            user !== null ? user.id : ""
+        );
+    };
 
     const handleSave: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         event.preventDefault();
-        updateEducations(
-            currentState,
+        updateEducation(
+            props.index,
             {
                 id: currentState[props.index].id,
                 certificateName,
@@ -55,9 +63,9 @@ const EducationForm: React.FC<Props> = (props: Props) => {
                 result,
                 institution,
                 serial: props.index,
-                userId: dummyId,
+                userId: user !== null ? user.id : "",
             },
-            dummyId
+            user !== null ? user.id : ""
         );
     };
 
@@ -89,7 +97,7 @@ const EducationForm: React.FC<Props> = (props: Props) => {
                     </FormControl>
 
                     <FormControl id="result" isRequired>
-                        <FormLabel>Result</FormLabel>
+                        <FormLabel>Result (CGPA)</FormLabel>
                         <Input
                             placeholder="5.00"
                             value={result}
@@ -110,22 +118,27 @@ const EducationForm: React.FC<Props> = (props: Props) => {
                             }}
                         />
                     </FormControl>
-
-                    <FormControl id="subject" isRequired>
-                        <FormLabel>Subject</FormLabel>
-                        <Input
-                            placeholder="Computer Science and Engineering"
-                            value={subject}
-                            onChange={(event) => {
-                                setSubject(event.target.value);
-                            }}
-                        />
-                    </FormControl>
                 </Stack>
             </form>
             <Stack direction="row">
-                <Button onClick={handleSave}>Save</Button>
-                <Button onClick={handleCancel}>Cancel</Button>
+                <Button
+                    disabled={
+                        certificateName === "" ||
+                        institution === "" ||
+                        isNaN(passingYear) ||
+                        isNaN(result)
+                    }
+                    leftIcon={<FaSave />}
+                    onClick={handleSave}
+                >
+                    Save
+                </Button>
+                <Button leftIcon={<FaTrash />} onClick={handleDelete}>
+                    Delete
+                </Button>
+                <Button leftIcon={<FaTimes />} onClick={handleCancel}>
+                    Cancel
+                </Button>
             </Stack>
         </Stack>
     );

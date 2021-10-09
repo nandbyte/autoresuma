@@ -2,9 +2,12 @@ import { useColorModeValue } from "@chakra-ui/color-mode";
 import { Heading, Link } from "@chakra-ui/layout";
 import React from "react";
 
+import { Link as RouterLink } from "react-router-dom";
+
 const NavLink = (props: any) => {
     return (
         <Link
+            as={RouterLink}
             px={3}
             py={2}
             rounded={"md"}
@@ -17,7 +20,7 @@ const NavLink = (props: any) => {
                 ),
                 bg: useColorModeValue(props.hoverBgColor, props.hoverTextColor),
             }}
-            href={props.href}
+            to={props.href}
         >
             <Heading fontSize="lg"> {props.children}</Heading>
         </Link>

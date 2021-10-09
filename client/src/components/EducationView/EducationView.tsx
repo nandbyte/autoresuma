@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Heading } from "@chakra-ui/layout";
 import {
     IconButton,
@@ -9,7 +9,7 @@ import {
     SkeletonText,
 } from "@chakra-ui/react";
 import { Education } from "../../state/types";
-import { FaArrowDown, FaArrowUp } from "react-icons/fa";
+import { FaArrowDown, FaArrowUp, FaEdit } from "react-icons/fa";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useActions } from "../../hooks/useActions";
 
@@ -19,14 +19,37 @@ interface Props {
 }
 
 const EducationView: React.FC<Props> = (props: Props) => {
-    const { loading, updating, currentState } = useTypedSelector(
+    const { loading, currentState } = useTypedSelector(
         (state) => state.educations
     );
+    const { user } = useTypedSelector((state) => state.user);
 
-    const { switchToEducationForm } = useActions();
+    const { switchToEducationForm, swapEducation } = useActions();
 
-    const handleUpdate = () => {
+    const handleUpdate: React.MouseEventHandler<HTMLButtonElement> = (
+        event
+    ) => {
+        event.preventDefault();
         switchToEducationForm(props.index);
+    };
+
+    const moveUp: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+        event.preventDefault();
+
+        swapEducation(
+            currentState[props.index - 1],
+            currentState[props.index],
+            user !== null ? user.id : ""
+        );
+    };
+    const moveDown: React.MouseEventHandler<HTMLButtonElement> = (event) => {
+        event.preventDefault();
+
+        swapEducation(
+            currentState[props.index],
+            currentState[props.index + 1],
+            user !== null ? user.id : ""
+        );
     };
 
     return (
@@ -35,11 +58,15 @@ const EducationView: React.FC<Props> = (props: Props) => {
                 <Heading variant="tab">{props.content.certificateName}</Heading>
                 <Stack direction="row">
                     <IconButton
+                        disabled={props.index === 0}
+                        onClick={moveUp}
                         aria-label="Move Up"
                         borderRadius="md"
                         icon={<FaArrowUp />}
                     />
                     <IconButton
+                        disabled={props.index === currentState.length - 1}
+                        onClick={moveDown}
                         aria-label="Move Down"
                         borderRadius="md"
                         icon={<FaArrowDown />}
@@ -67,7 +94,7 @@ const EducationView: React.FC<Props> = (props: Props) => {
                     >
                         <FormControl id="result">
                             <FormLabel>
-                                <Heading variant="label">Result</Heading>
+                                <Heading variant="label">Result (CGPA)</Heading>
                             </FormLabel>
                             <FormLabel>{props.content.result}</FormLabel>
                         </FormControl>
@@ -85,8 +112,10 @@ const EducationView: React.FC<Props> = (props: Props) => {
                     </SkeletonText>
                 </Stack>
             </form>
-            <Stack direction="row">
-                <Button onClick={handleUpdate}>Update</Button>
+            <Stack direction="row" pt={2}>
+                <Button leftIcon={<FaEdit />} onClick={handleUpdate}>
+                    Edit
+                </Button>
             </Stack>
         </Stack>
     );

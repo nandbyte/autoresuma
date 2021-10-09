@@ -12,6 +12,7 @@ interface SkillAttributes{
 	type: string;
 	description: string;
 	level: string;
+	serial: number;
 	userId: string;
 }
 
@@ -45,6 +46,10 @@ const Skill = sequelize.define<SkillInstance>(
 		level:{
 			allowNull: false,
 			type: DataTypes.TEXT,
+		},
+		serial:{
+			allowNull: false,
+			type: DataTypes.INTEGER,
 		},
 		userId:{
 			allowNull: false,

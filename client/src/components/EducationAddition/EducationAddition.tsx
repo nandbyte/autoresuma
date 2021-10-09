@@ -1,25 +1,31 @@
 import React, { useState } from "react";
-import { Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react";
+import {
+    Button,
+    FormControl,
+    FormLabel,
+    Heading,
+    Input,
+    Stack,
+} from "@chakra-ui/react";
 
 import { useActions } from "../../hooks/useActions";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
-import dummyId from "../../api/dummy";
+import { FaPlus, FaTimes } from "react-icons/fa";
 
 interface Props {}
 
 const EducationAddition: React.FC<Props> = (props: Props) => {
     const { currentState } = useTypedSelector((state) => state.educations);
+    const { user } = useTypedSelector((state) => state.user);
 
-    const [certificateName, setDegree] = useState<string>("");
+    const [certificateName, setCertificateName] = useState<string>("");
 
-    const [passingYear, setYearOfPassing] = useState<number>(2000);
+    const [passingYear, setPassingYear] = useState<number>(2010);
 
-    const [result, setResult] = useState<number>(0.0);
+    const [result, setResult] = useState<number>(5.0);
 
     const [institution, setInstitution] = useState<string>("");
-
-    const [subject, setSubject] = useState<string>("");
 
     const { addEducation, cancelAddEducation } = useActions();
 
@@ -39,15 +45,16 @@ const EducationAddition: React.FC<Props> = (props: Props) => {
                 passingYear,
                 result,
                 institution,
-                serial: currentState.length + 1,
-                userId: dummyId,
+                serial: currentState.length,
+                userId: user !== null ? user.id : "",
             },
-            dummyId
+            user !== null ? user.id : ""
         );
     };
 
     return (
         <Stack spacing={6}>
+            <Heading variant="tab">Add New Education</Heading>
             <form>
                 <Stack spacing={6}>
                     <FormControl id="degree" isRequired>
@@ -56,7 +63,7 @@ const EducationAddition: React.FC<Props> = (props: Props) => {
                             placeholder="Bachelor of Science"
                             value={certificateName}
                             onChange={(event) => {
-                                setDegree(event.target.value);
+                                setCertificateName(event.target.value);
                             }}
                         />
                     </FormControl>
@@ -68,13 +75,13 @@ const EducationAddition: React.FC<Props> = (props: Props) => {
                             value={passingYear}
                             type="number"
                             onChange={(event) => {
-                                setYearOfPassing(event.target.valueAsNumber);
+                                setPassingYear(event.target.valueAsNumber);
                             }}
                         />
                     </FormControl>
 
                     <FormControl id="result" isRequired>
-                        <FormLabel>Result</FormLabel>
+                        <FormLabel>Result (CGPA)</FormLabel>
                         <Input
                             placeholder="5.00"
                             value={result}
@@ -95,22 +102,24 @@ const EducationAddition: React.FC<Props> = (props: Props) => {
                             }}
                         />
                     </FormControl>
-
-                    <FormControl id="subject" isRequired>
-                        <FormLabel>Subject</FormLabel>
-                        <Input
-                            placeholder="Computer Science and Engineering"
-                            value={subject}
-                            onChange={(event) => {
-                                setSubject(event.target.value);
-                            }}
-                        />
-                    </FormControl>
                 </Stack>
             </form>
             <Stack direction="row">
-                <Button onClick={handleAdd}>Add</Button>
-                <Button onClick={handleCancel}>Cancel</Button>
+                <Button
+                    disabled={
+                        certificateName === "" ||
+                        institution === "" ||
+                        isNaN(passingYear) ||
+                        isNaN(result)
+                    }
+                    leftIcon={<FaPlus />}
+                    onClick={handleAdd}
+                >
+                    Add
+                </Button>
+                <Button leftIcon={<FaTimes />} onClick={handleCancel}>
+                    Cancel
+                </Button>
             </Stack>
         </Stack>
     );

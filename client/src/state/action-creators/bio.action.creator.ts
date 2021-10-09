@@ -4,14 +4,24 @@ import { ActionType } from "../action-types";
 import { Action } from "../actions";
 import { Bio } from "../types";
 
-export const fetchBio = () => {
+const api: string = "http://localhost:3000/v1/bio/";
+
+export const fetchBio = (userId: string) => {
+    const token = localStorage.getItem("token");
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
     return async (dispatch: Dispatch<Action>) => {
         dispatch({ type: ActionType.FETCH_BIO });
 
         try {
-            const { data } = await axios.get("http://localhost:3030/");
+            const { data } = await axios.get(api + userId, config);
 
-            const fetchedBio: Bio = data;
+            const fetchedBio: Bio = data.record[0];
 
             dispatch({
                 type: ActionType.FETCH_BIO_SUCCESS,
@@ -26,25 +36,63 @@ export const fetchBio = () => {
     };
 };
 
-export const saveBio = (newBio: Bio) => {
+export const saveBio = (newBio: Bio, userId: string) => {
+    const token = localStorage.getItem("token");
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
+    return async (dispatch: Dispatch<Action>) => {
+        dispatch({
+            type: ActionType.SAVE_BIO,
+        });
+        try {
+            const { data } = await axios.put(
+                api + userId + "/" + newBio.id,
+                newBio,
+                config
+            );
+
+            console.log(data);
+
+            const updatedBio = data.newRec;
+
+            dispatch({
+                type: ActionType.SAVE_BIO_SUCCESS,
+                payload: updatedBio,
+            });
+        } catch (error: any) {
+            dispatch({
+                type: ActionType.BIO_ERROR,
+                payload: error.message,
+            });
+        }
+    };
+};
+
+export const createBio = (newBio: Bio, userId: string) => {
+    const token = localStorage.getItem("token");
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    };
     return async (dispatch: Dispatch<Action>) => {
         dispatch({
             type: ActionType.SAVE_CURRENT_BIO,
             payload: newBio,
         });
         try {
-            const { status } = await axios.post(
-                "http://localhost:3030/",
-                newBio
-            );
+            await axios.post(api + userId + "/", newBio, config);
 
-            if (status === 200) {
-                dispatch({
-                    type: ActionType.SAVE_BIO_SUCCESS,
-                    payload: newBio,
-                });
-                dispatch({ type: ActionType.UPDATE_BIO_SUCCESS });
-            }
+            dispatch({
+                type: ActionType.SAVE_BIO_SUCCESS,
+                payload: newBio,
+            });
         } catch (error: any) {
             dispatch({
                 type: ActionType.BIO_ERROR,

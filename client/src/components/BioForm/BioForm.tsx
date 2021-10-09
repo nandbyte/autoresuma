@@ -10,31 +10,78 @@ import {
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useActions } from "../../hooks/useActions";
 
+import { FaSave, FaTimes } from "react-icons/fa";
+
+import { countries } from "../../data/countries";
+
 const BioForm = () => {
     const { currentState } = useTypedSelector((state) => state.bio);
+    const { user } = useTypedSelector((state) => state.user);
 
     const [firstName, setFirstName] = useState<string>(
-        currentState ? currentState.firstName : ""
+        currentState !== null
+            ? currentState.firstName !== null
+                ? currentState.firstName
+                : ""
+            : ""
     );
     const [lastName, setLastName] = useState<string>(
-        currentState ? currentState.lastName : ""
+        currentState !== null
+            ? currentState.lastName !== null
+                ? currentState.lastName
+                : ""
+            : ""
     );
+
+    const [jobTitle, setJobTitle] = useState<string>(
+        currentState !== null
+            ? currentState.jobTitle !== null
+                ? currentState.jobTitle
+                : ""
+            : ""
+    );
+
+    const [githubLink, setGithubLink] = useState<string>(
+        currentState !== null
+            ? currentState.githubLink !== null
+                ? currentState.githubLink
+                : ""
+            : ""
+    );
+
+    const [linkedInLink, setLinkedInLink] = useState<string>(
+        currentState !== null
+            ? currentState.linkedInLink !== null
+                ? currentState.linkedInLink
+                : ""
+            : ""
+    );
+
     const [address, setAddress] = useState<string>(
-        currentState ? currentState.address : ""
+        currentState !== null
+            ? currentState.address !== null
+                ? currentState.address
+                : ""
+            : ""
     );
+
+    const [zip, setZip] = useState<string>(
+        currentState !== null
+            ? currentState.zip !== null
+                ? currentState.zip
+                : ""
+            : ""
+    );
+
     const [country, setCountry] = useState<string>(
-        currentState ? currentState.country : ""
-    );
-    const [zipCode, setZipCode] = useState<string>(
-        currentState ? currentState.zipCode : ""
+        currentState !== null
+            ? currentState.country !== null
+                ? currentState.country
+                : ""
+            : ""
     );
 
-    const { fetchBio, switchToBioView, saveBio } = useActions();
-
-    useEffect(() => {
-        console.log("Here at Bio Form");
-        fetchBio();
-    }, []);
+    const { switchToBioView, saveBio } = useActions();
 
     const handleCancel: React.MouseEventHandler<HTMLButtonElement> = (
         event
@@ -45,13 +92,21 @@ const BioForm = () => {
 
     const handleSave: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         event.preventDefault();
-        saveBio({
-            firstName,
-            lastName,
-            address,
-            country,
-            zipCode,
-        });
+        saveBio(
+            {
+                id: currentState === null ? "0" : currentState.id,
+                firstName,
+                lastName,
+                address,
+                zip,
+                country,
+                jobTitle: jobTitle,
+                githubLink,
+                linkedInLink,
+                userId: user !== null ? user.id : "",
+            },
+            user !== null ? user.id : ""
+        );
     };
 
     return (
@@ -60,7 +115,7 @@ const BioForm = () => {
                 <FormControl id="first-name">
                     <FormLabel>First Name</FormLabel>
                     <Input
-                        placeholder="First Name"
+                        placeholder="John"
                         value={firstName}
                         onChange={(event) => {
                             setFirstName(event.target.value);
@@ -70,10 +125,40 @@ const BioForm = () => {
                 <FormControl id="last-name">
                     <FormLabel>Last Name</FormLabel>
                     <Input
-                        placeholder="Last Name"
+                        placeholder="Doe"
                         value={lastName}
                         onChange={(event) => {
                             setLastName(event.target.value);
+                        }}
+                    />
+                </FormControl>
+                <FormControl id="job-title">
+                    <FormLabel>Job Title</FormLabel>
+                    <Input
+                        placeholder="Junior Web Developer"
+                        value={jobTitle}
+                        onChange={(event) => {
+                            setJobTitle(event.target.value);
+                        }}
+                    />
+                </FormControl>
+                <FormControl id="github-user-name">
+                    <FormLabel>Github Username</FormLabel>
+                    <Input
+                        placeholder="torvalds"
+                        value={githubLink}
+                        onChange={(event) => {
+                            setGithubLink(event.target.value);
+                        }}
+                    />
+                </FormControl>
+                <FormControl id="linkedin-link">
+                    <FormLabel>LinkedIn Profile Name</FormLabel>
+                    <Input
+                        placeholder="torvalds-linus"
+                        value={linkedInLink}
+                        onChange={(event) => {
+                            setLinkedInLink(event.target.value);
                         }}
                     />
                 </FormControl>
@@ -87,6 +172,17 @@ const BioForm = () => {
                         }}
                     />
                 </FormControl>
+
+                <FormControl id="zip-code">
+                    <FormLabel>ZIP Code</FormLabel>
+                    <Input
+                        placeholder="ZIP code"
+                        value={zip}
+                        onChange={(event) => {
+                            setZip(event.target.value);
+                        }}
+                    />
+                </FormControl>
                 <FormControl id="country">
                     <FormLabel>Country</FormLabel>
                     <Select
@@ -96,23 +192,22 @@ const BioForm = () => {
                             setCountry(event.target.value);
                         }}
                     >
-                        <option>Bangladesh</option>
-                        <option>United States</option>
+                        {countries.map((countryName) => {
+                            return (
+                                <option key={countryName} value={countryName}>
+                                    {countryName}
+                                </option>
+                            );
+                        })}
                     </Select>
                 </FormControl>
-                <FormControl id="zip-code">
-                    <FormLabel>ZIP Code</FormLabel>
-                    <Input
-                        placeholder="ZIP code"
-                        value={zipCode}
-                        onChange={(event) => {
-                            setZipCode(event.target.value);
-                        }}
-                    />
-                </FormControl>
                 <Stack direction="row">
-                    <Button onClick={handleSave}>Save</Button>
-                    <Button onClick={handleCancel}>Cancel</Button>
+                    <Button leftIcon={<FaSave />} onClick={handleSave}>
+                        Save
+                    </Button>
+                    <Button leftIcon={<FaTimes />} onClick={handleCancel}>
+                        Cancel
+                    </Button>
                 </Stack>
             </Stack>
         </form>

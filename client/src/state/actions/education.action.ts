@@ -27,13 +27,17 @@ interface FormUpdateEducationSuccessAction {
 }
 
 interface UpdateEducationsAction {
-    type: ActionType.UPDATE_EDUCATIONS;
+    type: ActionType.UPDATE_EDUCATION;
+    payload: {
+        updateIndex: number;
+    };
 }
 
 interface UpdateEducationsSuccessAction {
-    type: ActionType.UPDATE_EDUCATIONS_SUCCESS;
+    type: ActionType.UPDATE_EDUCATION_SUCCESS;
     payload: {
-        updatedEducations: Education[];
+        updateIndex: number;
+        updatedEducation: Education;
     };
 }
 
@@ -41,7 +45,6 @@ interface AddEducationAction {
     type: ActionType.ADD_EDUCATION;
     payload: {
         newIndex: number;
-        newEducation: Education;
     };
 }
 interface CancelAddEducationAction {
@@ -52,6 +55,7 @@ interface AddEducationSuccessAction {
     type: ActionType.ADD_EDUCATION_SUCCESS;
     payload: {
         newIndex: number;
+        newEducation: Education;
     };
 }
 
@@ -75,6 +79,20 @@ interface SaveNewEducationSuccessAction {
     };
 }
 
+interface DeleteEducationAction {
+    type: ActionType.DELETE_EDUCATION;
+    payload: {
+        deleteIndex: number;
+    };
+}
+
+interface DeleteEducationSuccessAction {
+    type: ActionType.DELETE_EDUCATION_SUCCESS;
+    payload: {
+        deleteIndex: number;
+    };
+}
+
 interface EducationErrorAction {
     type: ActionType.EDUCATION_ERROR;
     payload: {
@@ -95,6 +113,8 @@ type EducationAction =
     | SwitchAddEducationAction
     | SaveNewEducationAction
     | SaveNewEducationSuccessAction
+    | DeleteEducationAction
+    | DeleteEducationSuccessAction
     | EducationErrorAction;
 
 export default EducationAction;
