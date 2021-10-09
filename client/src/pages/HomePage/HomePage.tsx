@@ -10,8 +10,14 @@ import {
 import { Link as RouterLink } from "react-router-dom";
 import AnimationZoom from "../../components/AnimationZoom";
 import PageContainer from "../../components/PageContainer";
+import { Redirect } from 'react-router-dom'
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 const HomePage = () => {
+    const { loggedIn } = useTypedSelector((state) => state.user);
+    if (loggedIn) {
+        return <Redirect to="/profile/bio" />
+    }
     return (
         <PageContainer>
             <Box textAlign="center" pt={{ base: 22, lg: 32 }}>
