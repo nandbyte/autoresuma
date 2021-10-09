@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Alert,
     AlertIcon,
@@ -15,11 +15,18 @@ import { Link as RouterLink } from "react-router-dom";
 import { FaSignInAlt } from "react-icons/fa";
 
 import { useActions } from "../../hooks/useActions";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 interface Props {}
 
 const LoginForm: React.FC<Props> = (props: Props) => {
+    const { error } = useTypedSelector((state) => state.user);
+
     const { logIn } = useActions();
+
+    useEffect(() => {
+        setLoginError(error === null ? "" : error);
+    }, [error]);
 
     const handleLogin: React.MouseEventHandler<HTMLButtonElement> = (event) => {
         event.preventDefault();
@@ -28,11 +35,10 @@ const LoginForm: React.FC<Props> = (props: Props) => {
             /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
         if (!emailRegexPattern.test(email)) {
-            setError("Please provide a valid email address.");
+            setLoginError("Please provide a valid email address.");
         } else {
-            setError("");
+            setLoginError("");
             logIn(email, password);
-            
         }
     };
 
@@ -40,7 +46,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
 
     const [password, setPassword] = useState<string>("");
 
-    const [error, setError] = useState<string>("");
+    const [loginError, setLoginError] = useState("");
 
     return (
         <Stack spacing={6} p={4}>

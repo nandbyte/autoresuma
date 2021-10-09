@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Alert,
     AlertIcon,
@@ -15,10 +15,13 @@ import { Link as RouterLink } from "react-router-dom";
 import { FaUserPlus } from "react-icons/fa";
 
 import { useActions } from "../../hooks/useActions";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 interface Props {}
 
 const RegisterForm: React.FC<Props> = (props: Props) => {
+    const { error } = useTypedSelector((state) => state.user);
+
     const { register } = useActions();
 
     const handleRegister: React.MouseEventHandler<HTMLButtonElement> = (
@@ -30,11 +33,11 @@ const RegisterForm: React.FC<Props> = (props: Props) => {
             /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 
         if (password !== confirmPassword) {
-            setError("The passwords do not match.");
+            setRegisterError("The passwords do not match.");
         } else if (!emailRegexPattern.test(email)) {
-            setError("Please provide a valid email address.");
+            setRegisterError("Please provide a valid email address.");
         } else {
-            setError("");
+            setRegisterError("");
             register({
                 id: "0",
                 firstName,
@@ -45,6 +48,10 @@ const RegisterForm: React.FC<Props> = (props: Props) => {
         }
     };
 
+    useEffect(() => {
+        setRegisterError(error === null ? "" : error);
+    }, [error]);
+
     const [firstName, setFirstName] = useState<string>("");
 
     const [lastName, setLastName] = useState<string>("");
@@ -54,13 +61,14 @@ const RegisterForm: React.FC<Props> = (props: Props) => {
     const [password, setPassword] = useState<string>("");
 
     const [confirmPassword, setConfirmPassword] = useState<string>("");
-    const [error, setError] = useState<string>("");
+
+    const [registerError, setRegisterError] = useState<string>("");
 
     return (
         <Stack spacing={6} p={4}>
             <form>
                 <Stack spacing={{ base: 8 }}>
-                    {error !== "" ? (
+                    {registerError !== "" ? (
                         <Alert status="error">
                             <AlertIcon />
                             <AlertTitle
@@ -68,7 +76,7 @@ const RegisterForm: React.FC<Props> = (props: Props) => {
                                 fontSize={{ lg: "lg" }}
                                 color="gray.900"
                             >
-                                {error}
+                                {registerError}
                             </AlertTitle>
                         </Alert>
                     ) : (

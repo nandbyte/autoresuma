@@ -3,8 +3,7 @@ import { Dispatch } from "redux";
 import { ActionType } from "../action-types";
 import { Action } from "../actions";
 import { User } from "../types";
-const bcrypt = require('bcryptjs');
-
+const bcrypt = require("bcryptjs");
 
 const api: string = "http://localhost:3000/v1/";
 
@@ -15,7 +14,7 @@ export const register = (newUser: User) => {
         });
 
         try {
-            const salt = "$2a$06$W5QisC7wqeiQDrkAbMNoYe"
+            const salt = "$2a$06$W5QisC7wqeiQDrkAbMNoYe";
 
             const hashed = await bcrypt.hash(newUser.password, salt);
             newUser.password = hashed;
@@ -24,16 +23,23 @@ export const register = (newUser: User) => {
 
             const { data } = await axios.post(api + "profile/", newUser);
 
-            const user: User = data.record;
+            if (data.status === 400) {
+                dispatch({
+                    type: ActionType.USER_ERROR,
+                    payload: {
+                        error: "Email is already registered.",
+                    },
+                });
+            } else {
+                const user: User = data.record;
 
-            
-
-            dispatch({
-                type: ActionType.USER_REGISTER_SUCCESS,
-                payload: {
-                    user: user,
-                },
-            });
+                dispatch({
+                    type: ActionType.USER_REGISTER_SUCCESS,
+                    payload: {
+                        user: user,
+                    },
+                });
+            }
         } catch (error: any) {
             dispatch({
                 type: ActionType.USER_ERROR,
@@ -48,7 +54,7 @@ export const logIn = (email: string, password: string) => {
     return async (dispatch: Dispatch<Action>) => {
         dispatch({ type: ActionType.USER_LOG_IN });
         // console.log(email, password);
-        const salt = "$2a$06$W5QisC7wqeiQDrkAbMNoYe"
+        const salt = "$2a$06$W5QisC7wqeiQDrkAbMNoYe";
         // console.log(salt);
         const hashed = await bcrypt.hash(password, salt);
         password = hashed;
@@ -60,20 +66,27 @@ export const logIn = (email: string, password: string) => {
                 password,
             });
 
-            // console.log(data.data.token);
-            const token: string = data.data.token;
-            // console.log(data.data);
-            localStorage.setItem("token", token);
-            const user: User = data.data;
+            if (data.status === 204) {
+                dispatch({
+                    type: ActionType.USER_ERROR,
+                    payload: {
+                        error: "Credentials did not match.",
+                    },
+                });
+            } else {
+                // console.log(data.data.token);
+                const token: string = data.data.token;
+                // console.log(data.data);
+                localStorage.setItem("token", token);
+                const user: User = data.data;
 
-            
-
-            dispatch({
-                type: ActionType.USER_LOG_IN_SUCCESS,
-                payload: {
-                    user: user,
-                },
-            });
+                dispatch({
+                    type: ActionType.USER_LOG_IN_SUCCESS,
+                    payload: {
+                        user: user,
+                    },
+                });
+            }
         } catch (error: any) {
             dispatch({
                 type: ActionType.USER_ERROR,
