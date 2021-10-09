@@ -90,7 +90,10 @@ const ShowcasePage = () => {
                         </Heading>
                         <SubsectionDivider />{" "}
                         <Heading
-                            fontSize="xl"
+                            fontSize={{
+                                base: "xl",
+                                lg: "2xl",
+                            }}
                             textAlign={{ base: "left" }}
                             fontWeight="bold"
                         >
@@ -106,8 +109,8 @@ const ShowcasePage = () => {
                                         <Box>
                                             <Text
                                                 fontSize={{
-                                                    base: "xl",
-                                                    lg: "2xl",
+                                                    base: "md",
+                                                    lg: "lg",
                                                 }}
                                             >
                                                 {skill.description} (
@@ -119,7 +122,7 @@ const ShowcasePage = () => {
                         </Stack>{" "}
                         <Heading
                             pt={12}
-                            fontSize="xl"
+                            fontSize={{ base: "xl", lg: "2xl" }}
                             textAlign={{ base: "left" }}
                             fontWeight="bold"
                         >
@@ -135,8 +138,8 @@ const ShowcasePage = () => {
                                         <Box>
                                             <Text
                                                 fontSize={{
-                                                    base: "xl",
-                                                    lg: "2xl",
+                                                    base: "md",
+                                                    lg: "lg",
                                                 }}
                                             >
                                                 {skill.description} (

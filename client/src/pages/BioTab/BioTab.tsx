@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Stack, Heading } from "@chakra-ui/layout";
+import { Box, Stack, Heading, Link } from "@chakra-ui/layout";
 import { FormControl, FormLabel } from "@chakra-ui/react";
 
 import BioForm from "../../components/BioForm";
@@ -36,13 +36,17 @@ const BioTab = () => {
                 borderRadius="md"
                 my={6}
             >
-                <FormControl id="showcane-name">
+                <FormControl id="showcase-name">
                     <FormLabel>
                         <Heading variant="label">Showcase Link</Heading>
                     </FormLabel>
-                    <FormLabel>
+                    <Link
+                        fontSize={"md"}
+                        style={{ paddingLeft: "0px" }}
+                        href={"http://localhost:3001/showcase/" + user?.id}
+                    >
                         {"http://localhost:3001/showcase/" + user?.id}
-                    </FormLabel>
+                    </Link>
                 </FormControl>
             </Box>
         </Stack>
