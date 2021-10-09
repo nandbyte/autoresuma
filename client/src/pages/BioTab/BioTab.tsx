@@ -11,8 +11,9 @@ const BioTab = () => {
     const { updating } = useTypedSelector((state) => state.bio);
 
     const { loggedIn, user } = useTypedSelector((state) => state.user);
+
     if (!loggedIn) {
-        return <Redirect to="/" />;
+        return <Redirect to="/login" />;
     }
 
     return (

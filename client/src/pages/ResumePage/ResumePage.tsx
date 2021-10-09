@@ -8,8 +8,12 @@ import PageContainer from "../../components/PageContainer";
 import { useReactToPrint } from "react-to-print";
 import SubsectionDivider from "../../components/SubsectionDivider";
 import ResumeTemplate3 from "./templates/ResumeTemplate3";
+import { Redirect } from "react-router";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 const ResumePage = () => {
+    const { loggedIn } = useTypedSelector((state) => state.user);
+
     const refResume1: any = React.createRef();
     const refResume2: any = React.createRef();
     const refResume3: any = React.createRef();
@@ -17,6 +21,10 @@ const ResumePage = () => {
     const handlePrint1 = useReactToPrint({ content: () => refResume1.current });
     const handlePrint2 = useReactToPrint({ content: () => refResume2.current });
     const handlePrint3 = useReactToPrint({ content: () => refResume3.current });
+
+    if (!loggedIn) {
+        return <Redirect to="/login" />;
+    }
 
     return (
         <PageContainer variant="navbar">
