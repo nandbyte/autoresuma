@@ -52,7 +52,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
         <Stack spacing={6} p={4}>
             <form>
                 <Stack spacing={{ base: 8 }}>
-                    {error !== "" ? (
+                    {loginError !== "" ? (
                         <Alert status="error">
                             <AlertIcon />
                             <AlertTitle
@@ -60,7 +60,7 @@ const LoginForm: React.FC<Props> = (props: Props) => {
                                 fontSize={{ lg: "lg" }}
                                 color="gray.900"
                             >
-                                {error}
+                                {loginError}
                             </AlertTitle>
                         </Alert>
                     ) : (
