@@ -19,7 +19,7 @@ const BioView = () => {
 
     useEffect(() => {
         fetchBio(user !== null ? user.id : "");
-    }, []);
+    }, []); //eslint-disable-line
 
     const handleUpdate: React.MouseEventHandler<HTMLButtonElement> = (
         event

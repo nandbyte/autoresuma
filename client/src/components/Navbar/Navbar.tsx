@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Center, Flex, Heading, HStack, Stack } from "@chakra-ui/layout";
+import { Box, Center, Flex, HStack, Stack } from "@chakra-ui/layout";
 import { Button, IconButton } from "@chakra-ui/button";
 import { useColorModeValue } from "@chakra-ui/color-mode";
 import { useDisclosure } from "@chakra-ui/hooks";

@@ -18,7 +18,7 @@ const TabView = (props: any) => {
 
     useEffect(() => {
         refreshTabIndex();
-    }, [location]);
+    }, [location]); //eslint-disable-line
 
     const refreshTabIndex = (): void => {
         for (let i = 0; i < tabList.length; i++) {

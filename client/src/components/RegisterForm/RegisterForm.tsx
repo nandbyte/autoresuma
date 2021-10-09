@@ -11,7 +11,6 @@ import {
     Link,
     Stack,
 } from "@chakra-ui/react";
-import { Link as RouterLink } from "react-router-dom";
 import { FaUserPlus } from "react-icons/fa";
 
 import { useActions } from "../../hooks/useActions";

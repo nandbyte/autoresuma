@@ -19,7 +19,7 @@ const SkillTab = () => {
 
     useEffect(() => {
         fetchSkills(user !== null ? user.id : "");
-    }, []);
+    }, []); //eslint-disable-line
 
     return (
         <>

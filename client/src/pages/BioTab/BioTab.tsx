@@ -6,6 +6,7 @@ import BioForm from "../../components/BioForm";
 import BioView from "../../components/BioView";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { Redirect } from "react-router";
+import { clientRoot } from "../../data/api";
 
 const BioTab = () => {
     const { updating } = useTypedSelector((state) => state.bio);
@@ -44,9 +45,9 @@ const BioTab = () => {
                     <Link
                         fontSize={"md"}
                         style={{ paddingLeft: "0px" }}
-                        href={"http://localhost:3001/showcase/" + user?.id}
+                        href={clientRoot + user?.id}
                     >
-                        {"http://localhost:3001/showcase/" + user?.id}
+                        {clientRoot + user?.id}
                     </Link>
                 </FormControl>
             </Box>

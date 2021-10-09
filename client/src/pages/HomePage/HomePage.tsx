@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Heading, Box, Center, Link, Stack } from "@chakra-ui/layout";
+import { Text, Heading, Box, Link, Stack } from "@chakra-ui/layout";
 import { Image } from "@chakra-ui/image";
 import { Link as RouterLink } from "react-router-dom";
 import AnimationZoom from "../../components/AnimationZoom";

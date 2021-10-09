@@ -20,11 +20,11 @@ const EducationTab = () => {
 
     useEffect(() => {
         fetchEducations(user !== null ? user.id : "");
-    }, []);
-    
+    }, []); //eslint-disable-line
+
     const { loggedIn } = useTypedSelector((state) => state.user);
     if (!loggedIn) {
-        return <Redirect to="/" />
+        return <Redirect to="/" />;
     }
 
     return (

@@ -42,10 +42,9 @@ const tabs: Array<TabObject> = [
 ];
 
 const ProfilePage = () => {
-
     const { loggedIn } = useTypedSelector((state) => state.user);
     if (!loggedIn) {
-        return <Redirect to="/" />
+        return <Redirect to="/login" />;
     }
 
     return (

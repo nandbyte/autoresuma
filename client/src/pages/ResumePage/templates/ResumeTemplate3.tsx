@@ -6,7 +6,6 @@ import {
     Stack,
     Heading,
     Center,
-    Link,
     UnorderedList,
     ListItem,
 } from "@chakra-ui/layout";

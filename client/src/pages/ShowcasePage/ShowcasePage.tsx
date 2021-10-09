@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Box, Center, Heading, Link, Stack, Text } from "@chakra-ui/layout";
+import { Box, Heading, Link, Stack, Text } from "@chakra-ui/layout";
 
 import PageContainer from "../../components/PageContainer";
 import SubsectionDivider from "../../components/SubsectionDivider";
 import axios from "axios";
 import { useParams } from "react-router";
+import { apiRoot } from "../../data/api";
 
 const ShowcasePage = () => {
     const params: any = useParams();
@@ -13,7 +14,7 @@ const ShowcasePage = () => {
 
     useEffect(() => {
         axios
-            .get("http://localhost:3000/v1/showcase/" + params.userId)
+            .get(apiRoot + "v1/showcase/" + params.userId)
             .then((response) => setRecords(response.data))
             .catch((error) => console.log(error));
     }, [params]);

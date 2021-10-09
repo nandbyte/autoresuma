@@ -20,15 +20,14 @@ const ProjectTab = () => {
 
     useEffect(() => {
         fetchProjects(user !== null ? user.id : "");
-    }, []);
+    }, []); //eslint-disable-line
 
     const { loggedIn } = useTypedSelector((state) => state.user);
     if (!loggedIn) {
-        return <Redirect to="/login" />
+        return <Redirect to="/login" />;
     }
 
     return (
-
         <>
             <Box py={6}>
                 <Stack spacing={12}>
