@@ -126,13 +126,12 @@ const LoginForm: React.FC<Props> = (props: Props) => {
                 <Heading fontSize="lg" fontWeight="normal">
                     Don't have an account?
                     <Link
-                        as={RouterLink}
                         textDecoration="underline"
                         fontSize="lg"
                         _hover={{
                             fontWeight: "bold",
                         }}
-                        to="/register"
+                        href="/register"
                     >
                         Register
                     </Link>

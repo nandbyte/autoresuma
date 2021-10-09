@@ -126,7 +126,7 @@ const ExperienceForm: React.FC<Props> = (props: Props) => {
                     <FormControl id="experience-date-from" isRequired>
                         <FormLabel>Starting Date</FormLabel>
                         <Input
-                            placeholder="https://github.com/v8/v8"
+                            placeholder="Oct. 2018"
                             value={dateFrom}
                             onChange={(event) => {
                                 setDateFrom(event.target.value);
@@ -136,7 +136,7 @@ const ExperienceForm: React.FC<Props> = (props: Props) => {
                     <FormControl id="experience-date-to">
                         <FormLabel>Ending Date</FormLabel>
                         <Input
-                            placeholder="https://github.com/v8/v8"
+                            placeholder="Nov. 2019"
                             value={dateTo}
                             onChange={(event) => {
                                 setDateTo(event.target.value);
