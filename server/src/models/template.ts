@@ -10,7 +10,7 @@ interface TemplateAttributes{
 	id: string;
 	title: string;
 	htmlData: string;
-
+	serial: number;
 	userId: string;
 }
 
@@ -39,6 +39,11 @@ const Template = sequelize.define<TemplateInstance>(
 		htmlData:{
 			allowNull: true,
 			type:DataTypes.TEXT,
+		},
+
+		serial:{
+			allowNull: true,
+			type: DataTypes.NUMBER,
 		},
 
 		userId:{

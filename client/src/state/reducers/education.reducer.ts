@@ -61,10 +61,10 @@ const reducer = (
                 updating: Array(action.payload.educations.length).fill(false),
                 error: null,
                 savedState: action.payload.educations.sort(
-                    (a, b) => a.serial - b.serial
+                    (a: Education, b: Education) => a.serial - b.serial
                 ),
                 currentState: action.payload.educations.sort(
-                    (a, b) => a.serial - b.serial
+                    (a: Education, b: Education) => a.serial - b.serial
                 ),
                 adding: false,
             };
@@ -200,7 +200,7 @@ const reducer = (
                 error: null,
                 savedState: state.savedState,
                 currentState: state.currentState.sort(
-                    (a, b) => a.serial - b.serial
+                    (a: Education, b: Education) => a.serial - b.serial
                 ),
                 adding: false,
             };

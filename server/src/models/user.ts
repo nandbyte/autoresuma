@@ -11,15 +11,10 @@ import Bio from "./bio";
 
 interface UserAttributes{
 	id: string;
-	username: string;
 	firstName : string;
 	lastName : string;
 	email: string;
 	password: string;
-	title: string;
-	github: string;
-	linkedin: string;
-	completed: boolean;
 
 };
 
@@ -48,11 +43,7 @@ const User = sequelize.define<UserInstance>(
 			unique:true,
 		},
 
-		username:{
-			allowNull: false,
-			type: DataTypes.TEXT,
 
-		},
 		firstName:{
 			allowNull: false,
 			type: DataTypes.TEXT,
@@ -70,23 +61,6 @@ const User = sequelize.define<UserInstance>(
 		password:{
 			allowNull : false,
 			type: DataTypes.TEXT,
-		},
-		title:{
-			allowNull: true,
-			type: DataTypes.TEXT,
-		},
-		github:{
-			allowNull: true,
-			type: DataTypes.TEXT,
-		},
-		linkedin:{
-			allowNull: true,
-			type: DataTypes.TEXT,
-		},
-		completed:{
-			type: DataTypes.BOOLEAN,
-			allowNull: false,
-			defaultValue: false
 		}
 	}
 );

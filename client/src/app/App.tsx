@@ -9,11 +9,18 @@ import "focus-visible/dist/focus-visible";
 
 // Routing
 import { BrowserRouter as Router, Route } from "react-router-dom";
+
+// State
+import { Provider } from "react-redux";
+import { store } from "../state";
+
+// Pages
 import ResumePage from "../pages/ResumePage/ResumePage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import HomePage from "../pages/HomePage/HomePage";
-import { Provider } from "react-redux";
-import { store } from "../state";
+import LoginPage from "../pages/LoginPage";
+import RegisterPage from "../pages/RegisterPage";
+import ShowcasePage from "../pages/ShowcasePage";
 
 const App = () => {
     return (
@@ -28,6 +35,15 @@ const App = () => {
                     </Route>
                     <Route exact path="/resume">
                         <ResumePage />
+                    </Route>
+                    <Route exact path="/login">
+                        <LoginPage />
+                    </Route>
+                    <Route exact path="/register">
+                        <RegisterPage />
+                    </Route>
+                    <Route exact path="/showcase/:userId">
+                        <ShowcasePage />
                     </Route>
                 </Router>
             </Provider>

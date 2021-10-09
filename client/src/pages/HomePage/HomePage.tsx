@@ -1,68 +1,70 @@
 import React from "react";
-import {
-    Text,
-    Heading,
-    Box,
-    Center,
-    Link,
-    SimpleGrid,
-} from "@chakra-ui/layout";
+import { Text, Heading, Box, Center, Link, Stack } from "@chakra-ui/layout";
+import { Image } from "@chakra-ui/image";
 import { Link as RouterLink } from "react-router-dom";
 import AnimationZoom from "../../components/AnimationZoom";
 import PageContainer from "../../components/PageContainer";
+import { Redirect } from "react-router-dom";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 const HomePage = () => {
+    const { loggedIn } = useTypedSelector((state) => state.user);
+    if (loggedIn) {
+        return <Redirect to="/profile/bio" />;
+    }
     return (
         <PageContainer>
-            <Box textAlign="center" pt={{ base: 22, lg: 32 }}>
+            <Box textAlign="left" pt={{ base: 12, lg: 24 }}>
                 <AnimationZoom>
                     <Heading
-                        fontSize={{ base: 36, md: 64, lg: 96 }}
-                        fontWeight="black"
+                        fontSize={{ base: "3xl", md: "6xl" }}
+                        fontWeight="bold"
                     >
                         autorésuma
                     </Heading>
-                    <Box py={{ base: 12, lg: 36 }}>
+                    <Box py={{ base: 12 }}>
                         <Text
-                            fontSize={{ base: 14, md: 24, lg: 36 }}
+                            fontSize={{ base: "md", md: "3xl" }}
                             color="gray.300"
+                            textAlign="left"
                         >
-                            Automatically create professional résumé
-                        </Text>
-                        <Text
-                            fontSize={{ base: 14, md: 24, lg: 36 }}
-                            color="gray.300"
-                        >
-                            to improve your programming career
+                            Create professional résumé with high quality
+                            templates
                         </Text>
                     </Box>
                 </AnimationZoom>
-                <Center>
-                    <SimpleGrid columns={2} gap={6} width="500px">
-                        <Link
-                            as={RouterLink}
-                            backgroundColor="red.600"
-                            _hover={{
-                                bg: "red.700",
-                            }}
-                            to="/profile/bio"
-                        >
-                            Login
-                        </Link>
 
-                        <Link
-                            as={RouterLink}
-                            backgroundColor="red.600"
-                            _hover={{
-                                bg: "red.700",
-                            }}
-                            to="/profile/bio"
-                        >
-                            Register
-                        </Link>
-                    </SimpleGrid>
-                </Center>
+                <Link
+                    px={12}
+                    py={2}
+                    as={RouterLink}
+                    backgroundColor="red.600"
+                    _hover={{
+                        bg: "red.700",
+                    }}
+                    fontSize="2xl"
+                    to="/login"
+                >
+                    Create Resume
+                </Link>
             </Box>
+
+            <Stack direction="row" justifyContent="space-around" pt="48">
+                <Image
+                    px={{ base: 4, md: 8, lg: 8 }}
+                    justifySelf="flex-end"
+                    height="512px"
+                    objectFit="cover"
+                    src={"images/cv_image_2.png"}
+                ></Image>
+                <Image
+                    px={{ base: 4, md: 8, lg: 8 }}
+                    justifySelf="flex-start"
+                    height="512px"
+                    objectFit="cover"
+                    src={"images/cv_image.png"}
+                ></Image>
+            </Stack>
         </PageContainer>
     );
 };

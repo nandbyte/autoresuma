@@ -4,7 +4,7 @@ import {CommonRoutesConfig} from "../common/common.routes.config";
 import  ProjectController  from "../controller/project.controller.config";
 
 import express from "express";
-
+import protect from "../middleware/authmiddleware";
 //let usercont = new UserController();
 
 export class ProjectRoutes extends CommonRoutesConfig{
@@ -17,8 +17,8 @@ export class ProjectRoutes extends CommonRoutesConfig{
 
 
 		this.app.route('/v1/project/:userId')
-			.get(ProjectController.getAll)
-			.post(ProjectController.create,(req,res)=>{
+			.get(protect,ProjectController.getAll)
+			.post(protect,ProjectController.create,(req,res)=>{
 				res.status(200).send("Dhuke nai keno ?");
 			});
 		this.app.route('/v1/project/:userId/:projectId')
@@ -29,10 +29,10 @@ export class ProjectRoutes extends CommonRoutesConfig{
 			})
 			.get(
 
-				ProjectController.getById
+				protect,ProjectController.getById
 			)
-			.put(ProjectController.update)
-			.delete(ProjectController.delete);
+			.put(protect,ProjectController.update)
+			.delete(protect,ProjectController.delete);
 		return this.app;
 	}
 }

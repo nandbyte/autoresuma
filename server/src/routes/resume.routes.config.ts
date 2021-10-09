@@ -3,7 +3,7 @@
 
 import {CommonRoutesConfig} from "../common/common.routes.config";
 import  ResumeController  from "../controller/resume.controller.config";
-
+import protect from "../middleware/authmiddleware";
 import express from "express";
 
 //let usercont = new UserController();
@@ -18,8 +18,8 @@ export class ResumeRoutes extends CommonRoutesConfig{
 
 
 		this.app.route('/v1/resume/:userId')
-			.get(ResumeController.getAll)
-			.post(ResumeController.create,(req,res)=>{
+			.get(protect,ResumeController.getAll)
+			.post(protect,ResumeController.create,(req,res)=>{
 				res.status(200).send("Dhuke nai keno ?");
 			});
 		this.app.route('/v1/resume/:userId/:resumeId')
@@ -28,12 +28,9 @@ export class ResumeRoutes extends CommonRoutesConfig{
 
 				next();
 			})
-			.get(
-
-				ResumeController.getById
-			)
-			.put(ResumeController.update)
-			.delete(ResumeController.delete);
+			.get(protect,ResumeController.getById)
+			.put(protect,ResumeController.update)
+			.delete(protect,ResumeController.delete);
 		return this.app;
 	}
 }

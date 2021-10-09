@@ -4,7 +4,7 @@ import {CommonRoutesConfig} from "../common/common.routes.config";
 import  SkillController  from "../controller/skill.controller.config";
 
 import express from "express";
-
+import protect from "../middleware/authmiddleware";
 //let usercont = new UserController();
 
 export class SkillRoutes extends CommonRoutesConfig{
@@ -17,22 +17,17 @@ export class SkillRoutes extends CommonRoutesConfig{
 
 
 		this.app.route('/v1/skill/:userId')
-			.get(SkillController.getAll)
-			.post(SkillController.create,(req,res)=>{
-				res.status(200).send("Dhuke nai keno ?");
-			});
+			.get(protect,SkillController.getAll)
+			.post(protect,SkillController.create)
 		this.app.route('/v1/skill/:userId/:skillId')
 			.all((req: express.Request,res: express.Response,next: express.NextFunction)=>{
 				//this middleware function runs before any request to /user/:userid
 
 				next();
 			})
-			.get(
-
-				SkillController.getById
-			)
-			.put(SkillController.update)
-			.delete(SkillController.delete);
+			.get(protect,SkillController.getById)
+			.put(protect,SkillController.update)
+			.delete(protect,SkillController.delete);
 		return this.app;
 	}
 }

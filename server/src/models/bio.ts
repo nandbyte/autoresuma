@@ -11,6 +11,9 @@ interface BioAttributes{
 	address: string;
 	zip: string;
 	country: string;
+	jobTitle: string;
+	githubLink: string;
+	linkedInLink: string;
 	userId: string;
 
 };
@@ -51,17 +54,29 @@ const Bio = sequelize.define<BioInstance>(
 			type: DataTypes.TEXT,
 		},
 		address:{
-			allowNull: false,
+			allowNull: true,
 			type:DataTypes.TEXT,
 		},
 
 		zip:{
-			allowNull : false,
+			allowNull : true,
 			type: DataTypes.TEXT,
 		},
 		country:{
 			allowNull: true,
 			type: DataTypes.TEXT,
+		},
+		jobTitle:{
+			allowNull: true,
+			type: DataTypes.TEXT,
+		},
+		githubLink:{
+			allowNull: true,
+			type: DataTypes.TEXT,
+		},
+		linkedInLink:{
+			allowNull: true,
+			type: DataTypes.TEXT
 		},
 		userId:{
 			allowNull: false,

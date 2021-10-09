@@ -7,19 +7,25 @@ import EducationView from "../../components/EducationView";
 import EducationForm from "../../components/EducationForm";
 import EducationAddition from "../../components/EducationAddition";
 
-import dummyId from "../../api/dummy";
 import { FaPlus } from "react-icons/fa";
+import { Redirect } from "react-router";
 
 const EducationTab = () => {
     const { currentState, updating, loading, adding } = useTypedSelector(
         (state) => state.educations
     );
+    const { user } = useTypedSelector((state) => state.user);
 
     const { fetchEducations, switchToAddEducationMode } = useActions();
 
     useEffect(() => {
-        fetchEducations(dummyId);
+        fetchEducations(user !== null ? user.id : "");
     }, []);
+    
+    const { loggedIn } = useTypedSelector((state) => state.user);
+    if (!loggedIn) {
+        return <Redirect to="/" />
+    }
 
     return (
         <>
