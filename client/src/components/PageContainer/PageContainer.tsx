@@ -6,7 +6,7 @@ import Credit from "../Credit";
 import TitleBanner from "../TitleBanner";
 
 interface Props {
-    variant?: "navbar" | "jumbotron";
+    variant?: "navbar" | "jumbotron" | "showcase";
     children?: any;
 }
 
@@ -37,10 +37,14 @@ const PageContainer: React.FC<Props> = (props: Props) => {
                             {props.children}
                         </Box>
                     </Stack>
-                    <Box pt={{ base: 16, lg: 32 }}>
-                        <SectionDivider />
-                        <Credit />
-                    </Box>
+                    {props.variant !== "showcase" ? (
+                        <Box pt={{ base: 16, lg: 32 }}>
+                            <SectionDivider />
+                            <Credit />
+                        </Box>
+                    ) : (
+                        <></>
+                    )}
                 </Stack>
             </Flex>
         </Box>
