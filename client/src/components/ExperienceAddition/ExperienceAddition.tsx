@@ -108,7 +108,6 @@ const ExperienceAddition: React.FC<Props> = (props: Props) => {
                         <Input
                             placeholder="https://github.com/v8/v8"
                             value={dateFrom}
-                            type="date"
                             onChange={(event) => {
                                 setDateFrom(event.target.value);
                             }}
@@ -119,7 +118,6 @@ const ExperienceAddition: React.FC<Props> = (props: Props) => {
                         <Input
                             placeholder="https://github.com/v8/v8"
                             value={dateTo}
-                            type="date"
                             onChange={(event) => {
                                 setDateTo(event.target.value);
                             }}

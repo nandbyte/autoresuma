@@ -114,7 +114,7 @@ const ExperienceForm: React.FC<Props> = (props: Props) => {
                         />
                     </FormControl>
                     <FormControl id="experience-location" isRequired>
-                        <FormLabel>Technology Used</FormLabel>
+                        <FormLabel>Location</FormLabel>
                         <Input
                             placeholder="Silicone Valley, USA"
                             value={location}
@@ -128,7 +128,6 @@ const ExperienceForm: React.FC<Props> = (props: Props) => {
                         <Input
                             placeholder="https://github.com/v8/v8"
                             value={dateFrom}
-                            type="date"
                             onChange={(event) => {
                                 setDateFrom(event.target.value);
                             }}
@@ -139,7 +138,6 @@ const ExperienceForm: React.FC<Props> = (props: Props) => {
                         <Input
                             placeholder="https://github.com/v8/v8"
                             value={dateTo}
-                            type="date"
                             onChange={(event) => {
                                 setDateTo(event.target.value);
                             }}
