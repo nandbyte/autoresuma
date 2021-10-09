@@ -1,11 +1,13 @@
 import React from "react";
-import { Box, Center, Flex, HStack, Stack } from "@chakra-ui/layout";
-import { IconButton } from "@chakra-ui/button";
+import { Box, Center, Flex, Heading, HStack, Stack } from "@chakra-ui/layout";
+import { Button, IconButton } from "@chakra-ui/button";
 import { useColorModeValue } from "@chakra-ui/color-mode";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { FaBars, FaTimes } from "react-icons/fa";
 import LogoContainer from "../LogoContainer";
 import NavLink from "../NavLink";
+import { useActions } from "../../hooks/useActions";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 interface LinkObject {
     name: string;
@@ -21,6 +23,9 @@ const Links: ReadonlyArray<LinkObject> = [
 const Navbar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
+    const { user } = useTypedSelector((state) => state.user);
+    const { logOut } = useActions();
+
     const CrossIcon = (
         <Center h="100%" w="100%">
             <FaTimes />
@@ -32,6 +37,13 @@ const Navbar = () => {
             <FaBars />
         </Center>
     );
+
+    const handleLogOut: React.MouseEventHandler<HTMLButtonElement> = (
+        event
+    ) => {
+        event.preventDefault();
+        logOut(user === null ? "" : user.id);
+    };
 
     return (
         <Box bg={useColorModeValue("gray.900", "gray.900")} shadow={"md"}>
@@ -54,12 +66,15 @@ const Navbar = () => {
                             <NavLink
                                 key={link.href}
                                 href={link.href}
-                                hoverTextColor={"primary.700"}
-                                hoverBgColor={"primary.50"}
+                                hoverTextColor={"primary.50"}
+                                hoverBgColor={"primary.600"}
                             >
                                 {link.name}
                             </NavLink>
                         ))}
+                        <Button fontFamily="Montserrat" onClick={handleLogOut}>
+                            Log Out
+                        </Button>
                         <IconButton
                             size="md"
                             fontSize="lg"
@@ -91,12 +106,15 @@ const Navbar = () => {
                             <NavLink
                                 key={link.href}
                                 href={link.href}
-                                hoverTextColor={"primary.700"}
-                                hoverBgColor={"primary.50"}
+                                hoverTextColor={"primary.50"}
+                                hoverBgColor={"primary.600"}
                             >
                                 {link.name}
                             </NavLink>
                         ))}
+                        <Button fontFamily="Montserrat" onClick={handleLogOut}>
+                            Log Out
+                        </Button>
                     </Stack>
                 </Box>
             ) : null}
