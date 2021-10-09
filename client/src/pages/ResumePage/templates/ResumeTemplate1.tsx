@@ -10,7 +10,7 @@ import {
     SimpleGrid,
 } from "@chakra-ui/layout";
 
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
 import { useActions } from "../../../hooks/useActions";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 
@@ -34,7 +34,10 @@ const ResumeTemplate1 = () => {
         fetchProjects(user !== null ? user.id : "");
         fetchSkills(user !== null ? user.id : "");
         fetchExperiences(user !== null ? user.id : "");
-    }, []);
+
+        console.log(localStorage.getItem("token"));
+        console.log(educations.currentState);
+    }, []); //eslint-disable-line
 
     const subtitleColor = "gray.500";
     const dateColor = "gray.500";
@@ -50,7 +53,7 @@ const ResumeTemplate1 = () => {
             paddingRight="0.50in"
             paddingTop="0.50in"
             paddingBottom="0.50in"
-            fontFamily="Roboto"
+            color="black"
         >
             <Stack id="resume-body" spacing="8">
                 <Stack id="resume-header" spacing="1.5">
@@ -65,16 +68,46 @@ const ResumeTemplate1 = () => {
                             <Center>
                                 <Text fontSize="md">
                                     {bio?.currentState?.jobTitle}
-                                </Text>{" "}
+                                </Text>
                             </Center>
                             <Center>
                                 <Text fontSize="xx-small">
                                     {bio?.currentState?.address}
-                                </Text>{" "}
+                                </Text>
                             </Center>
                             <Center>
                                 <Stack direction="row" align="center">
-                                    <Link color={urlColor} fontSize="xs">
+                                    <Link
+                                        color={urlColor}
+                                        fontSize="xs"
+                                        style={{ paddingRight: "3px" }}
+                                    >
+                                        <Stack
+                                            direction="row"
+                                            align="center"
+                                            href={
+                                                "mailto:" + user !== null
+                                                    ? user?.email
+                                                    : ""
+                                            }
+                                        >
+                                            <FaEnvelope />
+                                            <Text fontSize="xs">
+                                                {user !== null
+                                                    ? user?.email
+                                                    : ""}
+                                            </Text>
+                                        </Stack>
+                                    </Link>
+                                    <Text fontSize="xs">|</Text>
+                                    <Link
+                                        color={urlColor}
+                                        fontSize="xs"
+                                        style={{
+                                            paddingRight: "3px",
+                                            paddingLeft: "3px",
+                                        }}
+                                    >
                                         <Stack
                                             direction="row"
                                             align="center"
@@ -94,6 +127,7 @@ const ResumeTemplate1 = () => {
                                     <Link
                                         color={urlColor}
                                         fontSize="xs"
+                                        style={{ paddingLeft: "3px" }}
                                         href={
                                             "https://www.linkedin.com/in/" +
                                             bio?.currentState?.linkedInLink +
@@ -153,12 +187,12 @@ const ResumeTemplate1 = () => {
                                             {education.institution}
                                         </Text>
                                         <Text fontSize="xs">
-                                            Result: {education.result}
+                                            CGPA {education.result}
                                         </Text>
                                     </Box>
                                     <Box>
                                         <Text
-                                            color={subtitleColor}
+                                            color={dateColor}
                                             fontSize="xs"
                                             fontStyle="oblique"
                                         >
@@ -283,14 +317,12 @@ const ResumeTemplate1 = () => {
                                             Technology used: {project.language}
                                         </Text>
                                         <Text fontSize="xs">
-                                            <span
-                                                style={{ fontWeight: "bold" }}
-                                            >
-                                                GitHub Link:{" "}
-                                            </span>
+                                            GitHub Link:
                                             <Link
                                                 color={urlColor}
                                                 fontSize="xs"
+                                                p={2}
+                                                style={{ paddingLeft: "3px" }}
                                             >
                                                 {project.githubLink}
                                             </Link>
@@ -306,7 +338,7 @@ const ResumeTemplate1 = () => {
                                             {project.type}
                                         </Text>
                                         <Text
-                                            color={subtitleColor}
+                                            color={dateColor}
                                             fontSize="xs"
                                             fontStyle="oblique"
                                             align="right"
@@ -358,7 +390,7 @@ const ResumeTemplate1 = () => {
                                             {experience.workplace}
                                         </Text>
                                         <Text fontSize="xs">
-                                            Result: {experience.description}
+                                            {experience.description}
                                         </Text>
                                     </Box>
                                     <Box>
@@ -371,12 +403,12 @@ const ResumeTemplate1 = () => {
                                             {experience.location}
                                         </Text>
                                         <Text
-                                            color={subtitleColor}
+                                            color={dateColor}
                                             fontSize="xs"
                                             fontStyle="oblique"
                                             align="right"
                                         >
-                                            {experience.dateFrom} -{" "}
+                                            {experience.dateFrom} to{" "}
                                             {experience.dateTo}
                                         </Text>
                                     </Box>

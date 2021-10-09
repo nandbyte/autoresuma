@@ -14,7 +14,7 @@ interface LinkObject {
 
 const Links: ReadonlyArray<LinkObject> = [
     { name: "Home", href: "/" },
-    { name: "Profile", href: "/profile" },
+    { name: "Profile", href: "/profile/tab" },
     { name: "Resume", href: "/resume" },
 ];
 

@@ -39,15 +39,14 @@ export const logIn = (email: string, password: string) => {
         dispatch({ type: ActionType.USER_LOG_IN });
         // console.log(email, password);
         try {
-            const { data } = await axios.post(api + "profile/login",
-                {
-                    email, password
-                }
-            );
+            const { data } = await axios.post(api + "profile/login", {
+                email,
+                password,
+            });
 
             // console.log(data.data.token);
             const token: string = data.data.token;
-            localStorage.setItem("token",token);
+            localStorage.setItem("token", token);
             const user: User = data.data;
 
             dispatch({
