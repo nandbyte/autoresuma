@@ -3,8 +3,9 @@ import { Dispatch } from "redux";
 import { ActionType } from "../action-types";
 import { Action } from "../actions";
 import { Skill } from "../types";
+import { apiRoot } from "../../data/api";
 
-const api: string = "http://localhost:3000/v1/";
+const api: string = apiRoot + "v1/skill/";
 
 export const fetchSkills = (userId: string) => {
     return async (dispatch: Dispatch<Action>) => {
@@ -17,7 +18,7 @@ export const fetchSkills = (userId: string) => {
             },
         };
         try {
-            const { data } = await axios.get(api + "skill/" + userId,config);
+            const { data } = await axios.get(api + userId, config);
 
             const skills: Skill[] = data.records;
 
@@ -40,12 +41,12 @@ export const fetchSkills = (userId: string) => {
 // TODO: Update
 export const addSkill = (newSkill: Skill, userId: string) => {
     const token = localStorage.getItem("token");
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        };
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    };
     return async (dispatch: Dispatch<Action>) => {
         dispatch({
             type: ActionType.ADD_SKILL,
@@ -56,11 +57,7 @@ export const addSkill = (newSkill: Skill, userId: string) => {
         });
 
         try {
-            const { data } = await axios.post(
-                api + "skill/" + userId,
-                newSkill,
-                config
-            );
+            const { data } = await axios.post(api + userId, newSkill, config);
 
             console.log(newSkill);
             console.log(data);
@@ -122,7 +119,7 @@ export const updateSkill = (
 
         try {
             await axios.put(
-                api + "skill/" + userId + "/" + updatedSkill.id,
+                api + userId + "/" + updatedSkill.id,
                 updatedSkill,
                 config
             );
@@ -165,7 +162,7 @@ export const deleteSkill = (
             },
         };
         try {
-            await axios.delete(api + "skill/" + userId + "/" + deletedSkill.id,config);
+            await axios.delete(api + userId + "/" + deletedSkill.id, config);
 
             dispatch({
                 type: ActionType.DELETE_SKILL_SUCCESS,
@@ -251,15 +248,12 @@ export const swapSkill = (
 
         try {
             await axios.put(
-                api + "skill/" + userId + "/" + firstSkill.id,
+                api + userId + "/" + firstSkill.id,
                 firstSkill,
-                config,
+                config
             );
 
-            await axios.put(
-                api + "skill/" + userId + "/" + secondSkill.id,
-                secondSkill
-            );
+            await axios.put(api + userId + "/" + secondSkill.id, secondSkill);
 
             dispatch({
                 type: ActionType.UPDATE_SKILL_SUCCESS,

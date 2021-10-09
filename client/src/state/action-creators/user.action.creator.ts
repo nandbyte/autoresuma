@@ -3,9 +3,10 @@ import { Dispatch } from "redux";
 import { ActionType } from "../action-types";
 import { Action } from "../actions";
 import { User } from "../types";
+import { apiRoot } from "../../data/api";
 const bcrypt = require("bcryptjs");
 
-const api: string = "http://localhost:3000/v1/";
+const api: string = apiRoot + "v1/profile/";
 
 export const register = (newUser: User) => {
     return async (dispatch: Dispatch<Action>) => {
@@ -21,7 +22,7 @@ export const register = (newUser: User) => {
             console.log(salt);
             // console.log(newUser.password);
 
-            const { data } = await axios.post(api + "profile/", newUser);
+            const { data } = await axios.post(api, newUser);
 
             if (data.status === 400) {
                 dispatch({
@@ -61,7 +62,7 @@ export const logIn = (email: string, password: string) => {
         // console.log(password);
 
         try {
-            const { data } = await axios.post(api + "profile/login", {
+            const { data } = await axios.post(api + "login/", {
                 email,
                 password,
             });
@@ -98,6 +99,8 @@ export const logIn = (email: string, password: string) => {
 
 export const logOut = (userId: string) => {
     return async (dispatch: Dispatch<Action>) => {
+        localStorage.removeItem("token");
+
         dispatch({
             type: ActionType.USER_LOG_OUT,
         });

@@ -3,8 +3,9 @@ import { Dispatch } from "redux";
 import { ActionType } from "../action-types";
 import { Action } from "../actions";
 import { Experience } from "../types";
+import { apiRoot } from "../../data/api";
 
-const api: string = "http://localhost:3000/v1/";
+const api: string = apiRoot + "v1/experience/";
 
 export const fetchExperiences = (userId: string) => {
     return async (dispatch: Dispatch<Action>) => {
@@ -17,10 +18,7 @@ export const fetchExperiences = (userId: string) => {
             },
         };
         try {
-            const { data } = await axios.get(
-                api + "experience/" + userId,
-                config
-            );
+            const { data } = await axios.get(api + userId, config);
 
             const experiences: Experience[] = data.record;
 
@@ -39,7 +37,6 @@ export const fetchExperiences = (userId: string) => {
     };
 };
 
-// TODO: Update
 export const addExperience = (newExperience: Experience, userId: string) => {
     const token = localStorage.getItem("token");
     const config = {
@@ -60,7 +57,7 @@ export const addExperience = (newExperience: Experience, userId: string) => {
 
         try {
             const { data } = await axios.post(
-                api + "experience/" + userId,
+                api + userId,
                 newExperience,
                 config
             );
@@ -120,7 +117,7 @@ export const updateExperience = (
         };
         try {
             await axios.put(
-                api + "experience/" + userId + "/" + updatedExperience.id,
+                api + userId + "/" + updatedExperience.id,
                 updatedExperience,
                 config
             );
@@ -164,7 +161,7 @@ export const deleteExperience = (
         };
         try {
             await axios.delete(
-                api + "experience/" + userId + "/" + deletedExperience.id,
+                api + userId + "/" + deletedExperience.id,
                 config
             );
 
@@ -251,12 +248,12 @@ export const swapExperience = (
 
         try {
             await axios.put(
-                api + "experience/" + userId + "/" + firstExperience.id,
+                api + userId + "/" + firstExperience.id,
                 firstExperience
             );
 
             await axios.put(
-                api + "experience/" + userId + "/" + secondExperience.id,
+                api + userId + "/" + secondExperience.id,
                 secondExperience,
                 config
             );

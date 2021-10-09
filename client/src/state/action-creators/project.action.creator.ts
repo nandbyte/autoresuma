@@ -3,8 +3,9 @@ import { Dispatch } from "redux";
 import { ActionType } from "../action-types";
 import { Action } from "../actions";
 import { Project } from "../types";
+import { apiRoot } from "../../data/api";
 
-const api: string = "http://localhost:3000/v1/";
+const api: string = apiRoot + "v1/project/";
 
 export const fetchProjects = (userId: string) => {
     return async (dispatch: Dispatch<Action>) => {
@@ -18,7 +19,7 @@ export const fetchProjects = (userId: string) => {
         };
 
         try {
-            const { data } = await axios.get(api + "project/" + userId, config);
+            const { data } = await axios.get(api + userId, config);
 
             const projects: Project[] = data.record;
 
@@ -58,7 +59,7 @@ export const addProject = (newProject: Project, userId: string) => {
 
         try {
             const { data } = await axios.post(
-                api + "project/" + userId,
+                api + 1 + userId,
                 newProject,
                 config
             );
@@ -122,9 +123,9 @@ export const updateProject = (
 
         try {
             await axios.put(
-                api + "project/" + userId + "/" + updatedProject.id,
+                api + userId + "/" + updatedProject.id,
                 updatedProject,
-                config,
+                config
             );
 
             dispatch({
@@ -166,9 +167,7 @@ export const deleteProject = (
         });
 
         try {
-            await axios.delete(
-                api + "project/" + userId + "/" + deletedProject.id,config
-            );
+            await axios.delete(api + userId + "/" + deletedProject.id, config);
 
             dispatch({
                 type: ActionType.DELETE_PROJECT_SUCCESS,
@@ -253,12 +252,13 @@ export const swapProject = (
 
         try {
             await axios.put(
-                api + "project/" + userId + "/" + firstProject.id,
-                firstProject,config
+                api + userId + "/" + firstProject.id,
+                firstProject,
+                config
             );
 
             await axios.put(
-                api + "project/" + userId + "/" + secondProject.id,
+                api + userId + "/" + secondProject.id,
                 secondProject
             );
 

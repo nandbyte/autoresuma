@@ -3,8 +3,9 @@ import { Dispatch } from "redux";
 import { ActionType } from "../action-types";
 import { Action } from "../actions";
 import { Bio } from "../types";
+import { apiRoot } from "../../data/api";
 
-const api: string = "http://localhost:3000/v1/bio/";
+const api: string = apiRoot + "v1/bio/";
 
 export const fetchBio = (userId: string) => {
     const token = localStorage.getItem("token");

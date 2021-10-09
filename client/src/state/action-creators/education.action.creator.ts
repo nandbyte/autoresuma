@@ -3,8 +3,9 @@ import { Dispatch } from "redux";
 import { ActionType } from "../action-types";
 import { Action } from "../actions";
 import { Education } from "../types";
+import { apiRoot } from "../../data/api";
 
-const api: string = "http://localhost:3000/v1/";
+const api: string = apiRoot + "v1/education/";
 
 export const fetchEducations = (userId: string) => {
     const token = localStorage.getItem("token");
@@ -18,10 +19,7 @@ export const fetchEducations = (userId: string) => {
         dispatch({ type: ActionType.FETCH_EDUCATIONS });
 
         try {
-            const { data } = await axios.get(
-                api + "education/" + userId,
-                config
-            );
+            const { data } = await axios.get(api + userId, config);
 
             console.log(data);
 
@@ -63,7 +61,7 @@ export const addEducation = (newEducation: Education, userId: string) => {
 
         try {
             const { data } = await axios.post(
-                api + "education/" + userId,
+                api + userId,
                 newEducation,
                 config
             );
@@ -125,7 +123,7 @@ export const updateEducation = (
 
         try {
             await axios.put(
-                api + "education/" + userId + "/" + updatedEducation.id,
+                api + userId + "/" + updatedEducation.id,
                 updatedEducation,
                 config
             );
@@ -170,7 +168,7 @@ export const deleteEducation = (
 
         try {
             await axios.delete(
-                api + "education/" + userId + "/" + deletedEducation.id,
+                api + userId + "/" + deletedEducation.id,
                 config
             );
 
