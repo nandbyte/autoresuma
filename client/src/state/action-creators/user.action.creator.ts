@@ -3,6 +3,8 @@ import { Dispatch } from "redux";
 import { ActionType } from "../action-types";
 import { Action } from "../actions";
 import { User } from "../types";
+const bcrypt = require('bcryptjs');
+
 
 const api: string = "http://localhost:3000/v1/";
 
@@ -13,11 +15,19 @@ export const register = (newUser: User) => {
         });
 
         try {
+            const salt = "$2a$06$W5QisC7wqeiQDrkAbMNoYe"
+
+            const hashed = await bcrypt.hash(newUser.password, salt);
+            newUser.password = hashed;
+            console.log(salt);
+            // console.log(newUser.password);
+
             const { data } = await axios.post(api + "profile/", newUser);
 
             const user: User = data.record;
 
-            console.log(data);
+            
+
             dispatch({
                 type: ActionType.USER_REGISTER_SUCCESS,
                 payload: {
@@ -38,6 +48,12 @@ export const logIn = (email: string, password: string) => {
     return async (dispatch: Dispatch<Action>) => {
         dispatch({ type: ActionType.USER_LOG_IN });
         // console.log(email, password);
+        const salt = "$2a$06$W5QisC7wqeiQDrkAbMNoYe"
+        // console.log(salt);
+        const hashed = await bcrypt.hash(password, salt);
+        password = hashed;
+        // console.log(password);
+
         try {
             const { data } = await axios.post(api + "profile/login", {
                 email,
@@ -46,8 +62,11 @@ export const logIn = (email: string, password: string) => {
 
             // console.log(data.data.token);
             const token: string = data.data.token;
+            // console.log(data.data);
             localStorage.setItem("token", token);
             const user: User = data.data;
+
+            
 
             dispatch({
                 type: ActionType.USER_LOG_IN_SUCCESS,
