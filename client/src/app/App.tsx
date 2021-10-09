@@ -42,7 +42,7 @@ const App = () => {
                     <Route exact path="/register">
                         <RegisterPage />
                     </Route>
-                    <Route exact path="/showcase">
+                    <Route exact path="/showcase/:userId">
                         <ShowcasePage />
                     </Route>
                 </Router>

@@ -65,7 +65,7 @@ const ResumePage = () => {
 
                         <Alert status="info" color="black" borderRadius={"md"}>
                             <AlertIcon />
-                            Clean and compact resume pointing out the important
+                            Clean and compact resume pointing out important
                             information.
                         </Alert>
 
