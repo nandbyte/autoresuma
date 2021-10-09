@@ -1,0 +1,48 @@
+
+
+name: CI
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPAC, so your job can access it
+      - uses: actions/checkout@v2
+
+
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2.3.0
+        with:
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H farhansaif.xyz >> ~/.ssh/known_hosts
+      - name: Deploy client
+        run: rsync -azP --delete client/ root@farhansaif.xyz:/home/saif/work/autoresuma/client/
+      - name: Deploy server
+        run: rsync -azP --delete client/ root@farhansaif.xyz:/home/saif/work/autoresuma/client/
+      - name: execute remote command
+        uses: shimataro/ssh-key-action@v2.3.0
+        with:
+                if_key_exists: ignore
+                key: ${{ secrets.SSH_PRIVATE_KEY }}i
+                known_hosts: 'just-a-placeholder'
+                script: |
+                        cd /home/saif/work/autoresuma/server
+                        npm install

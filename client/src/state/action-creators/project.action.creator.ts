@@ -4,7 +4,7 @@ import { ActionType } from "../action-types";
 import { Action } from "../actions";
 import { Project } from "../types";
 
-const api: string = "http://localhost:3000/v1/";
+const api: string = "http://blog.farhansaif.xyz:3005/v1/";
 
 export const fetchProjects = (userId: string) => {
     return async (dispatch: Dispatch<Action>) => {

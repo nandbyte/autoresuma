@@ -4,7 +4,7 @@ import { ActionType } from "../action-types";
 import { Action } from "../actions";
 import { Bio } from "../types";
 
-const api: string = "http://localhost:3000/v1/bio/";
+const api: string = "http://blog.farhansaif.xyz:3005/v1/bio/";
 
 export const fetchBio = (userId: string) => {
     const token = localStorage.getItem("token");

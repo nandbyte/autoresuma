@@ -4,7 +4,7 @@ import { ActionType } from "../action-types";
 import { Action } from "../actions";
 import { Education } from "../types";
 
-const api: string = "http://localhost:3000/v1/";
+const api: string = "http://blog.farhansaif.xyz:3005/v1/";
 
 export const fetchEducations = (userId: string) => {
     const token = localStorage.getItem("token");

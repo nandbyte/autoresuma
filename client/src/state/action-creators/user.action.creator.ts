@@ -5,7 +5,7 @@ import { Action } from "../actions";
 import { User } from "../types";
 const bcrypt = require("bcryptjs");
 
-const api: string = "http://localhost:3000/v1/";
+const api: string = "http://blog.farhansaif.xyz:3005/v1/";
 
 export const register = (newUser: User) => {
     return async (dispatch: Dispatch<Action>) => {
