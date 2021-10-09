@@ -18,9 +18,10 @@ export const fetchEducations = (userId: string) => {
         dispatch({ type: ActionType.FETCH_EDUCATIONS });
 
         try {
-
-
-            const { data } = await axios.get(api + "education/" + userId, config);
+            const { data } = await axios.get(
+                api + "education/" + userId,
+                config
+            );
 
             console.log(data);
 
@@ -64,11 +65,8 @@ export const addEducation = (newEducation: Education, userId: string) => {
             const { data } = await axios.post(
                 api + "education/" + userId,
                 newEducation,
-                config,
+                config
             );
-
-            console.log(newEducation);
-            console.log(data);
 
             dispatch({
                 type: ActionType.ADD_EDUCATION_SUCCESS,
@@ -172,7 +170,8 @@ export const deleteEducation = (
 
         try {
             await axios.delete(
-                api + "education/" + userId + "/" + deletedEducation.id, config
+                api + "education/" + userId + "/" + deletedEducation.id,
+                config
             );
 
             dispatch({

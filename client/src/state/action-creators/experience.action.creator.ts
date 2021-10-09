@@ -17,7 +17,10 @@ export const fetchExperiences = (userId: string) => {
             },
         };
         try {
-            const { data } = await axios.get(api + "experience/" + userId, config);
+            const { data } = await axios.get(
+                api + "experience/" + userId,
+                config
+            );
 
             const experiences: Experience[] = data.record;
 
@@ -39,12 +42,12 @@ export const fetchExperiences = (userId: string) => {
 // TODO: Update
 export const addExperience = (newExperience: Experience, userId: string) => {
     const token = localStorage.getItem("token");
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        };
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    };
 
     return async (dispatch: Dispatch<Action>) => {
         dispatch({
@@ -61,9 +64,6 @@ export const addExperience = (newExperience: Experience, userId: string) => {
                 newExperience,
                 config
             );
-
-            console.log(newExperience);
-            console.log(data);
 
             dispatch({
                 type: ActionType.ADD_EXPERIENCE_SUCCESS,
@@ -116,7 +116,6 @@ export const updateExperience = (
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
-                
             },
         };
         try {
@@ -165,7 +164,8 @@ export const deleteExperience = (
         };
         try {
             await axios.delete(
-                api + "experience/" + userId + "/" + deletedExperience.id,config
+                api + "experience/" + userId + "/" + deletedExperience.id,
+                config
             );
 
             dispatch({

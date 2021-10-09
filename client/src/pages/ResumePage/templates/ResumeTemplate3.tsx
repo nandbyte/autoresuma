@@ -1,11 +1,20 @@
 import React, { useEffect } from "react";
 import "@fontsource/roboto";
-import { Box, Text, Stack, Heading, Center, Link } from "@chakra-ui/layout";
+import {
+    Box,
+    Text,
+    Stack,
+    Heading,
+    Center,
+    Link,
+    UnorderedList,
+    ListItem,
+} from "@chakra-ui/layout";
 
 import { useActions } from "../../../hooks/useActions";
 import { useTypedSelector } from "../../../hooks/useTypedSelector";
 
-const ResumeTemplate2 = () => {
+const ResumeTemplate3 = () => {
     const { user } = useTypedSelector((state) => state.user);
     const { bio, educations, projects, experiences, skills } = useTypedSelector(
         (state) => state
@@ -32,7 +41,7 @@ const ResumeTemplate2 = () => {
 
     const subtitleColor = "black";
     const dateColor = "black";
-    const urlColor = "black";
+    const urlColor = "cyan.700";
 
     return (
         <Box
@@ -46,21 +55,30 @@ const ResumeTemplate2 = () => {
             paddingBottom="0.50in"
             color="black"
         >
-            <Stack id="resume-body" spacing="8">
+            <Stack id="resume-body" spacing="4">
                 <Stack id="resume-header" spacing="1.5">
                     <Center>
                         <Stack spacing={1}>
                             <Center>
-                                <Heading fontSize="4xl">
+                                <Heading
+                                    fontSize="3xl"
+                                    textTransform="uppercase"
+                                >
                                     {bio?.currentState?.firstName}{" "}
                                     {bio?.currentState?.lastName}
                                 </Heading>
                             </Center>
-
+                            <Center>
+                                <Text fontSize="xs">
+                                    {bio?.currentState?.address}
+                                </Text>
+                            </Center>
                             <Center>
                                 <Stack direction="row" align="center">
                                     <Text
                                         fontSize="xs"
+                                        color={urlColor}
+                                        fontWeight="bold"
                                         style={{ paddingRight: "3px" }}
                                     >
                                         {user !== null ? user?.email : ""}
@@ -68,6 +86,8 @@ const ResumeTemplate2 = () => {
                                     <Text fontSize="xs">|</Text>
                                     <Text
                                         fontSize="xs"
+                                        color={urlColor}
+                                        fontWeight="bold"
                                         style={{
                                             paddingRight: "3px",
                                             paddingLeft: "3px",
@@ -80,6 +100,8 @@ const ResumeTemplate2 = () => {
                                     <Text fontSize="xs">|</Text>
                                     <Text
                                         fontSize="xs"
+                                        color={urlColor}
+                                        fontWeight="bold"
                                         style={{ paddingLeft: "3px" }}
                                     >
                                         {"https://www.linkedin.com/in/" +
@@ -93,19 +115,23 @@ const ResumeTemplate2 = () => {
                 </Stack>
                 {educations.currentState.length !== 0 ? (
                     <Stack id="resume-education">
-                        <Stack
-                            id="resume-education-header"
-                            direction="row"
-                            alignItems="flex-end"
-                            spacing="0"
-                        >
+                        <Stack id="resume-education-header">
                             <Heading
-                                fontSize="2xl"
+                                fontSize="lg"
                                 textTransform="uppercase"
                                 fontWeight="thin"
                             >
                                 Education
                             </Heading>
+                            <Box width="100%">
+                                <hr
+                                    style={{
+                                        border: 0,
+                                        height: "1px",
+                                        background: "#000000",
+                                    }}
+                                ></hr>
+                            </Box>
                         </Stack>
                         <Stack id="resume-education-body" spacing="4">
                             {educations.currentState.map((education) => {
@@ -124,20 +150,18 @@ const ResumeTemplate2 = () => {
                                             </Text>
                                             <Text
                                                 color={subtitleColor}
-                                                fontSize="xs"
-                                                textTransform="uppercase"
+                                                fontSize="md"
                                             >
                                                 {education.institution}
                                             </Text>
-                                            <Text fontSize="xs">
+                                            <Text fontSize="md">
                                                 CGPA {education.result}
                                             </Text>
                                         </Box>
                                         <Box>
                                             <Text
                                                 color={dateColor}
-                                                fontSize="xs"
-                                                textTransform="uppercase"
+                                                fontSize="md"
                                             >
                                                 {education.passingYear}
                                             </Text>
@@ -151,201 +175,27 @@ const ResumeTemplate2 = () => {
                     <></>
                 )}
 
-                {experiences.currentState.length !== 0 ? (
-                    <Stack id="resume-experience">
-                        <Stack
-                            id="resume-experience-header"
-                            direction="row"
-                            alignItems="flex-end"
-                            spacing="0"
-                        >
-                            <Heading
-                                fontSize="2xl"
-                                textTransform="uppercase"
-                                fontWeight="thin"
-                            >
-                                Work Experience
-                            </Heading>
-                        </Stack>
-                        <Stack id="resume-experience-body" spacing="4">
-                            {experiences.currentState.map((experience) => {
-                                return (
-                                    <Stack
-                                        direction="row"
-                                        justifyContent="space-between"
-                                        spacing={4}
-                                    >
-                                        <Box>
-                                            <Stack
-                                                direction="row"
-                                                alignItems="flex-end"
-                                            >
-                                                <Text
-                                                    color={subtitleColor}
-                                                    fontSize="xs"
-                                                    textTransform="uppercase"
-                                                    fontWeight="bold"
-                                                >
-                                                    {experience.workplace}
-                                                </Text>
-                                                <Text fontSize="xs">|</Text>
-                                                <Text
-                                                    fontSize="xs"
-                                                    textTransform="uppercase"
-                                                >
-                                                    {experience.designation}
-                                                </Text>
-                                            </Stack>
-                                            <Text fontSize="xs">
-                                                {experience.description}
-                                            </Text>
-                                        </Box>
-                                        <Box>
-                                            <Text
-                                                color={subtitleColor}
-                                                fontSize="xs"
-                                                textTransform="uppercase"
-                                                align="right"
-                                            >
-                                                {experience.location}
-                                            </Text>
-                                            <Text
-                                                color={dateColor}
-                                                fontSize="xs"
-                                                textTransform="uppercase"
-                                                align="right"
-                                            >
-                                                {experience.dateFrom} to{" "}
-                                                {experience.dateTo}
-                                            </Text>
-                                        </Box>
-                                    </Stack>
-                                );
-                            })}
-                        </Stack>
-                    </Stack>
-                ) : (
-                    <></>
-                )}
-
-                {projects.currentState.length !== 0 ? (
-                    <Stack id="resume-project">
-                        <Stack
-                            id="resume-project-header"
-                            direction="row"
-                            alignItems="flex-end"
-                            spacing="0"
-                        >
-                            <Heading
-                                fontSize="2xl"
-                                textTransform="uppercase"
-                                fontWeight="thin"
-                            >
-                                Project
-                            </Heading>
-                        </Stack>
-                        <Stack id="resume-project-body" spacing="4">
-                            {projects.currentState.map((project) => {
-                                return (
-                                    <Stack
-                                        direction="row"
-                                        justifyContent="space-between"
-                                        spacing={4}
-                                    >
-                                        <Box>
-                                            <Stack
-                                                direction="row"
-                                                alignItems="baseline"
-                                            >
-                                                <Text
-                                                    textTransform="uppercase"
-                                                    fontSize="md"
-                                                    fontWeight="bold"
-                                                >
-                                                    {project.title}
-                                                </Text>
-                                                <Text fontSize="xx-small">
-                                                    |
-                                                </Text>
-                                                <Text
-                                                    color={subtitleColor}
-                                                    fontSize="xs"
-                                                    textTransform="uppercase"
-                                                >
-                                                    {project.type}
-                                                </Text>
-                                            </Stack>
-                                            <Text
-                                                color={subtitleColor}
-                                                fontSize="xs"
-                                                textTransform="uppercase"
-                                            >
-                                                {project.description}
-                                            </Text>
-
-                                            <Text
-                                                fontSize="xs"
-                                                fontWeight="bold"
-                                            >
-                                                Technology used:{" "}
-                                                {project.language}
-                                            </Text>
-                                            <Text fontSize="xs">
-                                                GitHub Link:
-                                                <Link
-                                                    color={urlColor}
-                                                    fontSize="xs"
-                                                    p={2}
-                                                    style={{
-                                                        paddingLeft: "3px",
-                                                    }}
-                                                >
-                                                    {project.githubLink}
-                                                </Link>
-                                            </Text>
-                                        </Box>
-                                        <Box>
-                                            <Text
-                                                color={dateColor}
-                                                fontSize="xs"
-                                                textTransform="uppercase"
-                                                align="right"
-                                            >
-                                                {project.date}
-                                            </Text>
-                                        </Box>
-                                    </Stack>
-                                );
-                            })}
-                        </Stack>
-                    </Stack>
-                ) : (
-                    <></>
-                )}
-
                 {skills.currentState.length !== 0 ? (
                     <Stack id="resume-skills">
-                        <Stack
-                            id="resume-skill-header"
-                            direction="row"
-                            alignItems="flex-end"
-                            spacing="0"
+                        <Heading
+                            fontSize="lg"
+                            textTransform="uppercase"
+                            fontWeight="thin"
                         >
-                            <Heading
-                                fontSize="2xl"
-                                textTransform="uppercase"
-                                fontWeight="thin"
-                            >
-                                Skill
-                            </Heading>
-                        </Stack>
+                            Skills
+                        </Heading>
+                        <Box width="100%">
+                            <hr
+                                style={{
+                                    border: 0,
+                                    height: "1px",
+                                    background: "#000000",
+                                }}
+                            ></hr>
+                        </Box>
 
                         <Box>
-                            <Text
-                                fontSize="md"
-                                fontWeight="bold"
-                                textTransform="uppercase"
-                            >
+                            <Text fontSize="md" fontWeight="bold">
                                 Proficient in:
                             </Text>
                             {skills.currentState
@@ -367,11 +217,7 @@ const ResumeTemplate2 = () => {
                                 })}
                         </Box>
                         <Box>
-                            <Text
-                                fontSize="md"
-                                fontWeight="bold"
-                                textTransform="uppercase"
-                            >
+                            <Text fontSize="md" fontWeight="bold">
                                 Familiar with:
                             </Text>
                             {skills.currentState
@@ -396,9 +242,149 @@ const ResumeTemplate2 = () => {
                 ) : (
                     <></>
                 )}
+
+                {experiences.currentState.length !== 0 ? (
+                    <Stack id="resume-experience">
+                        <Heading
+                            fontSize="lg"
+                            textTransform="uppercase"
+                            fontWeight="thin"
+                        >
+                            Experience
+                        </Heading>
+                        <Box width="100%">
+                            <hr
+                                style={{
+                                    border: 0,
+                                    height: "1px",
+                                    background: "#000000",
+                                }}
+                            ></hr>
+                        </Box>
+                        <Stack id="resume-experience-body" spacing="4">
+                            {experiences.currentState.map((experience) => {
+                                return (
+                                    <Stack
+                                        direction="row"
+                                        justifyContent="space-between"
+                                        spacing={4}
+                                    >
+                                        <Box>
+                                            <Text
+                                                fontSize="md"
+                                                fontWeight="bold"
+                                            >
+                                                {experience.designation}
+                                            </Text>
+                                            <Text
+                                                color={subtitleColor}
+                                                fontSize="md"
+                                            >
+                                                {experience.workplace}
+                                            </Text>
+                                            <UnorderedList>
+                                                <ListItem>
+                                                    <Text fontSize="md">
+                                                        {experience.description}
+                                                    </Text>
+                                                </ListItem>
+                                            </UnorderedList>
+                                        </Box>
+                                        <Box>
+                                            {" "}
+                                            <Text
+                                                color={dateColor}
+                                                fontSize="md"
+                                                align="right"
+                                            >
+                                                {experience.dateFrom} to{" "}
+                                                {experience.dateTo}
+                                            </Text>
+                                            <Text
+                                                color={subtitleColor}
+                                                fontStyle="oblique"
+                                                fontSize="md"
+                                                align="right"
+                                            >
+                                                {experience.location}
+                                            </Text>
+                                        </Box>
+                                    </Stack>
+                                );
+                            })}
+                        </Stack>
+                    </Stack>
+                ) : (
+                    <></>
+                )}
+
+                {projects.currentState.length !== 0 ? (
+                    <Stack id="resume-project">
+                        <Heading
+                            fontSize="lg"
+                            textTransform="uppercase"
+                            fontWeight="thin"
+                        >
+                            Projects
+                        </Heading>
+                        <Box width="100%">
+                            <hr
+                                style={{
+                                    border: 0,
+                                    height: "1px",
+                                    background: "#000000",
+                                }}
+                            ></hr>
+                        </Box>
+                        <Stack id="resume-project-body" spacing="4">
+                            {projects.currentState.map((project) => {
+                                return (
+                                    <Stack
+                                        direction="row"
+                                        justifyContent="space-between"
+                                    >
+                                        <Box>
+                                            <Stack direction="column">
+                                                <Text
+                                                    fontSize="md"
+                                                    fontWeight="bold"
+                                                >
+                                                    {project.title}
+                                                </Text>
+
+                                                <Text
+                                                    color={subtitleColor}
+                                                    fontSize="md"
+                                                >
+                                                    {project.type}
+                                                </Text>
+                                            </Stack>
+                                            <Text
+                                                color={subtitleColor}
+                                                fontSize="md"
+                                            >
+                                                {project.description}
+                                            </Text>
+
+                                            <Text
+                                                fontSize="md"
+                                                fontWeight="bold"
+                                            >
+                                                Technology used:{" "}
+                                                {project.language}
+                                            </Text>
+                                        </Box>
+                                    </Stack>
+                                );
+                            })}
+                        </Stack>
+                    </Stack>
+                ) : (
+                    <></>
+                )}
             </Stack>
         </Box>
     );
 };
 
-export default ResumeTemplate2;
+export default ResumeTemplate3;

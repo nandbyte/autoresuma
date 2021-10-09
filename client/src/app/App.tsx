@@ -20,6 +20,7 @@ import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import HomePage from "../pages/HomePage/HomePage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
+import ShowcasePage from "../pages/ShowcasePage";
 
 const App = () => {
     return (
@@ -37,9 +38,12 @@ const App = () => {
                     </Route>
                     <Route exact path="/login">
                         <LoginPage />
-                    </Route>{" "}
+                    </Route>
                     <Route exact path="/register">
                         <RegisterPage />
+                    </Route>
+                    <Route exact path="/showcase">
+                        <ShowcasePage />
                     </Route>
                 </Router>
             </Provider>
