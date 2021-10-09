@@ -17,6 +17,8 @@ import { ProjectRoutes } from "./routes/project.routes.config";
 import { SkillRoutes } from "./routes/skill.routes.config";
 import { ExperienceRoutes } from "./routes/experience.routes.config";
 import { BioRoutes } from "./routes/bio.routes.config";
+import { ShowcaseRoutes } from "./routes/showcase.routes.config";
+
 
 //variable declaration
 
@@ -89,7 +91,7 @@ routes.push(new EducationRoutes(app));
 routes.push(new ProjectRoutes(app));
 routes.push(new SkillRoutes(app));
 routes.push(new ExperienceRoutes(app));
-
+routes.push(new ShowcaseRoutes(app));
 //this is a simple route to make sure everything is working properly
 
 const runningMessage = "Serving running at http://localhost: " + port;
