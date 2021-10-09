@@ -1,8 +1,10 @@
 
 import jwt from "jsonwebtoken";
 import User from "../models/user";
+import { Request, Response } from "express";
+import express from "express";
 // auth middleware added
-const protect = async(req, res, next)=>{
+const protect = async(req:Request, res:Response,next:express.NextFunction)=>{
 	let token;
   console.log(req.headers.authorization);
   if (
@@ -13,15 +15,15 @@ const protect = async(req, res, next)=>{
       token = req.headers.authorization.split(' ')[1]
 
 
-      const decoded = jwt.verify(token, "secret");
+      const decoded = jwt.verify(token, String(process.env.JWT_TOKEN));
 
 
-	if(decoded.id !== req.params.userId){
+	if((<any>decoded).id !== req.params.userId){
 		return res.json({status:500,msg:"Unauthorized access will not be granted."});
 	}
 
-      req.user = await User.findOne({where:{
-	      id: decoded.id
+      (<any>req).user = await User.findOne({where:{
+	      id: (<any>decoded).id
       }});
 
 

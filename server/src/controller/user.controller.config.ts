@@ -1,7 +1,7 @@
 import { CommonControllerConfig } from "../common/common.controllers.config";
 import User from "../models/user";
 import {v4 as uuidv4} from "uuid";
-import generateToken from "../utils/geenrateToken";
+import generateToken from "../utils/generateToken";
 import { Request,Response } from "express";
 import Bio from "../models/bio";
 
