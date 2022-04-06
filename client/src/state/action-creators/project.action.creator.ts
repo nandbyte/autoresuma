@@ -58,11 +58,7 @@ export const addProject = (newProject: Project, userId: string) => {
         });
 
         try {
-            const { data } = await axios.post(
-                api + 1 + userId,
-                newProject,
-                config
-            );
+            const { data } = await axios.post(api + userId, newProject, config);
 
             console.log(newProject);
             console.log(data);
