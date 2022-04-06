@@ -1,2 +1,2 @@
-export const apiRoot = "http://localhost:3000/";
+export const apiRoot = "http://128.199.124.103/";
 export const clientRoot = "https://autoresuma.netlify.app/";
